@@ -1,0 +1,53 @@
+import { i18n } from '@/common/leekwars/model/i18n'
+import { LeekWars } from '@/common/leekwars/model/leekwars'
+import { SocketMessage } from '@/common/leekwars/model/socket'
+import { store } from '@/common/leekwars/model/store'
+import router from '@/router'
+import { Leek } from './leek'
+
+class BattleRoyale {
+	leeks: {[key: number]: Leek} = {}
+	progress: number = 0
+	enabled: boolean = false
+
+	init() {
+		const leek = parseInt(localStorage.getItem('battle-royale') || '', 10)
+		if (leek) {	this.register(leek) }
+	}
+	register(leek: number) {
+		LeekWars.socket.send([SocketMessage.BATTLE_ROYALE_REGISTER, leek])
+		localStorage.setItem('battle-royale', '' + leek)
+		this.enabled = true
+	}
+	update(data: any) {
+		this.enabled = true
+		this.leeks = data.data[1]
+		this.progress = LeekWars.objectSize(this.leeks)
+		LeekWars.setTitleTag('BR ' + this.progress + '/10')
+	}
+	leave() {
+		LeekWars.socket.send([SocketMessage.BATTLE_ROYALE_LEAVE])
+		localStorage.removeItem('battle-royale')
+		LeekWars.setTitleTag(null)
+		this.leeks = []
+		this.enabled = false
+		this.progress = 0
+	}
+	start(data: any) {
+		if (data[1]) { // Garden BR (not automatic)
+			LeekWars.setTitleTag(null)
+			this.leeks = []
+			this.enabled = false
+			this.progress = 0
+			localStorage.removeItem('battle-royale')
+			store.commit('update-fights', -1)
+
+			// Redirect if on the garden page
+			if (router.currentRoute.path.startsWith("/garden/")) {
+				router.push('/fight/' + data[0])
+			}
+		}
+	}
+}
+
+export { BattleRoyale }

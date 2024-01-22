@@ -1,0 +1,5318 @@
+openapi: 3.0.3
+info:
+  version: 1.0.0
+  title: Leekwars API
+servers:
+  - url: https://leekwars.com/api
+    description: Leekwars API server
+tags:
+  - name: Ai
+  - name: AiFolder
+  - name: Article
+  - name: Changelog
+  - name: Chip
+  - name: Complexity
+  - name: Constant
+  - name: Country
+  - name: Encyclopedia
+  - name: Farmer
+  - name: Fight
+  - name: Forum
+  - name: Function
+  - name: Garden
+  - name: Groupe
+  - name: Hat
+  - name: History
+  - name: Item
+  - name: Lang
+  - name: Leek
+  - name: LeekWars
+  - name: Market
+  - name: Message
+  - name: MessageReaction
+  - name: Notification
+  - name: Pomp
+  - name: Potion
+  - name: Ranking
+  - name: Service
+  - name: Summon
+  - name: Talent
+  - name: Team
+  - name: TeamComposition
+  - name: TestLeek
+  - name: TestMap
+  - name: TestScenario
+  - name: Tournament
+  - name: Trophy
+  - name: TrophyTemplate
+  - name: Weapon
+paths:
+  /ai/bin:
+    delete:
+      summary: ai - bin
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Ai
+  /ai/change-folder:
+    post:
+      summary: ai - change-folder
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Ai
+      parameters:
+        - name: ai_id
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: folder_id
+          in: query
+          schema:
+            type: object
+          required: true
+      requestBody:
+        content:
+          application/x-www-form-urlencoded; charset=UTF-8:
+            schema:
+              type: object
+              properties: {}
+  /ai/delete:
+    delete:
+      summary: ai - delete
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Ai
+      parameters:
+        - name: ai_id
+          in: query
+          schema:
+            type: object
+          required: true
+  /ai/destroy:
+    delete:
+      summary: ai - destroy
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Ai
+      parameters:
+        - name: ai_id
+          in: query
+          schema:
+            type: object
+          required: true
+  /ai/get:
+    get:
+      summary: ai - get
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+      tags:
+        - Ai
+      parameters:
+        - name: ai_id
+          in: query
+          schema:
+            type: object
+          required: true
+  /ai/get-farmer-ais:
+    get:
+      summary: ai - get-farmer-ais
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+      tags:
+        - Ai
+  /ai/new-name:
+    post:
+      summary: ai - new-name
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+      tags:
+        - Ai
+      parameters:
+        - name: folder_id
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: version
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: name
+          in: query
+          schema:
+            type: object
+          required: true
+      requestBody:
+        content:
+          application/x-www-form-urlencoded; charset=UTF-8:
+            schema:
+              type: object
+              properties: {}
+  /ai/rename:
+    post:
+      summary: ai - rename
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Ai
+      parameters:
+        - name: ai_id
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: new_name
+          in: query
+          schema:
+            type: object
+          required: true
+      requestBody:
+        content:
+          application/x-www-form-urlencoded; charset=UTF-8:
+            schema:
+              type: object
+              properties: {}
+  /ai/restore:
+    post:
+      summary: ai - restore
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Ai
+      parameters:
+        - name: ai_id
+          in: query
+          schema:
+            type: object
+          required: true
+      requestBody:
+        content:
+          application/x-www-form-urlencoded; charset=UTF-8:
+            schema:
+              type: object
+              properties: {}
+  /ai/save:
+    post:
+      summary: ai - save
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+      tags:
+        - Ai
+      parameters:
+        - name: ai_id
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: code
+          in: query
+          schema:
+            type: object
+          required: true
+      requestBody:
+        content:
+          application/x-www-form-urlencoded; charset=UTF-8:
+            schema:
+              type: object
+              properties: {}
+  /ai/strict:
+    put:
+      summary: ai - strict
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Ai
+      parameters:
+        - name: ai_id
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: strict
+          in: query
+          schema:
+            type: object
+          required: true
+  /ai/sync:
+    post:
+      summary: ai - sync
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+      tags:
+        - Ai
+      parameters:
+        - name: ais
+          in: query
+          schema:
+            type: object
+          required: true
+      requestBody:
+        content:
+          application/x-www-form-urlencoded; charset=UTF-8:
+            schema:
+              type: object
+              properties: {}
+  /ai/test-scenario:
+    post:
+      summary: ai - test-scenario
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Ai
+      parameters:
+        - name: scenario_id
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: ai_id
+          in: query
+          schema:
+            type: object
+          required: true
+      requestBody:
+        content:
+          application/x-www-form-urlencoded; charset=UTF-8:
+            schema:
+              type: object
+              properties: {}
+  /ai/version:
+    put:
+      summary: ai - version
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Ai
+      parameters:
+        - name: ai_id
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: version
+          in: query
+          schema:
+            type: object
+          required: true
+  /ai-folder/change-folder:
+    post:
+      summary: ai-folder - change-folder
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - AiFolder
+      parameters:
+        - name: folder_id
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: dest_folder_id
+          in: query
+          schema:
+            type: object
+          required: true
+      requestBody:
+        content:
+          application/x-www-form-urlencoded; charset=UTF-8:
+            schema:
+              type: object
+              properties: {}
+  /ai-folder/delete:
+    delete:
+      summary: ai-folder - delete
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - AiFolder
+      parameters:
+        - name: folder_id
+          in: query
+          schema:
+            type: object
+          required: true
+  /ai-folder/new-name:
+    post:
+      summary: ai-folder - new-name
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - AiFolder
+      parameters:
+        - name: folder_id
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: name
+          in: query
+          schema:
+            type: object
+          required: true
+      requestBody:
+        content:
+          application/x-www-form-urlencoded; charset=UTF-8:
+            schema:
+              type: object
+              properties: {}
+  /ai-folder/rename:
+    post:
+      summary: ai-folder - rename
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - AiFolder
+      parameters:
+        - name: folder_id
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: new_name
+          in: query
+          schema:
+            type: object
+          required: true
+      requestBody:
+        content:
+          application/x-www-form-urlencoded; charset=UTF-8:
+            schema:
+              type: object
+              properties: {}
+  /article/all:
+    get:
+      summary: article - all
+      security: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+      tags:
+        - Article
+  /changelog/get:
+    get:
+      summary: changelog - get
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Changelog
+      parameters:
+        - name: language
+          in: query
+          schema:
+            type: object
+          required: true
+  /changelog/get-last:
+    get:
+      summary: changelog - get-last
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Changelog
+      parameters:
+        - name: language
+          in: query
+          schema:
+            type: object
+          required: true
+  /chip/get-all:
+    get:
+      summary: chip - get-all
+      security: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+      tags:
+        - Chip
+  /complexity/get-all:
+    get:
+      summary: complexity - get-all
+      security: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+      tags:
+        - Complexity
+  /constant/get-all:
+    get:
+      summary: constant - get-all
+      security: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+      tags:
+        - Constant
+  /country/get-all:
+    get:
+      summary: country - get-all
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Country
+  /encyclopedia/end-edition:
+    post:
+      summary: encyclopedia - end-edition
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Encyclopedia
+      parameters:
+        - name: page_id
+          in: query
+          schema:
+            type: object
+          required: true
+      requestBody:
+        content:
+          application/x-www-form-urlencoded; charset=UTF-8:
+            schema:
+              type: object
+              properties: {}
+  /encyclopedia/get:
+    get:
+      summary: encyclopedia - get
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Encyclopedia
+      parameters:
+        - name: language
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: code
+          in: query
+          schema:
+            type: object
+          required: true
+  /encyclopedia/get-all-locale:
+    get:
+      summary: encyclopedia - get-all-locale
+      security: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+      tags:
+        - Encyclopedia
+      parameters:
+        - name: locale
+          in: query
+          schema:
+            type: object
+          required: true
+  /encyclopedia/get-last-pages:
+    get:
+      summary: encyclopedia - get-last-pages
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Encyclopedia
+      parameters:
+        - name: language
+          in: query
+          schema:
+            type: object
+          required: true
+  /encyclopedia/get-locked-pages:
+    get:
+      summary: encyclopedia - get-locked-pages
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Encyclopedia
+  /encyclopedia/search:
+    get:
+      summary: encyclopedia - search
+      security: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+      tags:
+        - Encyclopedia
+      parameters:
+        - name: language
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: query
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: page
+          in: query
+          schema:
+            type: object
+          required: true
+  /encyclopedia/set-language:
+    post:
+      summary: encyclopedia - set-language
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Encyclopedia
+      parameters:
+        - name: page_id
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: language
+          in: query
+          schema:
+            type: object
+          required: true
+      requestBody:
+        content:
+          application/x-www-form-urlencoded; charset=UTF-8:
+            schema:
+              type: object
+              properties: {}
+  /encyclopedia/start-edition:
+    post:
+      summary: encyclopedia - start-edition
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Encyclopedia
+      parameters:
+        - name: page_id
+          in: query
+          schema:
+            type: object
+          required: true
+      requestBody:
+        content:
+          application/x-www-form-urlencoded; charset=UTF-8:
+            schema:
+              type: object
+              properties: {}
+  /encyclopedia/update:
+    put:
+      summary: encyclopedia - update
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Encyclopedia
+      parameters:
+        - name: page_id
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: language
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: title
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: content
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: parent
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: reference
+          in: query
+          schema:
+            type: object
+          required: true
+  /farmer/change-country:
+    post:
+      summary: farmer - change-country
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Farmer
+      parameters:
+        - name: country_code
+          in: query
+          schema:
+            type: object
+          required: true
+      requestBody:
+        content:
+          application/x-www-form-urlencoded; charset=UTF-8:
+            schema:
+              type: object
+              properties: {}
+  /farmer/contributors:
+    get:
+      summary: farmer - contributors
+      security: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+      tags:
+        - Farmer
+  /farmer/get:
+    get:
+      summary: farmer - get
+      security: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+      tags:
+        - Farmer
+      parameters:
+        - name: farmer_id
+          in: query
+          schema:
+            type: object
+          required: true
+  /farmer/get-connected:
+    get:
+      summary: farmer - get-connected
+      security: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+      tags:
+        - Farmer
+  /farmer/get-from-token:
+    get:
+      summary: farmer - get-from-token
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Farmer
+  /farmer/login-token:
+    post:
+      summary: farmer - login-token
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Farmer
+      parameters:
+        - name: login
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: password
+          in: query
+          schema:
+            type: object
+          required: true
+      requestBody:
+        content:
+          application/x-www-form-urlencoded; charset=UTF-8:
+            schema:
+              type: object
+              properties: {}
+  /farmer/register-tournament:
+    post:
+      summary: farmer - register-tournament
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Farmer
+  /farmer/rename-crystals:
+    post:
+      summary: farmer - rename-crystals
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Farmer
+      parameters:
+        - name: name
+          in: query
+          schema:
+            type: object
+          required: true
+      requestBody:
+        content:
+          application/x-www-form-urlencoded; charset=UTF-8:
+            schema:
+              type: object
+              properties: {}
+  /farmer/rename-habs:
+    post:
+      summary: farmer - rename-habs
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Farmer
+      parameters:
+        - name: name
+          in: query
+          schema:
+            type: object
+          required: true
+      requestBody:
+        content:
+          application/x-www-form-urlencoded; charset=UTF-8:
+            schema:
+              type: object
+              properties: {}
+  /farmer/rich-tooltip:
+    get:
+      summary: farmer - rich-tooltip
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Farmer
+      parameters:
+        - name: id
+          in: query
+          schema:
+            type: object
+          required: true
+  /farmer/set-avatar:
+    post:
+      summary: farmer - set-avatar
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Farmer
+      parameters: []
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                avatar:
+                  type: string
+                  format: binary
+  /farmer/set-github:
+    post:
+      summary: farmer - set-github
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Farmer
+      parameters:
+        - name: github
+          in: query
+          schema:
+            type: object
+          required: true
+      requestBody:
+        content:
+          application/x-www-form-urlencoded; charset=UTF-8:
+            schema:
+              type: object
+              properties: {}
+  /farmer/set-in-garden:
+    post:
+      summary: farmer - set-in-garden
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Farmer
+      parameters:
+        - name: in_garden
+          in: query
+          schema:
+            type: object
+          required: true
+      requestBody:
+        content:
+          application/x-www-form-urlencoded; charset=UTF-8:
+            schema:
+              type: object
+              properties: {}
+  /farmer/set-language:
+    put:
+      summary: farmer - set-language
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Farmer
+      parameters:
+        - name: language
+          in: query
+          schema:
+            type: object
+          required: true
+  /farmer/set-show-ai-lines:
+    put:
+      summary: farmer - set-show-ai-lines
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Farmer
+      parameters:
+        - name: show_ai_lines
+          in: query
+          schema:
+            type: object
+          required: true
+  /farmer/set-title:
+    put:
+      summary: farmer - set-title
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Farmer
+      parameters:
+        - name: icon
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: noun
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: gender
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: adjective
+          in: query
+          schema:
+            type: object
+          required: true
+  /farmer/set-website:
+    post:
+      summary: farmer - set-website
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Farmer
+      parameters:
+        - name: website
+          in: query
+          schema:
+            type: object
+          required: true
+      requestBody:
+        content:
+          application/x-www-form-urlencoded; charset=UTF-8:
+            schema:
+              type: object
+              properties: {}
+  /farmer/unregister-tournament:
+    post:
+      summary: farmer - unregister-tournament
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Farmer
+  /fight/comment:
+    post:
+      summary: fight - comment
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Fight
+      parameters:
+        - name: fight_id
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: comment
+          in: query
+          schema:
+            type: object
+          required: true
+      requestBody:
+        content:
+          application/x-www-form-urlencoded; charset=UTF-8:
+            schema:
+              type: object
+              properties: {}
+  /fight/fullmoon:
+    get:
+      summary: fight - fullmoon
+      security: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+      tags:
+        - Fight
+  /fight/get:
+    get:
+      summary: fight - get
+      security: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+      tags:
+        - Fight
+      parameters:
+        - name: fight_id
+          in: query
+          schema:
+            type: object
+          required: true
+  /fight/get-logs:
+    get:
+      summary: fight - get-logs
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Fight
+      parameters:
+        - name: fight_id
+          in: query
+          schema:
+            type: object
+          required: true
+  /forum/mark-as-read:
+    post:
+      summary: forum - mark-as-read
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Forum
+  /forum/search2:
+    get:
+      summary: forum - search2
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Forum
+      parameters:
+        - name: query
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: farmer
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: category
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: page
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: order
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: admin
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: moderator
+          in: query
+          schema:
+            type: object
+          required: true
+  /function/get-all:
+    get:
+      summary: function - get-all
+      security: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+      tags:
+        - Function
+  /function/get-categories:
+    get:
+      summary: function - get-categories
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+      tags:
+        - Function
+  /garden/get-composition-opponents:
+    get:
+      summary: garden - get-composition-opponents
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+      tags:
+        - Garden
+      parameters:
+        - name: composition_id
+          in: query
+          schema:
+            type: object
+          required: true
+  /garden/get-farmer-opponents:
+    get:
+      summary: garden - get-farmer-opponents
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+      tags:
+        - Garden
+  /garden/get-leek-opponents:
+    get:
+      summary: garden - get-leek-opponents
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+      tags:
+        - Garden
+      parameters:
+        - name: leek_id
+          in: query
+          schema:
+            type: object
+          required: true
+  /garden/start-farmer-challenge:
+    post:
+      summary: garden - start-farmer-challenge
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Garden
+      parameters:
+        - name: target_id
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: seed
+          in: query
+          schema:
+            type: object
+          required: true
+      requestBody:
+        content:
+          application/x-www-form-urlencoded; charset=UTF-8:
+            schema:
+              type: object
+              properties: {}
+  /garden/start-farmer-fight:
+    post:
+      summary: garden - start-farmer-fight
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Garden
+      parameters:
+        - name: target_id
+          in: query
+          schema:
+            type: object
+          required: true
+      requestBody:
+        content:
+          application/x-www-form-urlencoded; charset=UTF-8:
+            schema:
+              type: object
+              properties: {}
+  /garden/start-solo-challenge:
+    post:
+      summary: garden - start-solo-challenge
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Garden
+      parameters:
+        - name: leek_id
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: target_id
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: seed
+          in: query
+          schema:
+            type: object
+          required: true
+      requestBody:
+        content:
+          application/x-www-form-urlencoded; charset=UTF-8:
+            schema:
+              type: object
+              properties: {}
+  /garden/start-solo-fight:
+    post:
+      summary: garden - start-solo-fight
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Garden
+      parameters:
+        - name: leek_id
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: target_id
+          in: query
+          schema:
+            type: object
+          required: true
+      requestBody:
+        content:
+          application/x-www-form-urlencoded; charset=UTF-8:
+            schema:
+              type: object
+              properties: {}
+  /garden/start-team-challenge:
+    post:
+      summary: garden - start-team-challenge
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Garden
+      parameters:
+        - name: composition_id
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: target_id
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: seed
+          in: query
+          schema:
+            type: object
+          required: true
+      requestBody:
+        content:
+          application/x-www-form-urlencoded; charset=UTF-8:
+            schema:
+              type: object
+              properties: {}
+  /garden/start-team-fight:
+    post:
+      summary: garden - start-team-fight
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Garden
+      parameters:
+        - name: composition_id
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: target_id
+          in: query
+          schema:
+            type: object
+          required: true
+      requestBody:
+        content:
+          application/x-www-form-urlencoded; charset=UTF-8:
+            schema:
+              type: object
+              properties: {}
+  /groupe/apply-equipment:
+    post:
+      summary: groupe - apply-equipment
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Groupe
+      parameters:
+        - name: group_id
+          in: query
+          schema:
+            type: object
+          required: true
+      requestBody:
+        content:
+          application/x-www-form-urlencoded; charset=UTF-8:
+            schema:
+              type: object
+              properties: {}
+  /groupe/create-member:
+    post:
+      summary: groupe - create-member
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Groupe
+      parameters:
+        - name: group_id
+          in: query
+          schema:
+            type: object
+          required: true
+      requestBody:
+        content:
+          application/x-www-form-urlencoded; charset=UTF-8:
+            schema:
+              type: object
+              properties: {}
+  /groupe/equipment:
+    put:
+      summary: groupe - equipment
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Groupe
+      parameters:
+        - name: group_id
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: level
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: characteristics
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: weapons
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: chips
+          in: query
+          schema:
+            type: object
+          required: true
+  /groupe/get:
+    get:
+      summary: groupe - get
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Groupe
+      parameters:
+        - name: group_id
+          in: query
+          schema:
+            type: object
+          required: true
+  /groupe/give-item:
+    post:
+      summary: groupe - give-item
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Groupe
+      parameters:
+        - name: group_id
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: member_id
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: item_id
+          in: query
+          schema:
+            type: object
+          required: true
+      requestBody:
+        content:
+          application/x-www-form-urlencoded; charset=UTF-8:
+            schema:
+              type: object
+              properties: {}
+  /groupe/member-email:
+    put:
+      summary: groupe - member-email
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Groupe
+      parameters:
+        - name: group_id
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: member_id
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: email
+          in: query
+          schema:
+            type: object
+          required: true
+  /groupe/member-leek-name:
+    put:
+      summary: groupe - member-leek-name
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Groupe
+      parameters:
+        - name: group_id
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: member_id
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: leek_name
+          in: query
+          schema:
+            type: object
+          required: true
+  /groupe/member-name:
+    put:
+      summary: groupe - member-name
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Groupe
+      parameters:
+        - name: group_id
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: member_id
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: name
+          in: query
+          schema:
+            type: object
+          required: true
+  /groupe/member-password:
+    put:
+      summary: groupe - member-password
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Groupe
+      parameters:
+        - name: group_id
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: member_id
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: password
+          in: query
+          schema:
+            type: object
+          required: true
+  /groupe/remove-member:
+    delete:
+      summary: groupe - remove-member
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Groupe
+      parameters:
+        - name: group_id
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: member_id
+          in: query
+          schema:
+            type: object
+          required: true
+  /groupe/send-invite:
+    post:
+      summary: groupe - send-invite
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Groupe
+      parameters:
+        - name: group_id
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: member_id
+          in: query
+          schema:
+            type: object
+          required: true
+      requestBody:
+        content:
+          application/x-www-form-urlencoded; charset=UTF-8:
+            schema:
+              type: object
+              properties: {}
+  /groupe/setting-bank:
+    put:
+      summary: groupe - setting-bank
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Groupe
+      parameters:
+        - name: group_id
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: enabled
+          in: query
+          schema:
+            type: object
+          required: true
+  /groupe/setting-br:
+    put:
+      summary: groupe - setting-br
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Groupe
+      parameters:
+        - name: group_id
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: enabled
+          in: query
+          schema:
+            type: object
+          required: true
+  /groupe/setting-buy-fights:
+    put:
+      summary: groupe - setting-buy-fights
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Groupe
+      parameters:
+        - name: group_id
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: enabled
+          in: query
+          schema:
+            type: object
+          required: true
+  /groupe/setting-chat:
+    put:
+      summary: groupe - setting-chat
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Groupe
+      parameters:
+        - name: group_id
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: enabled
+          in: query
+          schema:
+            type: object
+          required: true
+  /groupe/setting-equipment-blocked:
+    put:
+      summary: groupe - setting-equipment-blocked
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Groupe
+      parameters:
+        - name: group_id
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: enabled
+          in: query
+          schema:
+            type: object
+          required: true
+  /groupe/setting-new-leek:
+    put:
+      summary: groupe - setting-new-leek
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Groupe
+      parameters:
+        - name: group_id
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: enabled
+          in: query
+          schema:
+            type: object
+          required: true
+  /groupe/setting-public-chat:
+    put:
+      summary: groupe - setting-public-chat
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Groupe
+      parameters:
+        - name: group_id
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: enabled
+          in: query
+          schema:
+            type: object
+          required: true
+  /groupe/setting-tournaments:
+    put:
+      summary: groupe - setting-tournaments
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Groupe
+      parameters:
+        - name: group_id
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: enabled
+          in: query
+          schema:
+            type: object
+          required: true
+  /groupe/setting-xp-blocked:
+    put:
+      summary: groupe - setting-xp-blocked
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Groupe
+      parameters:
+        - name: group_id
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: enabled
+          in: query
+          schema:
+            type: object
+          required: true
+  /groupe/start-battle-royale:
+    post:
+      summary: groupe - start-battle-royale
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Groupe
+      parameters:
+        - name: group_id
+          in: query
+          schema:
+            type: object
+          required: true
+      requestBody:
+        content:
+          application/x-www-form-urlencoded; charset=UTF-8:
+            schema:
+              type: object
+              properties: {}
+  /groupe/start-solo-tournament:
+    post:
+      summary: groupe - start-solo-tournament
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Groupe
+      parameters:
+        - name: group_id
+          in: query
+          schema:
+            type: object
+          required: true
+      requestBody:
+        content:
+          application/x-www-form-urlencoded; charset=UTF-8:
+            schema:
+              type: object
+              properties: {}
+  /groupe/start-team-tournament:
+    post:
+      summary: groupe - start-team-tournament
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: string
+      tags:
+        - Groupe
+      parameters:
+        - name: group_id
+          in: query
+          schema:
+            type: object
+          required: true
+      requestBody:
+        content:
+          application/x-www-form-urlencoded; charset=UTF-8:
+            schema:
+              type: object
+              properties: {}
+  /hat/get-all:
+    get:
+      summary: hat - get-all
+      security: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+      tags:
+        - Hat
+  /history/get-farmer-history:
+    get:
+      summary: history - get-farmer-history
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - History
+      parameters:
+        - name: farmer_id
+          in: query
+          schema:
+            type: object
+          required: true
+  /history/get-leek-history:
+    get:
+      summary: history - get-leek-history
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - History
+      parameters:
+        - name: leek_id
+          in: query
+          schema:
+            type: object
+          required: true
+  /history/get-team-history:
+    get:
+      summary: history - get-team-history
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - History
+      parameters:
+        - name: team_id
+          in: query
+          schema:
+            type: object
+          required: true
+  /item/get-all:
+    get:
+      summary: item - get-all
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Item
+  /item/retrieve:
+    post:
+      summary: item - retrieve
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Item
+      parameters:
+        - name: template
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: quantity
+          in: query
+          schema:
+            type: object
+          required: true
+      requestBody:
+        content:
+          application/x-www-form-urlencoded; charset=UTF-8:
+            schema:
+              type: object
+              properties: {}
+  /lang/get:
+    get:
+      summary: lang - get
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Lang
+      parameters:
+        - name: file
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: lang
+          in: query
+          schema:
+            type: object
+          required: true
+  /leek/add-chip:
+    post:
+      summary: leek - add-chip
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Leek
+      parameters:
+        - name: leek_id
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: chip_id
+          in: query
+          schema:
+            type: object
+          required: true
+      requestBody:
+        content:
+          application/x-www-form-urlencoded; charset=UTF-8:
+            schema:
+              type: object
+              properties: {}
+  /leek/add-weapon:
+    post:
+      summary: leek - add-weapon
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Leek
+      parameters:
+        - name: leek_id
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: weapon_id
+          in: query
+          schema:
+            type: object
+          required: true
+      requestBody:
+        content:
+          application/x-www-form-urlencoded; charset=UTF-8:
+            schema:
+              type: object
+              properties: {}
+  /leek/create:
+    post:
+      summary: leek - create
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Leek
+      parameters:
+        - name: name
+          in: query
+          schema:
+            type: object
+          required: true
+      requestBody:
+        content:
+          application/x-www-form-urlencoded; charset=UTF-8:
+            schema:
+              type: object
+              properties: {}
+  /leek/delete-register:
+    delete:
+      summary: leek - delete-register
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Leek
+      parameters:
+        - name: leek_id
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: key
+          in: query
+          schema:
+            type: object
+          required: true
+  /leek/get:
+    get:
+      summary: leek - get
+      security: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+      tags:
+        - Leek
+      parameters:
+        - name: leek_id
+          in: query
+          schema:
+            type: object
+          required: true
+  /leek/get-count:
+    get:
+      summary: leek - get-count
+      security: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+      tags:
+        - Leek
+  /leek/get-next-price:
+    get:
+      summary: leek - get-next-price
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Leek
+  /leek/get-private:
+    get:
+      summary: leek - get-private
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Leek
+      parameters:
+        - name: leek_id
+          in: query
+          schema:
+            type: object
+          required: true
+  /leek/get-registers:
+    get:
+      summary: leek - get-registers
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+      tags:
+        - Leek
+      parameters:
+        - name: leek_id
+          in: query
+          schema:
+            type: object
+          required: true
+  /leek/register-auto-br:
+    post:
+      summary: leek - register-auto-br
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Leek
+      parameters:
+        - name: leek_id
+          in: query
+          schema:
+            type: object
+          required: true
+      requestBody:
+        content:
+          application/x-www-form-urlencoded; charset=UTF-8:
+            schema:
+              type: object
+              properties: {}
+  /leek/register-tournament:
+    post:
+      summary: leek - register-tournament
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Leek
+      parameters:
+        - name: leek_id
+          in: query
+          schema:
+            type: object
+          required: true
+      requestBody:
+        content:
+          application/x-www-form-urlencoded; charset=UTF-8:
+            schema:
+              type: object
+              properties: {}
+  /leek/remove-ai:
+    delete:
+      summary: leek - remove-ai
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Leek
+      parameters:
+        - name: leek_id
+          in: query
+          schema:
+            type: object
+          required: true
+  /leek/remove-chip:
+    delete:
+      summary: leek - remove-chip
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Leek
+      parameters:
+        - name: chip_id
+          in: query
+          schema:
+            type: object
+          required: true
+  /leek/remove-hat:
+    delete:
+      summary: leek - remove-hat
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Leek
+      parameters:
+        - name: leek_id
+          in: query
+          schema:
+            type: object
+          required: true
+  /leek/remove-weapon:
+    delete:
+      summary: leek - remove-weapon
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Leek
+      parameters:
+        - name: weapon_id
+          in: query
+          schema:
+            type: object
+          required: true
+  /leek/rename-crystals:
+    post:
+      summary: leek - rename-crystals
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Leek
+      parameters:
+        - name: leek_id
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: new_name
+          in: query
+          schema:
+            type: object
+          required: true
+      requestBody:
+        content:
+          application/x-www-form-urlencoded; charset=UTF-8:
+            schema:
+              type: object
+              properties: {}
+  /leek/rename-habs:
+    post:
+      summary: leek - rename-habs
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Leek
+      parameters:
+        - name: leek_id
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: new_name
+          in: query
+          schema:
+            type: object
+          required: true
+      requestBody:
+        content:
+          application/x-www-form-urlencoded; charset=UTF-8:
+            schema:
+              type: object
+              properties: {}
+  /leek/rich-tooltip:
+    get:
+      summary: leek - rich-tooltip
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Leek
+      parameters:
+        - name: id
+          in: query
+          schema:
+            type: object
+          required: true
+  /leek/set-ai:
+    post:
+      summary: leek - set-ai
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Leek
+      parameters:
+        - name: leek_id
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: ai_id
+          in: query
+          schema:
+            type: object
+          required: true
+      requestBody:
+        content:
+          application/x-www-form-urlencoded; charset=UTF-8:
+            schema:
+              type: object
+              properties: {}
+  /leek/set-face:
+    put:
+      summary: leek - set-face
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Leek
+      parameters:
+        - name: leek_id
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: face
+          in: query
+          schema:
+            type: object
+          required: true
+  /leek/set-hat:
+    post:
+      summary: leek - set-hat
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Leek
+      parameters:
+        - name: leek_id
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: hat_id
+          in: query
+          schema:
+            type: object
+          required: true
+      requestBody:
+        content:
+          application/x-www-form-urlencoded; charset=UTF-8:
+            schema:
+              type: object
+              properties: {}
+  /leek/set-in-garden:
+    post:
+      summary: leek - set-in-garden
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Leek
+      parameters:
+        - name: leek_id
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: in_garden
+          in: query
+          schema:
+            type: object
+          required: true
+      requestBody:
+        content:
+          application/x-www-form-urlencoded; charset=UTF-8:
+            schema:
+              type: object
+              properties: {}
+  /leek/set-metal:
+    put:
+      summary: leek - set-metal
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Leek
+      parameters:
+        - name: leek_id
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: metal
+          in: query
+          schema:
+            type: object
+          required: true
+  /leek/set-register:
+    post:
+      summary: leek - set-register
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Leek
+      parameters:
+        - name: leek_id
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: key
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: value
+          in: query
+          schema:
+            type: object
+          required: true
+      requestBody:
+        content:
+          application/x-www-form-urlencoded; charset=UTF-8:
+            schema:
+              type: object
+              properties: {}
+  /leek/set-weapon:
+    put:
+      summary: leek - set-weapon
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Leek
+      parameters:
+        - name: leek_id
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: weapon
+          in: query
+          schema:
+            type: object
+          required: true
+  /leek/set-xp-blocked:
+    put:
+      summary: leek - set-xp-blocked
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Leek
+      parameters:
+        - name: leek_id
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: xp_blocked
+          in: query
+          schema:
+            type: object
+          required: true
+  /leek/spend-capital:
+    post:
+      summary: leek - spend-capital
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Leek
+      parameters:
+        - name: leek_id
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: characteristics
+          in: query
+          schema:
+            type: string
+          required: true
+      requestBody:
+        content:
+          application/x-www-form-urlencoded; charset=UTF-8:
+            schema:
+              type: object
+              properties: {}
+  /leek/unregister-auto-br:
+    post:
+      summary: leek - unregister-auto-br
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Leek
+      parameters:
+        - name: leek_id
+          in: query
+          schema:
+            type: object
+          required: true
+      requestBody:
+        content:
+          application/x-www-form-urlencoded; charset=UTF-8:
+            schema:
+              type: object
+              properties: {}
+  /leek/unregister-tournament:
+    post:
+      summary: leek - unregister-tournament
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Leek
+      parameters:
+        - name: leek_id
+          in: query
+          schema:
+            type: object
+          required: true
+      requestBody:
+        content:
+          application/x-www-form-urlencoded; charset=UTF-8:
+            schema:
+              type: object
+              properties: {}
+  /leek/use-potion:
+    post:
+      summary: leek - use-potion
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Leek
+      parameters:
+        - name: leek_id
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: potion_id
+          in: query
+          schema:
+            type: object
+          required: true
+      requestBody:
+        content:
+          application/x-www-form-urlencoded; charset=UTF-8:
+            schema:
+              type: object
+              properties: {}
+  /leek-wars/version:
+    get:
+      summary: leek-wars - version
+      security: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+      tags:
+        - LeekWars
+  /market/buy-crystals:
+    post:
+      summary: market - buy-crystals
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Market
+      parameters:
+        - name: item_id
+          in: query
+          schema:
+            type: object
+          required: true
+      requestBody:
+        content:
+          application/x-www-form-urlencoded; charset=UTF-8:
+            schema:
+              type: object
+              properties: {}
+  /market/buy-habs:
+    post:
+      summary: market - buy-habs
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Market
+      parameters:
+        - name: item_id
+          in: query
+          schema:
+            type: object
+          required: true
+      requestBody:
+        content:
+          application/x-www-form-urlencoded; charset=UTF-8:
+            schema:
+              type: object
+              properties: {}
+  /market/sell-habs:
+    post:
+      summary: market - sell-habs
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Market
+      parameters:
+        - name: item_id
+          in: query
+          schema:
+            type: object
+          required: true
+      requestBody:
+        content:
+          application/x-www-form-urlencoded; charset=UTF-8:
+            schema:
+              type: object
+              properties: {}
+  /message/create-conversation:
+    post:
+      summary: message - create-conversation
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Message
+      parameters:
+        - name: farmer_id
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: message
+          in: query
+          schema:
+            type: object
+          required: true
+      requestBody:
+        content:
+          application/x-www-form-urlencoded; charset=UTF-8:
+            schema:
+              type: object
+              properties: {}
+  /message/delete:
+    delete:
+      summary: message - delete
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Message
+      parameters:
+        - name: messages
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: mute
+          in: query
+          schema:
+            type: object
+          required: true
+  /message/find-conversation:
+    get:
+      summary: message - find-conversation
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Message
+      parameters:
+        - name: target_farmer_id
+          in: query
+          schema:
+            type: object
+          required: true
+  /message/get-conversations:
+    get:
+      summary: message - get-conversations
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Message
+      parameters:
+        - name: offset
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: limit
+          in: query
+          schema:
+            type: object
+          required: true
+  /message/get-latest-conversations:
+    get:
+      summary: message - get-latest-conversations
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Message
+      parameters:
+        - name: count
+          in: query
+          schema:
+            type: object
+          required: true
+  /message/get-messages:
+    get:
+      summary: message - get-messages
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Message
+      parameters:
+        - name: conversation_id
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: count
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: offset
+          in: query
+          schema:
+            type: object
+          required: true
+  /message/quit-conversation:
+    post:
+      summary: message - quit-conversation
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Message
+      parameters:
+        - name: conversation_id
+          in: query
+          schema:
+            type: object
+          required: true
+      requestBody:
+        content:
+          application/x-www-form-urlencoded; charset=UTF-8:
+            schema:
+              type: object
+              properties: {}
+  /message/read:
+    post:
+      summary: message - read
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Message
+      parameters:
+        - name: conversation_id
+          in: query
+          schema:
+            type: object
+          required: true
+      requestBody:
+        content:
+          application/x-www-form-urlencoded; charset=UTF-8:
+            schema:
+              type: object
+              properties: {}
+  /message/send-message:
+    post:
+      summary: message - send-message
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Message
+      parameters:
+        - name: conversation_id
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: message
+          in: query
+          schema:
+            type: object
+          required: true
+      requestBody:
+        content:
+          application/x-www-form-urlencoded; charset=UTF-8:
+            schema:
+              type: object
+              properties: {}
+  /message/toggle-notifications:
+    post:
+      summary: message - toggle-notifications
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Message
+      parameters:
+        - name: conversation_id
+          in: query
+          schema:
+            type: object
+          required: true
+      requestBody:
+        content:
+          application/x-www-form-urlencoded; charset=UTF-8:
+            schema:
+              type: object
+              properties: {}
+  /message-reaction/add:
+    post:
+      summary: message-reaction - add
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - MessageReaction
+      parameters:
+        - name: reaction
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: message_id
+          in: query
+          schema:
+            type: object
+          required: true
+      requestBody:
+        content:
+          application/x-www-form-urlencoded; charset=UTF-8:
+            schema:
+              type: object
+              properties: {}
+  /message-reaction/delete:
+    delete:
+      summary: message-reaction - delete
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - MessageReaction
+      parameters:
+        - name: message_id
+          in: query
+          schema:
+            type: object
+          required: true
+  /notification/get-latest:
+    get:
+      summary: notification - get-latest
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Notification
+      parameters:
+        - name: count
+          in: query
+          schema:
+            type: object
+          required: true
+  /notification/read:
+    post:
+      summary: notification - read
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Notification
+      parameters:
+        - name: notification_id
+          in: query
+          schema:
+            type: object
+          required: true
+      requestBody:
+        content:
+          application/x-www-form-urlencoded; charset=UTF-8:
+            schema:
+              type: object
+              properties: {}
+  /notification/read-all:
+    post:
+      summary: notification - read-all
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Notification
+  /pomp/get-all:
+    get:
+      summary: pomp - get-all
+      security: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+      tags:
+        - Pomp
+  /potion/get-all:
+    get:
+      summary: potion - get-all
+      security: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+      tags:
+        - Potion
+  /ranking/fun:
+    get:
+      summary: ranking - fun
+      security: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+      tags:
+        - Ranking
+  /ranking/get:
+    get:
+      summary: ranking - get
+      security: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+      tags:
+        - Ranking
+      parameters:
+        - name: category
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: order
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: page
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: country
+          in: query
+          schema:
+            type: object
+          required: true
+  /ranking/get-active:
+    get:
+      summary: ranking - get-active
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Ranking
+      parameters:
+        - name: category
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: order
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: page
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: country
+          in: query
+          schema:
+            type: object
+          required: true
+  /ranking/get-farmer-rank:
+    get:
+      summary: ranking - get-farmer-rank
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Ranking
+      parameters:
+        - name: farmer_id
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: order
+          in: query
+          schema:
+            type: object
+          required: true
+  /ranking/get-farmer-rank-active:
+    get:
+      summary: ranking - get-farmer-rank-active
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Ranking
+      parameters:
+        - name: farmer_id
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: order
+          in: query
+          schema:
+            type: object
+          required: true
+  /ranking/get-home-ranking:
+    get:
+      summary: ranking - get-home-ranking
+      security: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+      tags:
+        - Ranking
+  /ranking/get-leek-rank:
+    get:
+      summary: ranking - get-leek-rank
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Ranking
+      parameters:
+        - name: leek_id
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: order
+          in: query
+          schema:
+            type: object
+          required: true
+  /ranking/get-leek-rank-active:
+    get:
+      summary: ranking - get-leek-rank-active
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Ranking
+      parameters:
+        - name: leek_id
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: order
+          in: query
+          schema:
+            type: object
+          required: true
+  /ranking/get-team-rank:
+    get:
+      summary: ranking - get-team-rank
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Ranking
+      parameters:
+        - name: team_id
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: order
+          in: query
+          schema:
+            type: object
+          required: true
+  /ranking/get-team-rank-active:
+    get:
+      summary: ranking - get-team-rank-active
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Ranking
+      parameters:
+        - name: team_id
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: order
+          in: query
+          schema:
+            type: object
+          required: true
+  /ranking/search:
+    post:
+      summary: ranking - search
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Ranking
+      parameters:
+        - name: query
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: search_leeks
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: search_farmers
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: search_teams
+          in: query
+          schema:
+            type: object
+          required: true
+      requestBody:
+        content:
+          application/x-www-form-urlencoded; charset=UTF-8:
+            schema:
+              type: object
+              properties: {}
+  /service/get-all:
+    get:
+      summary: service - get-all
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Service
+  /summon/get-templates:
+    get:
+      summary: summon - get-templates
+      security: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+      tags:
+        - Summon
+  /talent/farmer:
+    get:
+      summary: talent - farmer
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Talent
+  /talent/leek:
+    get:
+      summary: talent - leek
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Talent
+  /team/accept-candidacy:
+    post:
+      summary: team - accept-candidacy
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Team
+      parameters:
+        - name: candidacy_id
+          in: query
+          schema:
+            type: object
+          required: true
+      requestBody:
+        content:
+          application/x-www-form-urlencoded; charset=UTF-8:
+            schema:
+              type: object
+              properties: {}
+  /team/ban:
+    post:
+      summary: team - ban
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Team
+      parameters:
+        - name: farmer_id
+          in: query
+          schema:
+            type: object
+          required: true
+      requestBody:
+        content:
+          application/x-www-form-urlencoded; charset=UTF-8:
+            schema:
+              type: object
+              properties: {}
+  /team/cancel-candidacy:
+    post:
+      summary: team - cancel-candidacy
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Team
+  /team/cancel-candidacy-for-team:
+    post:
+      summary: team - cancel-candidacy-for-team
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Team
+      parameters:
+        - name: team_id
+          in: query
+          schema:
+            type: object
+          required: true
+      requestBody:
+        content:
+          application/x-www-form-urlencoded; charset=UTF-8:
+            schema:
+              type: object
+              properties: {}
+  /team/change-description:
+    put:
+      summary: team - change-description
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Team
+      parameters:
+        - name: description
+          in: query
+          schema:
+            type: object
+          required: true
+  /team/change-member-grade:
+    post:
+      summary: team - change-member-grade
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Team
+      parameters:
+        - name: member_id
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: new_grade
+          in: query
+          schema:
+            type: object
+          required: true
+      requestBody:
+        content:
+          application/x-www-form-urlencoded; charset=UTF-8:
+            schema:
+              type: object
+              properties: {}
+  /team/change-owner:
+    post:
+      summary: team - change-owner
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Team
+      parameters:
+        - name: new_owner
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: password
+          in: query
+          schema:
+            type: object
+          required: true
+      requestBody:
+        content:
+          application/x-www-form-urlencoded; charset=UTF-8:
+            schema:
+              type: object
+              properties: {}
+  /team/composition-rich-tooltip:
+    get:
+      summary: team - composition-rich-tooltip
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Team
+      parameters:
+        - name: id
+          in: query
+          schema:
+            type: object
+          required: true
+  /team/create:
+    post:
+      summary: team - create
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Team
+      parameters:
+        - name: team_name
+          in: query
+          schema:
+            type: object
+          required: true
+      requestBody:
+        content:
+          application/x-www-form-urlencoded; charset=UTF-8:
+            schema:
+              type: object
+              properties: {}
+  /team/create-composition:
+    post:
+      summary: team - create-composition
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Team
+      parameters:
+        - name: composition_name
+          in: query
+          schema:
+            type: object
+          required: true
+      requestBody:
+        content:
+          application/x-www-form-urlencoded; charset=UTF-8:
+            schema:
+              type: object
+              properties: {}
+  /team/delete-composition:
+    delete:
+      summary: team - delete-composition
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Team
+      parameters:
+        - name: composition_id
+          in: query
+          schema:
+            type: object
+          required: true
+  /team/dissolve:
+    post:
+      summary: team - dissolve
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Team
+  /team/get:
+    get:
+      summary: team - get
+      security: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+      tags:
+        - Team
+      parameters:
+        - name: team_id
+          in: query
+          schema:
+            type: object
+          required: true
+  /team/get-connected:
+    get:
+      summary: team - get-connected
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Team
+      parameters:
+        - name: team_id
+          in: query
+          schema:
+            type: object
+          required: true
+  /team/get-private:
+    get:
+      summary: team - get-private
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Team
+      parameters:
+        - name: team_id
+          in: query
+          schema:
+            type: object
+          required: true
+  /team/move-leek:
+    post:
+      summary: team - move-leek
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Team
+      parameters:
+        - name: leek_id
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: to
+          in: query
+          schema:
+            type: object
+          required: true
+      requestBody:
+        content:
+          application/x-www-form-urlencoded; charset=UTF-8:
+            schema:
+              type: object
+              properties: {}
+  /team/quit:
+    post:
+      summary: team - quit
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Team
+  /team/rankings:
+    get:
+      summary: team - rankings
+      security: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+      tags:
+        - Team
+      parameters:
+        - name: team_id
+          in: query
+          schema:
+            type: object
+          required: true
+  /team/register-tournament:
+    post:
+      summary: team - register-tournament
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Team
+      parameters:
+        - name: composition_id
+          in: query
+          schema:
+            type: object
+          required: true
+      requestBody:
+        content:
+          application/x-www-form-urlencoded; charset=UTF-8:
+            schema:
+              type: object
+              properties: {}
+  /team/reject-candidacy:
+    post:
+      summary: team - reject-candidacy
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Team
+      parameters:
+        - name: candidacy_id
+          in: query
+          schema:
+            type: object
+          required: true
+      requestBody:
+        content:
+          application/x-www-form-urlencoded; charset=UTF-8:
+            schema:
+              type: object
+              properties: {}
+  /team/rename-composition:
+    put:
+      summary: team - rename-composition
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Team
+      parameters:
+        - name: composition_id
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: composition_name
+          in: query
+          schema:
+            type: object
+          required: true
+  /team/rich-tooltip:
+    get:
+      summary: team - rich-tooltip
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Team
+      parameters:
+        - name: id
+          in: query
+          schema:
+            type: object
+          required: true
+  /team/send-candidacy:
+    post:
+      summary: team - send-candidacy
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Team
+      parameters:
+        - name: team_id
+          in: query
+          schema:
+            type: object
+          required: true
+      requestBody:
+        content:
+          application/x-www-form-urlencoded; charset=UTF-8:
+            schema:
+              type: object
+              properties: {}
+  /team/set-emblem:
+    post:
+      summary: team - set-emblem
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Team
+      parameters:
+        - name: team_id
+          in: query
+          schema:
+            type: object
+          required: true
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                emblem:
+                  type: string
+                  format: binary
+  /team/set-logs-level:
+    put:
+      summary: team - set-logs-level
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Team
+      parameters:
+        - name: level
+          in: query
+          schema:
+            type: object
+          required: true
+  /team/set-opened:
+    post:
+      summary: team - set-opened
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Team
+      parameters:
+        - name: opened
+          in: query
+          schema:
+            type: object
+          required: true
+      requestBody:
+        content:
+          application/x-www-form-urlencoded; charset=UTF-8:
+            schema:
+              type: object
+              properties: {}
+  /team/set-turret-ai:
+    put:
+      summary: team - set-turret-ai
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Team
+      parameters:
+        - name: ai_id
+          in: query
+          schema:
+            type: object
+          required: true
+  /team/unregister-tournament:
+    post:
+      summary: team - unregister-tournament
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Team
+      parameters:
+        - name: composition_id
+          in: query
+          schema:
+            type: object
+          required: true
+      requestBody:
+        content:
+          application/x-www-form-urlencoded; charset=UTF-8:
+            schema:
+              type: object
+              properties: {}
+  /team-composition/get-farmer-compositions:
+    get:
+      summary: team-composition - get-farmer-compositions
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - TeamComposition
+  /test-leek/delete:
+    delete:
+      summary: test-leek - delete
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - TestLeek
+      parameters:
+        - name: id
+          in: query
+          schema:
+            type: object
+          required: true
+  /test-leek/get-all:
+    get:
+      summary: test-leek - get-all
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - TestLeek
+  /test-leek/new:
+    post:
+      summary: test-leek - new
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - TestLeek
+      parameters:
+        - name: name
+          in: query
+          schema:
+            type: object
+          required: true
+      requestBody:
+        content:
+          application/x-www-form-urlencoded; charset=UTF-8:
+            schema:
+              type: object
+              properties: {}
+  /test-leek/update:
+    post:
+      summary: test-leek - update
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - TestLeek
+      parameters:
+        - name: id
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: data
+          in: query
+          schema:
+            type: object
+          required: true
+      requestBody:
+        content:
+          application/x-www-form-urlencoded; charset=UTF-8:
+            schema:
+              type: object
+              properties: {}
+  /test-map/delete:
+    delete:
+      summary: test-map - delete
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - TestMap
+      parameters:
+        - name: id
+          in: query
+          schema:
+            type: object
+          required: true
+  /test-map/get-all:
+    get:
+      summary: test-map - get-all
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - TestMap
+  /test-map/new:
+    post:
+      summary: test-map - new
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - TestMap
+      parameters:
+        - name: name
+          in: query
+          schema:
+            type: object
+          required: true
+      requestBody:
+        content:
+          application/x-www-form-urlencoded; charset=UTF-8:
+            schema:
+              type: object
+              properties: {}
+  /test-map/update:
+    post:
+      summary: test-map - update
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - TestMap
+      parameters:
+        - name: id
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: data
+          in: query
+          schema:
+            type: object
+          required: true
+      requestBody:
+        content:
+          application/x-www-form-urlencoded; charset=UTF-8:
+            schema:
+              type: object
+              properties: {}
+  /test-scenario/add-leek:
+    post:
+      summary: test-scenario - add-leek
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - TestScenario
+      parameters:
+        - name: scenario_id
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: leek
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: team
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: ai
+          in: query
+          schema:
+            type: object
+          required: true
+      requestBody:
+        content:
+          application/x-www-form-urlencoded; charset=UTF-8:
+            schema:
+              type: object
+              properties: {}
+  /test-scenario/delete:
+    delete:
+      summary: test-scenario - delete
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - TestScenario
+      parameters:
+        - name: id
+          in: query
+          schema:
+            type: object
+          required: true
+  /test-scenario/delete-leek:
+    delete:
+      summary: test-scenario - delete-leek
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - TestScenario
+      parameters:
+        - name: scenario_id
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: leek
+          in: query
+          schema:
+            type: object
+          required: true
+  /test-scenario/get-all:
+    get:
+      summary: test-scenario - get-all
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - TestScenario
+  /test-scenario/new:
+    post:
+      summary: test-scenario - new
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - TestScenario
+      parameters:
+        - name: name
+          in: query
+          schema:
+            type: object
+          required: true
+      requestBody:
+        content:
+          application/x-www-form-urlencoded; charset=UTF-8:
+            schema:
+              type: object
+              properties: {}
+  /test-scenario/update:
+    post:
+      summary: test-scenario - update
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - TestScenario
+      parameters:
+        - name: id
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: data
+          in: query
+          schema:
+            type: object
+          required: true
+      requestBody:
+        content:
+          application/x-www-form-urlencoded; charset=UTF-8:
+            schema:
+              type: object
+              properties: {}
+  /tournament/comment:
+    post:
+      summary: tournament - comment
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Tournament
+      parameters:
+        - name: tournament_id
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: comment
+          in: query
+          schema:
+            type: object
+          required: true
+      requestBody:
+        content:
+          application/x-www-form-urlencoded; charset=UTF-8:
+            schema:
+              type: object
+              properties: {}
+  /tournament/generate:
+    post:
+      summary: tournament - generate
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Tournament
+      parameters:
+        - name: tournament_id
+          in: query
+          schema:
+            type: object
+          required: true
+      requestBody:
+        content:
+          application/x-www-form-urlencoded; charset=UTF-8:
+            schema:
+              type: object
+              properties: {}
+  /tournament/get:
+    get:
+      summary: tournament - get
+      security: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+      tags:
+        - Tournament
+      parameters:
+        - name: tournament_id
+          in: query
+          schema:
+            type: object
+          required: true
+  /trophy/get-all:
+    get:
+      summary: trophy - get-all
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Trophy
+  /trophy/get-categories:
+    get:
+      summary: trophy - get-categories
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Trophy
+  /trophy/get-farmer-trophies:
+    get:
+      summary: trophy - get-farmer-trophies
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Trophy
+      parameters:
+        - name: farmer_id
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: lang
+          in: query
+          schema:
+            type: object
+          required: true
+  /trophy/get-trophy-words:
+    get:
+      summary: trophy - get-trophy-words
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Trophy
+  /trophy/my-trophies:
+    get:
+      summary: trophy - my-trophies
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+      tags:
+        - Trophy
+      parameters:
+        - name: lang
+          in: query
+          schema:
+            type: object
+          required: true
+  /trophy/retrieve-all-rewards:
+    post:
+      summary: trophy - retrieve-all-rewards
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Trophy
+  /trophy/retrieve-reward:
+    post:
+      summary: trophy - retrieve-reward
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Trophy
+      parameters:
+        - name: trophy_id
+          in: query
+          schema:
+            type: object
+          required: true
+      requestBody:
+        content:
+          application/x-www-form-urlencoded; charset=UTF-8:
+            schema:
+              type: object
+              properties: {}
+  /trophy-template/get:
+    get:
+      summary: trophy-template - get
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - TrophyTemplate
+      parameters:
+        - name: code
+          in: query
+          schema:
+            type: object
+          required: true
+        - name: locale
+          in: query
+          schema:
+            type: object
+          required: true
+  /weapon/get-all:
+    get:
+      summary: weapon - get-all
+      security: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+      tags:
+        - Weapon
+  /weapon/get-templates:
+    get:
+      summary: weapon - get-templates
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+        - Weapon
+components:
+  schemas: {}
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
