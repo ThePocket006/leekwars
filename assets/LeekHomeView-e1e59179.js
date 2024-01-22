@@ -1,1 +1,0 @@
-import{d as e,o as s,c as a,b as c}from"./index-17a06ee2.js";const t=e({__name:"Leekwars",setup(n){return console.log("$services"),(o,r)=>" Leekwars "}}),m=e({__name:"LeekHomeView",setup(n){return(o,r)=>(s(),a("main",null,[c(t)]))}});export{m as default};
