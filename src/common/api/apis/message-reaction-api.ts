@@ -11,11 +11,13 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import type {AxiosInstance, AxiosRequestConfig, AxiosResponse} from "axios";
+
+import type {AxiosResponse, AxiosInstance, AxiosRequestConfig} from "axios";
 import globalAxios from "axios";
 import { Configuration } from '@/common/api';
-import type {RequestArgs} from "@/common/api/base";
-import {BASE_PATH, BaseAPI, RequiredError} from "@/common/api/base";
+// Some imports not used depending on template conditions
+// @ts-ignore
+import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
 /**
  * MessageReactionApi - axios parameter creator
  * @export
@@ -27,18 +29,18 @@ export const MessageReactionApiAxiosParamCreator = function (configuration?: Con
          * @summary message-reaction - add
          * @param {string} reaction 
          * @param {number} messageId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        messageReactionAddPostForm: async (reaction: string, messageId: number, file?: Blob, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        messageReactionAddPost: async (reaction: string, messageId: number, body?: any, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'reaction' is not null or undefined
             if (reaction === null || reaction === undefined) {
-                throw new RequiredError('reaction','Required parameter reaction was null or undefined when calling messageReactionAddPostForm.');
+                throw new RequiredError('reaction','Required parameter reaction was null or undefined when calling messageReactionAddPost.');
             }
             // verify required parameter 'messageId' is not null or undefined
             if (messageId === null || messageId === undefined) {
-                throw new RequiredError('messageId','Required parameter messageId was null or undefined when calling messageReactionAddPostForm.');
+                throw new RequiredError('messageId','Required parameter messageId was null or undefined when calling messageReactionAddPost.');
             }
             const localVarPath = `/message-reaction/add`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -50,9 +52,8 @@ export const MessageReactionApiAxiosParamCreator = function (configuration?: Con
             const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-            const localVarFormParams = new FormData();
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -69,12 +70,8 @@ export const MessageReactionApiAxiosParamCreator = function (configuration?: Con
                 localVarQueryParameter['message_id'] = messageId;
             }
 
-
-            if (file !== undefined) { 
-                localVarFormParams.append('file', file as any);
-            }
-
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
                 query.set(key, localVarQueryParameter[key]);
@@ -85,7 +82,8 @@ export const MessageReactionApiAxiosParamCreator = function (configuration?: Con
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = localVarFormParams;
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -115,7 +113,7 @@ export const MessageReactionApiAxiosParamCreator = function (configuration?: Con
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -158,12 +156,12 @@ export const MessageReactionApiFp = function(configuration?: Configuration) {
          * @summary message-reaction - add
          * @param {string} reaction 
          * @param {number} messageId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async messageReactionAddPostForm(reaction: string, messageId: number, file?: Blob, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await MessageReactionApiAxiosParamCreator(configuration).messageReactionAddPostForm(reaction, messageId, file, options);
+        async messageReactionAddPost(reaction: string, messageId: number, body?: any, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
+            const localVarAxiosArgs = await MessageReactionApiAxiosParamCreator(configuration).messageReactionAddPost(reaction, messageId, body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -176,7 +174,7 @@ export const MessageReactionApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async messageReactionDeleteDelete(messageId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async messageReactionDeleteDelete(messageId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await MessageReactionApiAxiosParamCreator(configuration).messageReactionDeleteDelete(messageId, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -197,12 +195,12 @@ export const MessageReactionApiFactory = function (configuration?: Configuration
          * @summary message-reaction - add
          * @param {string} reaction 
          * @param {number} messageId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async messageReactionAddPostForm(reaction: string, messageId: number, file?: Blob, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return MessageReactionApiFp(configuration).messageReactionAddPostForm(reaction, messageId, file, options).then((request) => request(axios, basePath));
+        async messageReactionAddPost(reaction: string, messageId: number, body?: any, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
+            return MessageReactionApiFp(configuration).messageReactionAddPost(reaction, messageId, body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -211,7 +209,7 @@ export const MessageReactionApiFactory = function (configuration?: Configuration
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async messageReactionDeleteDelete(messageId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async messageReactionDeleteDelete(messageId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return MessageReactionApiFp(configuration).messageReactionDeleteDelete(messageId, options).then((request) => request(axios, basePath));
         },
     };
@@ -229,13 +227,13 @@ export class MessageReactionApi extends BaseAPI {
      * @summary message-reaction - add
      * @param {string} reaction 
      * @param {number} messageId 
-     * @param {Blob} [file] 
+     * @param {any} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof MessageReactionApi
      */
-    public async messageReactionAddPostForm(reaction: string, messageId: number, file?: Blob, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return MessageReactionApiFp(this.configuration).messageReactionAddPostForm(reaction, messageId, file, options).then((request) => request(this.axios, this.basePath));
+    public async messageReactionAddPost(reaction: string, messageId: number, body?: any, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
+        return MessageReactionApiFp(this.configuration).messageReactionAddPost(reaction, messageId, body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
@@ -245,7 +243,7 @@ export class MessageReactionApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof MessageReactionApi
      */
-    public async messageReactionDeleteDelete(messageId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async messageReactionDeleteDelete(messageId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return MessageReactionApiFp(this.configuration).messageReactionDeleteDelete(messageId, options).then((request) => request(this.axios, this.basePath));
     }
 }

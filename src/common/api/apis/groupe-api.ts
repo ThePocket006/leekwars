@@ -11,11 +11,13 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import type {AxiosInstance, AxiosRequestConfig, AxiosResponse} from "axios";
+
+import type {AxiosResponse, AxiosInstance, AxiosRequestConfig} from "axios";
 import globalAxios from "axios";
 import { Configuration } from '@/common/api';
-import type {RequestArgs} from "@/common/api/base";
-import {BASE_PATH, BaseAPI, RequiredError} from "@/common/api/base";
+// Some imports not used depending on template conditions
+// @ts-ignore
+import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
 /**
  * GroupeApi - axios parameter creator
  * @export
@@ -26,14 +28,14 @@ export const GroupeApiAxiosParamCreator = function (configuration?: Configuratio
          * 
          * @summary groupe - apply-equipment
          * @param {number} groupId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        groupeApplyEquipmentPostForm: async (groupId: number, file?: Blob, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        groupeApplyEquipmentPost: async (groupId: number, body?: any, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'groupId' is not null or undefined
             if (groupId === null || groupId === undefined) {
-                throw new RequiredError('groupId','Required parameter groupId was null or undefined when calling groupeApplyEquipmentPostForm.');
+                throw new RequiredError('groupId','Required parameter groupId was null or undefined when calling groupeApplyEquipmentPost.');
             }
             const localVarPath = `/groupe/apply-equipment`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -45,9 +47,8 @@ export const GroupeApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-            const localVarFormParams = new FormData();
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -60,12 +61,8 @@ export const GroupeApiAxiosParamCreator = function (configuration?: Configuratio
                 localVarQueryParameter['group_id'] = groupId;
             }
 
-
-            if (file !== undefined) { 
-                localVarFormParams.append('file', file as any);
-            }
-
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
                 query.set(key, localVarQueryParameter[key]);
@@ -76,7 +73,8 @@ export const GroupeApiAxiosParamCreator = function (configuration?: Configuratio
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = localVarFormParams;
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -87,14 +85,14 @@ export const GroupeApiAxiosParamCreator = function (configuration?: Configuratio
          * 
          * @summary groupe - create-member
          * @param {number} groupId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        groupeCreateMemberPostForm: async (groupId: number, file?: Blob, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        groupeCreateMemberPost: async (groupId: number, body?: any, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'groupId' is not null or undefined
             if (groupId === null || groupId === undefined) {
-                throw new RequiredError('groupId','Required parameter groupId was null or undefined when calling groupeCreateMemberPostForm.');
+                throw new RequiredError('groupId','Required parameter groupId was null or undefined when calling groupeCreateMemberPost.');
             }
             const localVarPath = `/groupe/create-member`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -106,9 +104,8 @@ export const GroupeApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-            const localVarFormParams = new FormData();
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -121,12 +118,8 @@ export const GroupeApiAxiosParamCreator = function (configuration?: Configuratio
                 localVarQueryParameter['group_id'] = groupId;
             }
 
-
-            if (file !== undefined) { 
-                localVarFormParams.append('file', file as any);
-            }
-
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
                 query.set(key, localVarQueryParameter[key]);
@@ -137,7 +130,8 @@ export const GroupeApiAxiosParamCreator = function (configuration?: Configuratio
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = localVarFormParams;
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -150,12 +144,12 @@ export const GroupeApiAxiosParamCreator = function (configuration?: Configuratio
          * @param {number} groupId 
          * @param {number} level 
          * @param {string} characteristics 
-         * @param {Array} weapons 
-         * @param {Array} chips 
+         * @param {Array<any>} weapons 
+         * @param {Array<any>} chips 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        groupeEquipmentPut: async (groupId: number, level: number, characteristics: string, weapons: Array, chips: Array, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        groupeEquipmentPut: async (groupId: number, level: number, characteristics: string, weapons: Array<any>, chips: Array<any>, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'groupId' is not null or undefined
             if (groupId === null || groupId === undefined) {
                 throw new RequiredError('groupId','Required parameter groupId was null or undefined when calling groupeEquipmentPut.');
@@ -187,7 +181,7 @@ export const GroupeApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -208,11 +202,11 @@ export const GroupeApiAxiosParamCreator = function (configuration?: Configuratio
                 localVarQueryParameter['characteristics'] = characteristics;
             }
 
-            if (weapons !== undefined) {
+            if (weapons) {
                 localVarQueryParameter['weapons'] = weapons;
             }
 
-            if (chips !== undefined) {
+            if (chips) {
                 localVarQueryParameter['chips'] = chips;
             }
 
@@ -255,7 +249,7 @@ export const GroupeApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -290,22 +284,22 @@ export const GroupeApiAxiosParamCreator = function (configuration?: Configuratio
          * @param {number} groupId 
          * @param {number} memberId 
          * @param {number} itemId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        groupeGiveItemPostForm: async (groupId: number, memberId: number, itemId: number, file?: Blob, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        groupeGiveItemPost: async (groupId: number, memberId: number, itemId: number, body?: any, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'groupId' is not null or undefined
             if (groupId === null || groupId === undefined) {
-                throw new RequiredError('groupId','Required parameter groupId was null or undefined when calling groupeGiveItemPostForm.');
+                throw new RequiredError('groupId','Required parameter groupId was null or undefined when calling groupeGiveItemPost.');
             }
             // verify required parameter 'memberId' is not null or undefined
             if (memberId === null || memberId === undefined) {
-                throw new RequiredError('memberId','Required parameter memberId was null or undefined when calling groupeGiveItemPostForm.');
+                throw new RequiredError('memberId','Required parameter memberId was null or undefined when calling groupeGiveItemPost.');
             }
             // verify required parameter 'itemId' is not null or undefined
             if (itemId === null || itemId === undefined) {
-                throw new RequiredError('itemId','Required parameter itemId was null or undefined when calling groupeGiveItemPostForm.');
+                throw new RequiredError('itemId','Required parameter itemId was null or undefined when calling groupeGiveItemPost.');
             }
             const localVarPath = `/groupe/give-item`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -317,9 +311,8 @@ export const GroupeApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-            const localVarFormParams = new FormData();
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -340,12 +333,8 @@ export const GroupeApiAxiosParamCreator = function (configuration?: Configuratio
                 localVarQueryParameter['item_id'] = itemId;
             }
 
-
-            if (file !== undefined) { 
-                localVarFormParams.append('file', file as any);
-            }
-
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
                 query.set(key, localVarQueryParameter[key]);
@@ -356,7 +345,8 @@ export const GroupeApiAxiosParamCreator = function (configuration?: Configuratio
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = localVarFormParams;
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -396,7 +386,7 @@ export const GroupeApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -466,7 +456,7 @@ export const GroupeApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -536,7 +526,7 @@ export const GroupeApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -606,7 +596,7 @@ export const GroupeApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -671,7 +661,7 @@ export const GroupeApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -709,18 +699,18 @@ export const GroupeApiAxiosParamCreator = function (configuration?: Configuratio
          * @summary groupe - send-invite
          * @param {number} groupId 
          * @param {number} memberId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        groupeSendInvitePostForm: async (groupId: number, memberId: number, file?: Blob, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        groupeSendInvitePost: async (groupId: number, memberId: number, body?: any, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'groupId' is not null or undefined
             if (groupId === null || groupId === undefined) {
-                throw new RequiredError('groupId','Required parameter groupId was null or undefined when calling groupeSendInvitePostForm.');
+                throw new RequiredError('groupId','Required parameter groupId was null or undefined when calling groupeSendInvitePost.');
             }
             // verify required parameter 'memberId' is not null or undefined
             if (memberId === null || memberId === undefined) {
-                throw new RequiredError('memberId','Required parameter memberId was null or undefined when calling groupeSendInvitePostForm.');
+                throw new RequiredError('memberId','Required parameter memberId was null or undefined when calling groupeSendInvitePost.');
             }
             const localVarPath = `/groupe/send-invite`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -732,9 +722,8 @@ export const GroupeApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-            const localVarFormParams = new FormData();
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -751,12 +740,8 @@ export const GroupeApiAxiosParamCreator = function (configuration?: Configuratio
                 localVarQueryParameter['member_id'] = memberId;
             }
 
-
-            if (file !== undefined) { 
-                localVarFormParams.append('file', file as any);
-            }
-
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
                 query.set(key, localVarQueryParameter[key]);
@@ -767,7 +752,8 @@ export const GroupeApiAxiosParamCreator = function (configuration?: Configuratio
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = localVarFormParams;
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -802,7 +788,7 @@ export const GroupeApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -863,7 +849,7 @@ export const GroupeApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -924,7 +910,7 @@ export const GroupeApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -985,7 +971,7 @@ export const GroupeApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -1046,7 +1032,7 @@ export const GroupeApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -1107,7 +1093,7 @@ export const GroupeApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -1168,7 +1154,7 @@ export const GroupeApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -1229,7 +1215,7 @@ export const GroupeApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -1290,7 +1276,7 @@ export const GroupeApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -1327,14 +1313,14 @@ export const GroupeApiAxiosParamCreator = function (configuration?: Configuratio
          * 
          * @summary groupe - start-battle-royale
          * @param {number} groupId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        groupeStartBattleRoyalePostForm: async (groupId: number, file?: Blob, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        groupeStartBattleRoyalePost: async (groupId: number, body?: any, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'groupId' is not null or undefined
             if (groupId === null || groupId === undefined) {
-                throw new RequiredError('groupId','Required parameter groupId was null or undefined when calling groupeStartBattleRoyalePostForm.');
+                throw new RequiredError('groupId','Required parameter groupId was null or undefined when calling groupeStartBattleRoyalePost.');
             }
             const localVarPath = `/groupe/start-battle-royale`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -1346,9 +1332,8 @@ export const GroupeApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-            const localVarFormParams = new FormData();
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -1361,12 +1346,8 @@ export const GroupeApiAxiosParamCreator = function (configuration?: Configuratio
                 localVarQueryParameter['group_id'] = groupId;
             }
 
-
-            if (file !== undefined) { 
-                localVarFormParams.append('file', file as any);
-            }
-
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
                 query.set(key, localVarQueryParameter[key]);
@@ -1377,7 +1358,8 @@ export const GroupeApiAxiosParamCreator = function (configuration?: Configuratio
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = localVarFormParams;
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -1388,14 +1370,14 @@ export const GroupeApiAxiosParamCreator = function (configuration?: Configuratio
          * 
          * @summary groupe - start-solo-tournament
          * @param {number} groupId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        groupeStartSoloTournamentPostForm: async (groupId: number, file?: Blob, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        groupeStartSoloTournamentPost: async (groupId: number, body?: any, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'groupId' is not null or undefined
             if (groupId === null || groupId === undefined) {
-                throw new RequiredError('groupId','Required parameter groupId was null or undefined when calling groupeStartSoloTournamentPostForm.');
+                throw new RequiredError('groupId','Required parameter groupId was null or undefined when calling groupeStartSoloTournamentPost.');
             }
             const localVarPath = `/groupe/start-solo-tournament`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -1407,9 +1389,8 @@ export const GroupeApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-            const localVarFormParams = new FormData();
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -1422,12 +1403,8 @@ export const GroupeApiAxiosParamCreator = function (configuration?: Configuratio
                 localVarQueryParameter['group_id'] = groupId;
             }
 
-
-            if (file !== undefined) { 
-                localVarFormParams.append('file', file as any);
-            }
-
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
                 query.set(key, localVarQueryParameter[key]);
@@ -1438,7 +1415,8 @@ export const GroupeApiAxiosParamCreator = function (configuration?: Configuratio
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = localVarFormParams;
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -1449,14 +1427,14 @@ export const GroupeApiAxiosParamCreator = function (configuration?: Configuratio
          * 
          * @summary groupe - start-team-tournament
          * @param {number} groupId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        groupeStartTeamTournamentPostForm: async (groupId: number, file?: Blob, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        groupeStartTeamTournamentPost: async (groupId: number, body?: any, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'groupId' is not null or undefined
             if (groupId === null || groupId === undefined) {
-                throw new RequiredError('groupId','Required parameter groupId was null or undefined when calling groupeStartTeamTournamentPostForm.');
+                throw new RequiredError('groupId','Required parameter groupId was null or undefined when calling groupeStartTeamTournamentPost.');
             }
             const localVarPath = `/groupe/start-team-tournament`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -1468,9 +1446,8 @@ export const GroupeApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-            const localVarFormParams = new FormData();
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -1483,12 +1460,8 @@ export const GroupeApiAxiosParamCreator = function (configuration?: Configuratio
                 localVarQueryParameter['group_id'] = groupId;
             }
 
-
-            if (file !== undefined) { 
-                localVarFormParams.append('file', file as any);
-            }
-
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
                 query.set(key, localVarQueryParameter[key]);
@@ -1499,7 +1472,8 @@ export const GroupeApiAxiosParamCreator = function (configuration?: Configuratio
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = localVarFormParams;
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -1519,12 +1493,12 @@ export const GroupeApiFp = function(configuration?: Configuration) {
          * 
          * @summary groupe - apply-equipment
          * @param {number} groupId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async groupeApplyEquipmentPostForm(groupId: number, file?: Blob, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await GroupeApiAxiosParamCreator(configuration).groupeApplyEquipmentPostForm(groupId, file, options);
+        async groupeApplyEquipmentPost(groupId: number, body?: any, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
+            const localVarAxiosArgs = await GroupeApiAxiosParamCreator(configuration).groupeApplyEquipmentPost(groupId, body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -1534,12 +1508,12 @@ export const GroupeApiFp = function(configuration?: Configuration) {
          * 
          * @summary groupe - create-member
          * @param {number} groupId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async groupeCreateMemberPostForm(groupId: number, file?: Blob, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await GroupeApiAxiosParamCreator(configuration).groupeCreateMemberPostForm(groupId, file, options);
+        async groupeCreateMemberPost(groupId: number, body?: any, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
+            const localVarAxiosArgs = await GroupeApiAxiosParamCreator(configuration).groupeCreateMemberPost(groupId, body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -1551,12 +1525,12 @@ export const GroupeApiFp = function(configuration?: Configuration) {
          * @param {number} groupId 
          * @param {number} level 
          * @param {string} characteristics 
-         * @param {Array} weapons 
-         * @param {Array} chips 
+         * @param {Array<any>} weapons 
+         * @param {Array<any>} chips 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async groupeEquipmentPut(groupId: number, level: number, characteristics: string, weapons: Array, chips: Array, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async groupeEquipmentPut(groupId: number, level: number, characteristics: string, weapons: Array<any>, chips: Array<any>, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await GroupeApiAxiosParamCreator(configuration).groupeEquipmentPut(groupId, level, characteristics, weapons, chips, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -1570,7 +1544,7 @@ export const GroupeApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async groupeGetGet(groupId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async groupeGetGet(groupId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await GroupeApiAxiosParamCreator(configuration).groupeGetGet(groupId, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -1583,12 +1557,12 @@ export const GroupeApiFp = function(configuration?: Configuration) {
          * @param {number} groupId 
          * @param {number} memberId 
          * @param {number} itemId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async groupeGiveItemPostForm(groupId: number, memberId: number, itemId: number, file?: Blob, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await GroupeApiAxiosParamCreator(configuration).groupeGiveItemPostForm(groupId, memberId, itemId, file, options);
+        async groupeGiveItemPost(groupId: number, memberId: number, itemId: number, body?: any, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
+            const localVarAxiosArgs = await GroupeApiAxiosParamCreator(configuration).groupeGiveItemPost(groupId, memberId, itemId, body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -1603,7 +1577,7 @@ export const GroupeApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async groupeMemberEmailPut(groupId: number, memberId: number, email: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async groupeMemberEmailPut(groupId: number, memberId: number, email: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await GroupeApiAxiosParamCreator(configuration).groupeMemberEmailPut(groupId, memberId, email, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -1619,7 +1593,7 @@ export const GroupeApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async groupeMemberLeekNamePut(groupId: number, memberId: number, leekName: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async groupeMemberLeekNamePut(groupId: number, memberId: number, leekName: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await GroupeApiAxiosParamCreator(configuration).groupeMemberLeekNamePut(groupId, memberId, leekName, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -1635,7 +1609,7 @@ export const GroupeApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async groupeMemberNamePut(groupId: number, memberId: number, name: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async groupeMemberNamePut(groupId: number, memberId: number, name: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await GroupeApiAxiosParamCreator(configuration).groupeMemberNamePut(groupId, memberId, name, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -1651,7 +1625,7 @@ export const GroupeApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async groupeMemberPasswordPut(groupId: number, memberId: number, password: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async groupeMemberPasswordPut(groupId: number, memberId: number, password: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await GroupeApiAxiosParamCreator(configuration).groupeMemberPasswordPut(groupId, memberId, password, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -1666,7 +1640,7 @@ export const GroupeApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async groupeRemoveMemberDelete(groupId: number, memberId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async groupeRemoveMemberDelete(groupId: number, memberId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await GroupeApiAxiosParamCreator(configuration).groupeRemoveMemberDelete(groupId, memberId, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -1678,12 +1652,12 @@ export const GroupeApiFp = function(configuration?: Configuration) {
          * @summary groupe - send-invite
          * @param {number} groupId 
          * @param {number} memberId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async groupeSendInvitePostForm(groupId: number, memberId: number, file?: Blob, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await GroupeApiAxiosParamCreator(configuration).groupeSendInvitePostForm(groupId, memberId, file, options);
+        async groupeSendInvitePost(groupId: number, memberId: number, body?: any, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
+            const localVarAxiosArgs = await GroupeApiAxiosParamCreator(configuration).groupeSendInvitePost(groupId, memberId, body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -1697,7 +1671,7 @@ export const GroupeApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async groupeSettingBankPut(groupId: number, enabled: boolean, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async groupeSettingBankPut(groupId: number, enabled: boolean, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await GroupeApiAxiosParamCreator(configuration).groupeSettingBankPut(groupId, enabled, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -1712,7 +1686,7 @@ export const GroupeApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async groupeSettingBrPut(groupId: number, enabled: boolean, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async groupeSettingBrPut(groupId: number, enabled: boolean, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await GroupeApiAxiosParamCreator(configuration).groupeSettingBrPut(groupId, enabled, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -1727,7 +1701,7 @@ export const GroupeApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async groupeSettingBuyFightsPut(groupId: number, enabled: boolean, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async groupeSettingBuyFightsPut(groupId: number, enabled: boolean, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await GroupeApiAxiosParamCreator(configuration).groupeSettingBuyFightsPut(groupId, enabled, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -1742,7 +1716,7 @@ export const GroupeApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async groupeSettingChatPut(groupId: number, enabled: boolean, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async groupeSettingChatPut(groupId: number, enabled: boolean, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await GroupeApiAxiosParamCreator(configuration).groupeSettingChatPut(groupId, enabled, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -1757,7 +1731,7 @@ export const GroupeApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async groupeSettingEquipmentBlockedPut(groupId: number, enabled: boolean, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async groupeSettingEquipmentBlockedPut(groupId: number, enabled: boolean, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await GroupeApiAxiosParamCreator(configuration).groupeSettingEquipmentBlockedPut(groupId, enabled, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -1772,7 +1746,7 @@ export const GroupeApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async groupeSettingNewLeekPut(groupId: number, enabled: boolean, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async groupeSettingNewLeekPut(groupId: number, enabled: boolean, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await GroupeApiAxiosParamCreator(configuration).groupeSettingNewLeekPut(groupId, enabled, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -1787,7 +1761,7 @@ export const GroupeApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async groupeSettingPublicChatPut(groupId: number, enabled: boolean, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async groupeSettingPublicChatPut(groupId: number, enabled: boolean, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await GroupeApiAxiosParamCreator(configuration).groupeSettingPublicChatPut(groupId, enabled, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -1802,7 +1776,7 @@ export const GroupeApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async groupeSettingTournamentsPut(groupId: number, enabled: boolean, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async groupeSettingTournamentsPut(groupId: number, enabled: boolean, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await GroupeApiAxiosParamCreator(configuration).groupeSettingTournamentsPut(groupId, enabled, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -1817,7 +1791,7 @@ export const GroupeApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async groupeSettingXpBlockedPut(groupId: number, enabled: boolean, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async groupeSettingXpBlockedPut(groupId: number, enabled: boolean, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await GroupeApiAxiosParamCreator(configuration).groupeSettingXpBlockedPut(groupId, enabled, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -1828,12 +1802,12 @@ export const GroupeApiFp = function(configuration?: Configuration) {
          * 
          * @summary groupe - start-battle-royale
          * @param {number} groupId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async groupeStartBattleRoyalePostForm(groupId: number, file?: Blob, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await GroupeApiAxiosParamCreator(configuration).groupeStartBattleRoyalePostForm(groupId, file, options);
+        async groupeStartBattleRoyalePost(groupId: number, body?: any, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
+            const localVarAxiosArgs = await GroupeApiAxiosParamCreator(configuration).groupeStartBattleRoyalePost(groupId, body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -1843,12 +1817,12 @@ export const GroupeApiFp = function(configuration?: Configuration) {
          * 
          * @summary groupe - start-solo-tournament
          * @param {number} groupId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async groupeStartSoloTournamentPostForm(groupId: number, file?: Blob, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await GroupeApiAxiosParamCreator(configuration).groupeStartSoloTournamentPostForm(groupId, file, options);
+        async groupeStartSoloTournamentPost(groupId: number, body?: any, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
+            const localVarAxiosArgs = await GroupeApiAxiosParamCreator(configuration).groupeStartSoloTournamentPost(groupId, body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -1858,12 +1832,12 @@ export const GroupeApiFp = function(configuration?: Configuration) {
          * 
          * @summary groupe - start-team-tournament
          * @param {number} groupId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async groupeStartTeamTournamentPostForm(groupId: number, file?: Blob, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await GroupeApiAxiosParamCreator(configuration).groupeStartTeamTournamentPostForm(groupId, file, options);
+        async groupeStartTeamTournamentPost(groupId: number, body?: any, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<string>>> {
+            const localVarAxiosArgs = await GroupeApiAxiosParamCreator(configuration).groupeStartTeamTournamentPost(groupId, body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -1882,23 +1856,23 @@ export const GroupeApiFactory = function (configuration?: Configuration, basePat
          * 
          * @summary groupe - apply-equipment
          * @param {number} groupId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async groupeApplyEquipmentPostForm(groupId: number, file?: Blob, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return GroupeApiFp(configuration).groupeApplyEquipmentPostForm(groupId, file, options).then((request) => request(axios, basePath));
+        async groupeApplyEquipmentPost(groupId: number, body?: any, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
+            return GroupeApiFp(configuration).groupeApplyEquipmentPost(groupId, body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary groupe - create-member
          * @param {number} groupId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async groupeCreateMemberPostForm(groupId: number, file?: Blob, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return GroupeApiFp(configuration).groupeCreateMemberPostForm(groupId, file, options).then((request) => request(axios, basePath));
+        async groupeCreateMemberPost(groupId: number, body?: any, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
+            return GroupeApiFp(configuration).groupeCreateMemberPost(groupId, body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -1906,12 +1880,12 @@ export const GroupeApiFactory = function (configuration?: Configuration, basePat
          * @param {number} groupId 
          * @param {number} level 
          * @param {string} characteristics 
-         * @param {Array} weapons 
-         * @param {Array} chips 
+         * @param {Array<any>} weapons 
+         * @param {Array<any>} chips 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async groupeEquipmentPut(groupId: number, level: number, characteristics: string, weapons: Array, chips: Array, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async groupeEquipmentPut(groupId: number, level: number, characteristics: string, weapons: Array<any>, chips: Array<any>, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return GroupeApiFp(configuration).groupeEquipmentPut(groupId, level, characteristics, weapons, chips, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1921,7 +1895,7 @@ export const GroupeApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async groupeGetGet(groupId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async groupeGetGet(groupId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return GroupeApiFp(configuration).groupeGetGet(groupId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1930,12 +1904,12 @@ export const GroupeApiFactory = function (configuration?: Configuration, basePat
          * @param {number} groupId 
          * @param {number} memberId 
          * @param {number} itemId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async groupeGiveItemPostForm(groupId: number, memberId: number, itemId: number, file?: Blob, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return GroupeApiFp(configuration).groupeGiveItemPostForm(groupId, memberId, itemId, file, options).then((request) => request(axios, basePath));
+        async groupeGiveItemPost(groupId: number, memberId: number, itemId: number, body?: any, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
+            return GroupeApiFp(configuration).groupeGiveItemPost(groupId, memberId, itemId, body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -1946,7 +1920,7 @@ export const GroupeApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async groupeMemberEmailPut(groupId: number, memberId: number, email: string, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async groupeMemberEmailPut(groupId: number, memberId: number, email: string, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return GroupeApiFp(configuration).groupeMemberEmailPut(groupId, memberId, email, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1958,7 +1932,7 @@ export const GroupeApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async groupeMemberLeekNamePut(groupId: number, memberId: number, leekName: string, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async groupeMemberLeekNamePut(groupId: number, memberId: number, leekName: string, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return GroupeApiFp(configuration).groupeMemberLeekNamePut(groupId, memberId, leekName, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1970,7 +1944,7 @@ export const GroupeApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async groupeMemberNamePut(groupId: number, memberId: number, name: string, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async groupeMemberNamePut(groupId: number, memberId: number, name: string, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return GroupeApiFp(configuration).groupeMemberNamePut(groupId, memberId, name, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1982,7 +1956,7 @@ export const GroupeApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async groupeMemberPasswordPut(groupId: number, memberId: number, password: string, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async groupeMemberPasswordPut(groupId: number, memberId: number, password: string, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return GroupeApiFp(configuration).groupeMemberPasswordPut(groupId, memberId, password, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1993,7 +1967,7 @@ export const GroupeApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async groupeRemoveMemberDelete(groupId: number, memberId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async groupeRemoveMemberDelete(groupId: number, memberId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return GroupeApiFp(configuration).groupeRemoveMemberDelete(groupId, memberId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2001,12 +1975,12 @@ export const GroupeApiFactory = function (configuration?: Configuration, basePat
          * @summary groupe - send-invite
          * @param {number} groupId 
          * @param {number} memberId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async groupeSendInvitePostForm(groupId: number, memberId: number, file?: Blob, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return GroupeApiFp(configuration).groupeSendInvitePostForm(groupId, memberId, file, options).then((request) => request(axios, basePath));
+        async groupeSendInvitePost(groupId: number, memberId: number, body?: any, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
+            return GroupeApiFp(configuration).groupeSendInvitePost(groupId, memberId, body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -2016,7 +1990,7 @@ export const GroupeApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async groupeSettingBankPut(groupId: number, enabled: boolean, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async groupeSettingBankPut(groupId: number, enabled: boolean, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return GroupeApiFp(configuration).groupeSettingBankPut(groupId, enabled, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2027,7 +2001,7 @@ export const GroupeApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async groupeSettingBrPut(groupId: number, enabled: boolean, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async groupeSettingBrPut(groupId: number, enabled: boolean, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return GroupeApiFp(configuration).groupeSettingBrPut(groupId, enabled, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2038,7 +2012,7 @@ export const GroupeApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async groupeSettingBuyFightsPut(groupId: number, enabled: boolean, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async groupeSettingBuyFightsPut(groupId: number, enabled: boolean, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return GroupeApiFp(configuration).groupeSettingBuyFightsPut(groupId, enabled, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2049,7 +2023,7 @@ export const GroupeApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async groupeSettingChatPut(groupId: number, enabled: boolean, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async groupeSettingChatPut(groupId: number, enabled: boolean, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return GroupeApiFp(configuration).groupeSettingChatPut(groupId, enabled, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2060,7 +2034,7 @@ export const GroupeApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async groupeSettingEquipmentBlockedPut(groupId: number, enabled: boolean, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async groupeSettingEquipmentBlockedPut(groupId: number, enabled: boolean, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return GroupeApiFp(configuration).groupeSettingEquipmentBlockedPut(groupId, enabled, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2071,7 +2045,7 @@ export const GroupeApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async groupeSettingNewLeekPut(groupId: number, enabled: boolean, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async groupeSettingNewLeekPut(groupId: number, enabled: boolean, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return GroupeApiFp(configuration).groupeSettingNewLeekPut(groupId, enabled, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2082,7 +2056,7 @@ export const GroupeApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async groupeSettingPublicChatPut(groupId: number, enabled: boolean, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async groupeSettingPublicChatPut(groupId: number, enabled: boolean, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return GroupeApiFp(configuration).groupeSettingPublicChatPut(groupId, enabled, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2093,7 +2067,7 @@ export const GroupeApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async groupeSettingTournamentsPut(groupId: number, enabled: boolean, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async groupeSettingTournamentsPut(groupId: number, enabled: boolean, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return GroupeApiFp(configuration).groupeSettingTournamentsPut(groupId, enabled, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2104,41 +2078,41 @@ export const GroupeApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async groupeSettingXpBlockedPut(groupId: number, enabled: boolean, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async groupeSettingXpBlockedPut(groupId: number, enabled: boolean, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return GroupeApiFp(configuration).groupeSettingXpBlockedPut(groupId, enabled, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary groupe - start-battle-royale
          * @param {number} groupId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async groupeStartBattleRoyalePostForm(groupId: number, file?: Blob, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return GroupeApiFp(configuration).groupeStartBattleRoyalePostForm(groupId, file, options).then((request) => request(axios, basePath));
+        async groupeStartBattleRoyalePost(groupId: number, body?: any, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
+            return GroupeApiFp(configuration).groupeStartBattleRoyalePost(groupId, body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary groupe - start-solo-tournament
          * @param {number} groupId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async groupeStartSoloTournamentPostForm(groupId: number, file?: Blob, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return GroupeApiFp(configuration).groupeStartSoloTournamentPostForm(groupId, file, options).then((request) => request(axios, basePath));
+        async groupeStartSoloTournamentPost(groupId: number, body?: any, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
+            return GroupeApiFp(configuration).groupeStartSoloTournamentPost(groupId, body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary groupe - start-team-tournament
          * @param {number} groupId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async groupeStartTeamTournamentPostForm(groupId: number, file?: Blob, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return GroupeApiFp(configuration).groupeStartTeamTournamentPostForm(groupId, file, options).then((request) => request(axios, basePath));
+        async groupeStartTeamTournamentPost(groupId: number, body?: any, options?: AxiosRequestConfig): Promise<AxiosResponse<string>> {
+            return GroupeApiFp(configuration).groupeStartTeamTournamentPost(groupId, body, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -2154,25 +2128,25 @@ export class GroupeApi extends BaseAPI {
      * 
      * @summary groupe - apply-equipment
      * @param {number} groupId 
-     * @param {Blob} [file] 
+     * @param {any} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof GroupeApi
      */
-    public async groupeApplyEquipmentPostForm(groupId: number, file?: Blob, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return GroupeApiFp(this.configuration).groupeApplyEquipmentPostForm(groupId, file, options).then((request) => request(this.axios, this.basePath));
+    public async groupeApplyEquipmentPost(groupId: number, body?: any, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
+        return GroupeApiFp(this.configuration).groupeApplyEquipmentPost(groupId, body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
      * @summary groupe - create-member
      * @param {number} groupId 
-     * @param {Blob} [file] 
+     * @param {any} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof GroupeApi
      */
-    public async groupeCreateMemberPostForm(groupId: number, file?: Blob, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return GroupeApiFp(this.configuration).groupeCreateMemberPostForm(groupId, file, options).then((request) => request(this.axios, this.basePath));
+    public async groupeCreateMemberPost(groupId: number, body?: any, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
+        return GroupeApiFp(this.configuration).groupeCreateMemberPost(groupId, body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
@@ -2180,13 +2154,13 @@ export class GroupeApi extends BaseAPI {
      * @param {number} groupId 
      * @param {number} level 
      * @param {string} characteristics 
-     * @param {Array} weapons 
-     * @param {Array} chips 
+     * @param {Array<any>} weapons 
+     * @param {Array<any>} chips 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof GroupeApi
      */
-    public async groupeEquipmentPut(groupId: number, level: number, characteristics: string, weapons: Array, chips: Array, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async groupeEquipmentPut(groupId: number, level: number, characteristics: string, weapons: Array<any>, chips: Array<any>, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return GroupeApiFp(this.configuration).groupeEquipmentPut(groupId, level, characteristics, weapons, chips, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -2197,7 +2171,7 @@ export class GroupeApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof GroupeApi
      */
-    public async groupeGetGet(groupId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async groupeGetGet(groupId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return GroupeApiFp(this.configuration).groupeGetGet(groupId, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -2206,13 +2180,13 @@ export class GroupeApi extends BaseAPI {
      * @param {number} groupId 
      * @param {number} memberId 
      * @param {number} itemId 
-     * @param {Blob} [file] 
+     * @param {any} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof GroupeApi
      */
-    public async groupeGiveItemPostForm(groupId: number, memberId: number, itemId: number, file?: Blob, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return GroupeApiFp(this.configuration).groupeGiveItemPostForm(groupId, memberId, itemId, file, options).then((request) => request(this.axios, this.basePath));
+    public async groupeGiveItemPost(groupId: number, memberId: number, itemId: number, body?: any, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
+        return GroupeApiFp(this.configuration).groupeGiveItemPost(groupId, memberId, itemId, body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
@@ -2224,7 +2198,7 @@ export class GroupeApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof GroupeApi
      */
-    public async groupeMemberEmailPut(groupId: number, memberId: number, email: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async groupeMemberEmailPut(groupId: number, memberId: number, email: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return GroupeApiFp(this.configuration).groupeMemberEmailPut(groupId, memberId, email, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -2237,7 +2211,7 @@ export class GroupeApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof GroupeApi
      */
-    public async groupeMemberLeekNamePut(groupId: number, memberId: number, leekName: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async groupeMemberLeekNamePut(groupId: number, memberId: number, leekName: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return GroupeApiFp(this.configuration).groupeMemberLeekNamePut(groupId, memberId, leekName, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -2250,7 +2224,7 @@ export class GroupeApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof GroupeApi
      */
-    public async groupeMemberNamePut(groupId: number, memberId: number, name: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async groupeMemberNamePut(groupId: number, memberId: number, name: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return GroupeApiFp(this.configuration).groupeMemberNamePut(groupId, memberId, name, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -2263,7 +2237,7 @@ export class GroupeApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof GroupeApi
      */
-    public async groupeMemberPasswordPut(groupId: number, memberId: number, password: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async groupeMemberPasswordPut(groupId: number, memberId: number, password: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return GroupeApiFp(this.configuration).groupeMemberPasswordPut(groupId, memberId, password, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -2275,7 +2249,7 @@ export class GroupeApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof GroupeApi
      */
-    public async groupeRemoveMemberDelete(groupId: number, memberId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async groupeRemoveMemberDelete(groupId: number, memberId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return GroupeApiFp(this.configuration).groupeRemoveMemberDelete(groupId, memberId, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -2283,13 +2257,13 @@ export class GroupeApi extends BaseAPI {
      * @summary groupe - send-invite
      * @param {number} groupId 
      * @param {number} memberId 
-     * @param {Blob} [file] 
+     * @param {any} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof GroupeApi
      */
-    public async groupeSendInvitePostForm(groupId: number, memberId: number, file?: Blob, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return GroupeApiFp(this.configuration).groupeSendInvitePostForm(groupId, memberId, file, options).then((request) => request(this.axios, this.basePath));
+    public async groupeSendInvitePost(groupId: number, memberId: number, body?: any, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
+        return GroupeApiFp(this.configuration).groupeSendInvitePost(groupId, memberId, body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
@@ -2300,7 +2274,7 @@ export class GroupeApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof GroupeApi
      */
-    public async groupeSettingBankPut(groupId: number, enabled: boolean, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async groupeSettingBankPut(groupId: number, enabled: boolean, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return GroupeApiFp(this.configuration).groupeSettingBankPut(groupId, enabled, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -2312,7 +2286,7 @@ export class GroupeApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof GroupeApi
      */
-    public async groupeSettingBrPut(groupId: number, enabled: boolean, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async groupeSettingBrPut(groupId: number, enabled: boolean, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return GroupeApiFp(this.configuration).groupeSettingBrPut(groupId, enabled, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -2324,7 +2298,7 @@ export class GroupeApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof GroupeApi
      */
-    public async groupeSettingBuyFightsPut(groupId: number, enabled: boolean, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async groupeSettingBuyFightsPut(groupId: number, enabled: boolean, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return GroupeApiFp(this.configuration).groupeSettingBuyFightsPut(groupId, enabled, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -2336,7 +2310,7 @@ export class GroupeApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof GroupeApi
      */
-    public async groupeSettingChatPut(groupId: number, enabled: boolean, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async groupeSettingChatPut(groupId: number, enabled: boolean, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return GroupeApiFp(this.configuration).groupeSettingChatPut(groupId, enabled, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -2348,7 +2322,7 @@ export class GroupeApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof GroupeApi
      */
-    public async groupeSettingEquipmentBlockedPut(groupId: number, enabled: boolean, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async groupeSettingEquipmentBlockedPut(groupId: number, enabled: boolean, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return GroupeApiFp(this.configuration).groupeSettingEquipmentBlockedPut(groupId, enabled, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -2360,7 +2334,7 @@ export class GroupeApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof GroupeApi
      */
-    public async groupeSettingNewLeekPut(groupId: number, enabled: boolean, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async groupeSettingNewLeekPut(groupId: number, enabled: boolean, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return GroupeApiFp(this.configuration).groupeSettingNewLeekPut(groupId, enabled, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -2372,7 +2346,7 @@ export class GroupeApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof GroupeApi
      */
-    public async groupeSettingPublicChatPut(groupId: number, enabled: boolean, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async groupeSettingPublicChatPut(groupId: number, enabled: boolean, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return GroupeApiFp(this.configuration).groupeSettingPublicChatPut(groupId, enabled, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -2384,7 +2358,7 @@ export class GroupeApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof GroupeApi
      */
-    public async groupeSettingTournamentsPut(groupId: number, enabled: boolean, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async groupeSettingTournamentsPut(groupId: number, enabled: boolean, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return GroupeApiFp(this.configuration).groupeSettingTournamentsPut(groupId, enabled, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -2396,43 +2370,43 @@ export class GroupeApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof GroupeApi
      */
-    public async groupeSettingXpBlockedPut(groupId: number, enabled: boolean, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async groupeSettingXpBlockedPut(groupId: number, enabled: boolean, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return GroupeApiFp(this.configuration).groupeSettingXpBlockedPut(groupId, enabled, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
      * @summary groupe - start-battle-royale
      * @param {number} groupId 
-     * @param {Blob} [file] 
+     * @param {any} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof GroupeApi
      */
-    public async groupeStartBattleRoyalePostForm(groupId: number, file?: Blob, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return GroupeApiFp(this.configuration).groupeStartBattleRoyalePostForm(groupId, file, options).then((request) => request(this.axios, this.basePath));
+    public async groupeStartBattleRoyalePost(groupId: number, body?: any, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
+        return GroupeApiFp(this.configuration).groupeStartBattleRoyalePost(groupId, body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
      * @summary groupe - start-solo-tournament
      * @param {number} groupId 
-     * @param {Blob} [file] 
+     * @param {any} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof GroupeApi
      */
-    public async groupeStartSoloTournamentPostForm(groupId: number, file?: Blob, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return GroupeApiFp(this.configuration).groupeStartSoloTournamentPostForm(groupId, file, options).then((request) => request(this.axios, this.basePath));
+    public async groupeStartSoloTournamentPost(groupId: number, body?: any, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
+        return GroupeApiFp(this.configuration).groupeStartSoloTournamentPost(groupId, body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
      * @summary groupe - start-team-tournament
      * @param {number} groupId 
-     * @param {Blob} [file] 
+     * @param {any} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof GroupeApi
      */
-    public async groupeStartTeamTournamentPostForm(groupId: number, file?: Blob, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return GroupeApiFp(this.configuration).groupeStartTeamTournamentPostForm(groupId, file, options).then((request) => request(this.axios, this.basePath));
+    public async groupeStartTeamTournamentPost(groupId: number, body?: any, options?: AxiosRequestConfig) : Promise<AxiosResponse<string>> {
+        return GroupeApiFp(this.configuration).groupeStartTeamTournamentPost(groupId, body, options).then((request) => request(this.axios, this.basePath));
     }
 }

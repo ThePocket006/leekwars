@@ -11,11 +11,13 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import type {AxiosInstance, AxiosRequestConfig, AxiosResponse} from "axios";
+
+import type {AxiosResponse, AxiosInstance, AxiosRequestConfig} from "axios";
 import globalAxios from "axios";
 import { Configuration } from '@/common/api';
-import type {RequestArgs} from "@/common/api/base";
-import {BASE_PATH, BaseAPI, RequiredError} from "@/common/api/base";
+// Some imports not used depending on template conditions
+// @ts-ignore
+import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
 /**
  * NotificationApi - axios parameter creator
  * @export
@@ -45,7 +47,7 @@ export const NotificationApiAxiosParamCreator = function (configuration?: Config
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -92,7 +94,7 @@ export const NotificationApiAxiosParamCreator = function (configuration?: Config
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -121,14 +123,14 @@ export const NotificationApiAxiosParamCreator = function (configuration?: Config
          * 
          * @summary notification - read
          * @param {number} notificationId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        notificationReadPostForm: async (notificationId: number, file?: Blob, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        notificationReadPost: async (notificationId: number, body?: any, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'notificationId' is not null or undefined
             if (notificationId === null || notificationId === undefined) {
-                throw new RequiredError('notificationId','Required parameter notificationId was null or undefined when calling notificationReadPostForm.');
+                throw new RequiredError('notificationId','Required parameter notificationId was null or undefined when calling notificationReadPost.');
             }
             const localVarPath = `/notification/read`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -140,9 +142,8 @@ export const NotificationApiAxiosParamCreator = function (configuration?: Config
             const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-            const localVarFormParams = new FormData();
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -155,12 +156,8 @@ export const NotificationApiAxiosParamCreator = function (configuration?: Config
                 localVarQueryParameter['notification_id'] = notificationId;
             }
 
-
-            if (file !== undefined) { 
-                localVarFormParams.append('file', file as any);
-            }
-
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
                 query.set(key, localVarQueryParameter[key]);
@@ -171,7 +168,8 @@ export const NotificationApiAxiosParamCreator = function (configuration?: Config
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = localVarFormParams;
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -194,7 +192,7 @@ export const NotificationApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async notificationGetLatestGet(count: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async notificationGetLatestGet(count: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await NotificationApiAxiosParamCreator(configuration).notificationGetLatestGet(count, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -207,7 +205,7 @@ export const NotificationApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async notificationReadAllPost(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async notificationReadAllPost(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await NotificationApiAxiosParamCreator(configuration).notificationReadAllPost(options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -218,12 +216,12 @@ export const NotificationApiFp = function(configuration?: Configuration) {
          * 
          * @summary notification - read
          * @param {number} notificationId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async notificationReadPostForm(notificationId: number, file?: Blob, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await NotificationApiAxiosParamCreator(configuration).notificationReadPostForm(notificationId, file, options);
+        async notificationReadPost(notificationId: number, body?: any, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
+            const localVarAxiosArgs = await NotificationApiAxiosParamCreator(configuration).notificationReadPost(notificationId, body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -245,7 +243,7 @@ export const NotificationApiFactory = function (configuration?: Configuration, b
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async notificationGetLatestGet(count: number, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async notificationGetLatestGet(count: number, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return NotificationApiFp(configuration).notificationGetLatestGet(count, options).then((request) => request(axios, basePath));
         },
         /**
@@ -254,19 +252,19 @@ export const NotificationApiFactory = function (configuration?: Configuration, b
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async notificationReadAllPost(options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async notificationReadAllPost(options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return NotificationApiFp(configuration).notificationReadAllPost(options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary notification - read
          * @param {number} notificationId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async notificationReadPostForm(notificationId: number, file?: Blob, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return NotificationApiFp(configuration).notificationReadPostForm(notificationId, file, options).then((request) => request(axios, basePath));
+        async notificationReadPost(notificationId: number, body?: any, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
+            return NotificationApiFp(configuration).notificationReadPost(notificationId, body, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -286,7 +284,7 @@ export class NotificationApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof NotificationApi
      */
-    public async notificationGetLatestGet(count: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async notificationGetLatestGet(count: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return NotificationApiFp(this.configuration).notificationGetLatestGet(count, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -296,19 +294,19 @@ export class NotificationApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof NotificationApi
      */
-    public async notificationReadAllPost(options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async notificationReadAllPost(options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return NotificationApiFp(this.configuration).notificationReadAllPost(options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
      * @summary notification - read
      * @param {number} notificationId 
-     * @param {Blob} [file] 
+     * @param {any} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof NotificationApi
      */
-    public async notificationReadPostForm(notificationId: number, file?: Blob, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return NotificationApiFp(this.configuration).notificationReadPostForm(notificationId, file, options).then((request) => request(this.axios, this.basePath));
+    public async notificationReadPost(notificationId: number, body?: any, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
+        return NotificationApiFp(this.configuration).notificationReadPost(notificationId, body, options).then((request) => request(this.axios, this.basePath));
     }
 }

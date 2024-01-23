@@ -11,11 +11,13 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import type {AxiosInstance, AxiosRequestConfig, AxiosResponse} from "axios";
+
+import type {AxiosResponse, AxiosInstance, AxiosRequestConfig} from "axios";
 import globalAxios from "axios";
 import { Configuration } from '@/common/api';
-import type {RequestArgs} from "@/common/api/base";
-import {BASE_PATH, BaseAPI, RequiredError} from "@/common/api/base";
+// Some imports not used depending on template conditions
+// @ts-ignore
+import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
 /**
  * TrophyApi - axios parameter creator
  * @export
@@ -40,7 +42,7 @@ export const TrophyApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -83,7 +85,7 @@ export const TrophyApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -136,7 +138,7 @@ export const TrophyApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -187,7 +189,7 @@ export const TrophyApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -235,7 +237,7 @@ export const TrophyApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -282,7 +284,7 @@ export const TrophyApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -311,14 +313,14 @@ export const TrophyApiAxiosParamCreator = function (configuration?: Configuratio
          * 
          * @summary trophy - retrieve-reward
          * @param {number} trophyId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        trophyRetrieveRewardPostForm: async (trophyId: number, file?: Blob, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        trophyRetrieveRewardPost: async (trophyId: number, body?: any, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'trophyId' is not null or undefined
             if (trophyId === null || trophyId === undefined) {
-                throw new RequiredError('trophyId','Required parameter trophyId was null or undefined when calling trophyRetrieveRewardPostForm.');
+                throw new RequiredError('trophyId','Required parameter trophyId was null or undefined when calling trophyRetrieveRewardPost.');
             }
             const localVarPath = `/trophy/retrieve-reward`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -330,9 +332,8 @@ export const TrophyApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-            const localVarFormParams = new FormData();
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -345,12 +346,8 @@ export const TrophyApiAxiosParamCreator = function (configuration?: Configuratio
                 localVarQueryParameter['trophy_id'] = trophyId;
             }
 
-
-            if (file !== undefined) { 
-                localVarFormParams.append('file', file as any);
-            }
-
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
                 query.set(key, localVarQueryParameter[key]);
@@ -361,7 +358,8 @@ export const TrophyApiAxiosParamCreator = function (configuration?: Configuratio
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = localVarFormParams;
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -383,7 +381,7 @@ export const TrophyApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async trophyGetAllGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async trophyGetAllGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await TrophyApiAxiosParamCreator(configuration).trophyGetAllGet(options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -396,7 +394,7 @@ export const TrophyApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async trophyGetCategoriesGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async trophyGetCategoriesGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await TrophyApiAxiosParamCreator(configuration).trophyGetCategoriesGet(options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -411,7 +409,7 @@ export const TrophyApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async trophyGetFarmerTrophiesGet(farmerId: number, lang: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async trophyGetFarmerTrophiesGet(farmerId: number, lang: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await TrophyApiAxiosParamCreator(configuration).trophyGetFarmerTrophiesGet(farmerId, lang, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -424,7 +422,7 @@ export const TrophyApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async trophyGetTrophyWordsGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async trophyGetTrophyWordsGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await TrophyApiAxiosParamCreator(configuration).trophyGetTrophyWordsGet(options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -438,7 +436,7 @@ export const TrophyApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async trophyMyTrophiesGet(lang: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async trophyMyTrophiesGet(lang: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await TrophyApiAxiosParamCreator(configuration).trophyMyTrophiesGet(lang, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -451,7 +449,7 @@ export const TrophyApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async trophyRetrieveAllRewardsPost(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async trophyRetrieveAllRewardsPost(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await TrophyApiAxiosParamCreator(configuration).trophyRetrieveAllRewardsPost(options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -462,12 +460,12 @@ export const TrophyApiFp = function(configuration?: Configuration) {
          * 
          * @summary trophy - retrieve-reward
          * @param {number} trophyId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async trophyRetrieveRewardPostForm(trophyId: number, file?: Blob, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await TrophyApiAxiosParamCreator(configuration).trophyRetrieveRewardPostForm(trophyId, file, options);
+        async trophyRetrieveRewardPost(trophyId: number, body?: any, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
+            const localVarAxiosArgs = await TrophyApiAxiosParamCreator(configuration).trophyRetrieveRewardPost(trophyId, body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -488,7 +486,7 @@ export const TrophyApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async trophyGetAllGet(options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async trophyGetAllGet(options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return TrophyApiFp(configuration).trophyGetAllGet(options).then((request) => request(axios, basePath));
         },
         /**
@@ -497,7 +495,7 @@ export const TrophyApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async trophyGetCategoriesGet(options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async trophyGetCategoriesGet(options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return TrophyApiFp(configuration).trophyGetCategoriesGet(options).then((request) => request(axios, basePath));
         },
         /**
@@ -508,7 +506,7 @@ export const TrophyApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async trophyGetFarmerTrophiesGet(farmerId: number, lang: string, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async trophyGetFarmerTrophiesGet(farmerId: number, lang: string, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return TrophyApiFp(configuration).trophyGetFarmerTrophiesGet(farmerId, lang, options).then((request) => request(axios, basePath));
         },
         /**
@@ -517,7 +515,7 @@ export const TrophyApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async trophyGetTrophyWordsGet(options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async trophyGetTrophyWordsGet(options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return TrophyApiFp(configuration).trophyGetTrophyWordsGet(options).then((request) => request(axios, basePath));
         },
         /**
@@ -527,7 +525,7 @@ export const TrophyApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async trophyMyTrophiesGet(lang: string, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async trophyMyTrophiesGet(lang: string, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return TrophyApiFp(configuration).trophyMyTrophiesGet(lang, options).then((request) => request(axios, basePath));
         },
         /**
@@ -536,19 +534,19 @@ export const TrophyApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async trophyRetrieveAllRewardsPost(options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async trophyRetrieveAllRewardsPost(options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return TrophyApiFp(configuration).trophyRetrieveAllRewardsPost(options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary trophy - retrieve-reward
          * @param {number} trophyId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async trophyRetrieveRewardPostForm(trophyId: number, file?: Blob, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return TrophyApiFp(configuration).trophyRetrieveRewardPostForm(trophyId, file, options).then((request) => request(axios, basePath));
+        async trophyRetrieveRewardPost(trophyId: number, body?: any, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
+            return TrophyApiFp(configuration).trophyRetrieveRewardPost(trophyId, body, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -567,7 +565,7 @@ export class TrophyApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof TrophyApi
      */
-    public async trophyGetAllGet(options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async trophyGetAllGet(options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return TrophyApiFp(this.configuration).trophyGetAllGet(options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -577,7 +575,7 @@ export class TrophyApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof TrophyApi
      */
-    public async trophyGetCategoriesGet(options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async trophyGetCategoriesGet(options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return TrophyApiFp(this.configuration).trophyGetCategoriesGet(options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -589,7 +587,7 @@ export class TrophyApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof TrophyApi
      */
-    public async trophyGetFarmerTrophiesGet(farmerId: number, lang: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async trophyGetFarmerTrophiesGet(farmerId: number, lang: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return TrophyApiFp(this.configuration).trophyGetFarmerTrophiesGet(farmerId, lang, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -599,7 +597,7 @@ export class TrophyApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof TrophyApi
      */
-    public async trophyGetTrophyWordsGet(options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async trophyGetTrophyWordsGet(options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return TrophyApiFp(this.configuration).trophyGetTrophyWordsGet(options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -610,7 +608,7 @@ export class TrophyApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof TrophyApi
      */
-    public async trophyMyTrophiesGet(lang: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async trophyMyTrophiesGet(lang: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return TrophyApiFp(this.configuration).trophyMyTrophiesGet(lang, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -620,19 +618,19 @@ export class TrophyApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof TrophyApi
      */
-    public async trophyRetrieveAllRewardsPost(options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async trophyRetrieveAllRewardsPost(options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return TrophyApiFp(this.configuration).trophyRetrieveAllRewardsPost(options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
      * @summary trophy - retrieve-reward
      * @param {number} trophyId 
-     * @param {Blob} [file] 
+     * @param {any} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof TrophyApi
      */
-    public async trophyRetrieveRewardPostForm(trophyId: number, file?: Blob, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return TrophyApiFp(this.configuration).trophyRetrieveRewardPostForm(trophyId, file, options).then((request) => request(this.axios, this.basePath));
+    public async trophyRetrieveRewardPost(trophyId: number, body?: any, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
+        return TrophyApiFp(this.configuration).trophyRetrieveRewardPost(trophyId, body, options).then((request) => request(this.axios, this.basePath));
     }
 }

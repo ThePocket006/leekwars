@@ -12,12 +12,12 @@
  * Do not edit the class manually.
  */
 
-import type {AxiosInstance, AxiosRequestConfig, AxiosResponse} from "axios";
+import type {AxiosResponse, AxiosInstance, AxiosRequestConfig} from "axios";
 import globalAxios from "axios";
 import { Configuration } from '@/common/api';
-import type {RequestArgs} from "@/common/api/base";
-import {BASE_PATH, BaseAPI, RequiredError} from "@/common/api/base";
-
+// Some imports not used depending on template conditions
+// @ts-ignore
+import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
 /**
  * AiApi - axios parameter creator
  * @export
@@ -42,7 +42,7 @@ export const AiApiAxiosParamCreator = function (configuration?: Configuration) {
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -72,18 +72,18 @@ export const AiApiAxiosParamCreator = function (configuration?: Configuration) {
          * @summary ai - change-folder
          * @param {number} aiId 
          * @param {number} folderId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        aiChangeFolderPostForm: async (aiId: number, folderId: number, file?: Blob, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        aiChangeFolderPost: async (aiId: number, folderId: number, body?: any, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'aiId' is not null or undefined
             if (aiId === null || aiId === undefined) {
-                throw new RequiredError('aiId','Required parameter aiId was null or undefined when calling aiChangeFolderPostForm.');
+                throw new RequiredError('aiId','Required parameter aiId was null or undefined when calling aiChangeFolderPost.');
             }
             // verify required parameter 'folderId' is not null or undefined
             if (folderId === null || folderId === undefined) {
-                throw new RequiredError('folderId','Required parameter folderId was null or undefined when calling aiChangeFolderPostForm.');
+                throw new RequiredError('folderId','Required parameter folderId was null or undefined when calling aiChangeFolderPost.');
             }
             const localVarPath = `/ai/change-folder`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -95,9 +95,8 @@ export const AiApiAxiosParamCreator = function (configuration?: Configuration) {
             const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-            const localVarFormParams = new FormData();
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -114,12 +113,8 @@ export const AiApiAxiosParamCreator = function (configuration?: Configuration) {
                 localVarQueryParameter['folder_id'] = folderId;
             }
 
-
-            if (file !== undefined) { 
-                localVarFormParams.append('file', file as any);
-            }
-
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
                 query.set(key, localVarQueryParameter[key]);
@@ -130,7 +125,8 @@ export const AiApiAxiosParamCreator = function (configuration?: Configuration) {
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = localVarFormParams;
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -160,7 +156,7 @@ export const AiApiAxiosParamCreator = function (configuration?: Configuration) {
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -212,7 +208,7 @@ export const AiApiAxiosParamCreator = function (configuration?: Configuration) {
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -259,7 +255,7 @@ export const AiApiAxiosParamCreator = function (configuration?: Configuration) {
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -307,7 +303,7 @@ export const AiApiAxiosParamCreator = function (configuration?: Configuration) {
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -342,22 +338,22 @@ export const AiApiAxiosParamCreator = function (configuration?: Configuration) {
          * @param {number} folderId 
          * @param {number} version 
          * @param {string} name 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        aiNewNamePostForm: async (folderId: number, version: number, name: string, file?: Blob, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        aiNewNamePost: async (folderId: number, version: number, name: string, body?: any, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'folderId' is not null or undefined
             if (folderId === null || folderId === undefined) {
-                throw new RequiredError('folderId','Required parameter folderId was null or undefined when calling aiNewNamePostForm.');
+                throw new RequiredError('folderId','Required parameter folderId was null or undefined when calling aiNewNamePost.');
             }
             // verify required parameter 'version' is not null or undefined
             if (version === null || version === undefined) {
-                throw new RequiredError('version','Required parameter version was null or undefined when calling aiNewNamePostForm.');
+                throw new RequiredError('version','Required parameter version was null or undefined when calling aiNewNamePost.');
             }
             // verify required parameter 'name' is not null or undefined
             if (name === null || name === undefined) {
-                throw new RequiredError('name','Required parameter name was null or undefined when calling aiNewNamePostForm.');
+                throw new RequiredError('name','Required parameter name was null or undefined when calling aiNewNamePost.');
             }
             const localVarPath = `/ai/new-name`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -369,9 +365,8 @@ export const AiApiAxiosParamCreator = function (configuration?: Configuration) {
             const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-            const localVarFormParams = new FormData();
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -392,12 +387,8 @@ export const AiApiAxiosParamCreator = function (configuration?: Configuration) {
                 localVarQueryParameter['name'] = name;
             }
 
-
-            if (file !== undefined) { 
-                localVarFormParams.append('file', file as any);
-            }
-
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
                 query.set(key, localVarQueryParameter[key]);
@@ -408,7 +399,8 @@ export const AiApiAxiosParamCreator = function (configuration?: Configuration) {
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = localVarFormParams;
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -420,18 +412,18 @@ export const AiApiAxiosParamCreator = function (configuration?: Configuration) {
          * @summary ai - rename
          * @param {number} aiId 
          * @param {string} newName 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        aiRenamePostForm: async (aiId: number, newName: string, file?: Blob, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        aiRenamePost: async (aiId: number, newName: string, body?: any, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'aiId' is not null or undefined
             if (aiId === null || aiId === undefined) {
-                throw new RequiredError('aiId','Required parameter aiId was null or undefined when calling aiRenamePostForm.');
+                throw new RequiredError('aiId','Required parameter aiId was null or undefined when calling aiRenamePost.');
             }
             // verify required parameter 'newName' is not null or undefined
             if (newName === null || newName === undefined) {
-                throw new RequiredError('newName','Required parameter newName was null or undefined when calling aiRenamePostForm.');
+                throw new RequiredError('newName','Required parameter newName was null or undefined when calling aiRenamePost.');
             }
             const localVarPath = `/ai/rename`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -443,9 +435,8 @@ export const AiApiAxiosParamCreator = function (configuration?: Configuration) {
             const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-            const localVarFormParams = new FormData();
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -462,12 +453,8 @@ export const AiApiAxiosParamCreator = function (configuration?: Configuration) {
                 localVarQueryParameter['new_name'] = newName;
             }
 
-
-            if (file !== undefined) { 
-                localVarFormParams.append('file', file as any);
-            }
-
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
                 query.set(key, localVarQueryParameter[key]);
@@ -478,7 +465,8 @@ export const AiApiAxiosParamCreator = function (configuration?: Configuration) {
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = localVarFormParams;
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -489,14 +477,14 @@ export const AiApiAxiosParamCreator = function (configuration?: Configuration) {
          * 
          * @summary ai - restore
          * @param {number} aiId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        aiRestorePostForm: async (aiId: number, file?: Blob, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        aiRestorePost: async (aiId: number, body?: any, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'aiId' is not null or undefined
             if (aiId === null || aiId === undefined) {
-                throw new RequiredError('aiId','Required parameter aiId was null or undefined when calling aiRestorePostForm.');
+                throw new RequiredError('aiId','Required parameter aiId was null or undefined when calling aiRestorePost.');
             }
             const localVarPath = `/ai/restore`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -508,9 +496,8 @@ export const AiApiAxiosParamCreator = function (configuration?: Configuration) {
             const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-            const localVarFormParams = new FormData();
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -523,12 +510,8 @@ export const AiApiAxiosParamCreator = function (configuration?: Configuration) {
                 localVarQueryParameter['ai_id'] = aiId;
             }
 
-
-            if (file !== undefined) { 
-                localVarFormParams.append('file', file as any);
-            }
-
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
                 query.set(key, localVarQueryParameter[key]);
@@ -539,7 +522,8 @@ export const AiApiAxiosParamCreator = function (configuration?: Configuration) {
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = localVarFormParams;
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -551,18 +535,18 @@ export const AiApiAxiosParamCreator = function (configuration?: Configuration) {
          * @summary ai - save
          * @param {number} aiId 
          * @param {string} code 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        aiSavePostForm: async (aiId: number, code: string, file?: Blob, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        aiSavePost: async (aiId: number, code: string, body?: any, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'aiId' is not null or undefined
             if (aiId === null || aiId === undefined) {
-                throw new RequiredError('aiId','Required parameter aiId was null or undefined when calling aiSavePostForm.');
+                throw new RequiredError('aiId','Required parameter aiId was null or undefined when calling aiSavePost.');
             }
             // verify required parameter 'code' is not null or undefined
             if (code === null || code === undefined) {
-                throw new RequiredError('code','Required parameter code was null or undefined when calling aiSavePostForm.');
+                throw new RequiredError('code','Required parameter code was null or undefined when calling aiSavePost.');
             }
             const localVarPath = `/ai/save`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -574,9 +558,8 @@ export const AiApiAxiosParamCreator = function (configuration?: Configuration) {
             const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-            const localVarFormParams = new FormData();
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -593,12 +576,8 @@ export const AiApiAxiosParamCreator = function (configuration?: Configuration) {
                 localVarQueryParameter['code'] = code;
             }
 
-
-            if (file !== undefined) { 
-                localVarFormParams.append('file', file as any);
-            }
-
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
                 query.set(key, localVarQueryParameter[key]);
@@ -609,7 +588,8 @@ export const AiApiAxiosParamCreator = function (configuration?: Configuration) {
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = localVarFormParams;
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -644,7 +624,7 @@ export const AiApiAxiosParamCreator = function (configuration?: Configuration) {
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -681,14 +661,14 @@ export const AiApiAxiosParamCreator = function (configuration?: Configuration) {
          * 
          * @summary ai - sync
          * @param {any} ais 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        aiSyncPostForm: async (ais: any, file?: Blob, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        aiSyncPost: async (ais: any, body?: any, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'ais' is not null or undefined
             if (ais === null || ais === undefined) {
-                throw new RequiredError('ais','Required parameter ais was null or undefined when calling aiSyncPostForm.');
+                throw new RequiredError('ais','Required parameter ais was null or undefined when calling aiSyncPost.');
             }
             const localVarPath = `/ai/sync`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -700,9 +680,8 @@ export const AiApiAxiosParamCreator = function (configuration?: Configuration) {
             const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-            const localVarFormParams = new FormData();
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -715,12 +694,8 @@ export const AiApiAxiosParamCreator = function (configuration?: Configuration) {
                 localVarQueryParameter['ais'] = ais;
             }
 
-
-            if (file !== undefined) { 
-                localVarFormParams.append('file', file as any);
-            }
-
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
                 query.set(key, localVarQueryParameter[key]);
@@ -731,7 +706,8 @@ export const AiApiAxiosParamCreator = function (configuration?: Configuration) {
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = localVarFormParams;
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -743,18 +719,18 @@ export const AiApiAxiosParamCreator = function (configuration?: Configuration) {
          * @summary ai - test-scenario
          * @param {number} scenarioId 
          * @param {number} aiId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        aiTestScenarioPostForm: async (scenarioId: number, aiId: number, file?: Blob, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        aiTestScenarioPost: async (scenarioId: number, aiId: number, body?: any, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'scenarioId' is not null or undefined
             if (scenarioId === null || scenarioId === undefined) {
-                throw new RequiredError('scenarioId','Required parameter scenarioId was null or undefined when calling aiTestScenarioPostForm.');
+                throw new RequiredError('scenarioId','Required parameter scenarioId was null or undefined when calling aiTestScenarioPost.');
             }
             // verify required parameter 'aiId' is not null or undefined
             if (aiId === null || aiId === undefined) {
-                throw new RequiredError('aiId','Required parameter aiId was null or undefined when calling aiTestScenarioPostForm.');
+                throw new RequiredError('aiId','Required parameter aiId was null or undefined when calling aiTestScenarioPost.');
             }
             const localVarPath = `/ai/test-scenario`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -766,9 +742,8 @@ export const AiApiAxiosParamCreator = function (configuration?: Configuration) {
             const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-            const localVarFormParams = new FormData();
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -785,12 +760,8 @@ export const AiApiAxiosParamCreator = function (configuration?: Configuration) {
                 localVarQueryParameter['ai_id'] = aiId;
             }
 
-
-            if (file !== undefined) { 
-                localVarFormParams.append('file', file as any);
-            }
-
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
                 query.set(key, localVarQueryParameter[key]);
@@ -801,7 +772,8 @@ export const AiApiAxiosParamCreator = function (configuration?: Configuration) {
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = localVarFormParams;
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -836,7 +808,7 @@ export const AiApiAxiosParamCreator = function (configuration?: Configuration) {
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -884,7 +856,7 @@ export const AiApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async aiBinDelete(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async aiBinDelete(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await AiApiAxiosParamCreator(configuration).aiBinDelete(options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -896,12 +868,12 @@ export const AiApiFp = function(configuration?: Configuration) {
          * @summary ai - change-folder
          * @param {number} aiId 
          * @param {number} folderId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async aiChangeFolderPostForm(aiId: number, folderId: number, file?: Blob, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await AiApiAxiosParamCreator(configuration).aiChangeFolderPostForm(aiId, folderId, file, options);
+        async aiChangeFolderPost(aiId: number, folderId: number, body?: any, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
+            const localVarAxiosArgs = await AiApiAxiosParamCreator(configuration).aiChangeFolderPost(aiId, folderId, body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -914,7 +886,7 @@ export const AiApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async aiDeleteDelete(aiId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async aiDeleteDelete(aiId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await AiApiAxiosParamCreator(configuration).aiDeleteDelete(aiId, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -928,7 +900,7 @@ export const AiApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async aiDestroyDelete(aiId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async aiDestroyDelete(aiId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await AiApiAxiosParamCreator(configuration).aiDestroyDelete(aiId, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -941,7 +913,7 @@ export const AiApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async aiGetFarmerAisGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async aiGetFarmerAisGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await AiApiAxiosParamCreator(configuration).aiGetFarmerAisGet(options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -955,7 +927,7 @@ export const AiApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async aiGetGet(aiId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async aiGetGet(aiId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await AiApiAxiosParamCreator(configuration).aiGetGet(aiId, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -968,12 +940,12 @@ export const AiApiFp = function(configuration?: Configuration) {
          * @param {number} folderId 
          * @param {number} version 
          * @param {string} name 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async aiNewNamePostForm(folderId: number, version: number, name: string, file?: Blob, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await AiApiAxiosParamCreator(configuration).aiNewNamePostForm(folderId, version, name, file, options);
+        async aiNewNamePost(folderId: number, version: number, name: string, body?: any, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
+            const localVarAxiosArgs = await AiApiAxiosParamCreator(configuration).aiNewNamePost(folderId, version, name, body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -984,12 +956,12 @@ export const AiApiFp = function(configuration?: Configuration) {
          * @summary ai - rename
          * @param {number} aiId 
          * @param {string} newName 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async aiRenamePostForm(aiId: number, newName: string, file?: Blob, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await AiApiAxiosParamCreator(configuration).aiRenamePostForm(aiId, newName, file, options);
+        async aiRenamePost(aiId: number, newName: string, body?: any, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
+            const localVarAxiosArgs = await AiApiAxiosParamCreator(configuration).aiRenamePost(aiId, newName, body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -999,12 +971,12 @@ export const AiApiFp = function(configuration?: Configuration) {
          * 
          * @summary ai - restore
          * @param {number} aiId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async aiRestorePostForm(aiId: number, file?: Blob, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await AiApiAxiosParamCreator(configuration).aiRestorePostForm(aiId, file, options);
+        async aiRestorePost(aiId: number, body?: any, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
+            const localVarAxiosArgs = await AiApiAxiosParamCreator(configuration).aiRestorePost(aiId, body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -1015,12 +987,12 @@ export const AiApiFp = function(configuration?: Configuration) {
          * @summary ai - save
          * @param {number} aiId 
          * @param {string} code 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async aiSavePostForm(aiId: number, code: string, file?: Blob, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await AiApiAxiosParamCreator(configuration).aiSavePostForm(aiId, code, file, options);
+        async aiSavePost(aiId: number, code: string, body?: any, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
+            const localVarAxiosArgs = await AiApiAxiosParamCreator(configuration).aiSavePost(aiId, code, body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -1034,7 +1006,7 @@ export const AiApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async aiStrictPut(aiId: number, strict: boolean, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async aiStrictPut(aiId: number, strict: boolean, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await AiApiAxiosParamCreator(configuration).aiStrictPut(aiId, strict, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -1045,12 +1017,12 @@ export const AiApiFp = function(configuration?: Configuration) {
          * 
          * @summary ai - sync
          * @param {any} ais 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async aiSyncPostForm(ais: any, file?: Blob, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await AiApiAxiosParamCreator(configuration).aiSyncPostForm(ais, file, options);
+        async aiSyncPost(ais: any, body?: any, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
+            const localVarAxiosArgs = await AiApiAxiosParamCreator(configuration).aiSyncPost(ais, body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -1061,12 +1033,12 @@ export const AiApiFp = function(configuration?: Configuration) {
          * @summary ai - test-scenario
          * @param {number} scenarioId 
          * @param {number} aiId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async aiTestScenarioPostForm(scenarioId: number, aiId: number, file?: Blob, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await AiApiAxiosParamCreator(configuration).aiTestScenarioPostForm(scenarioId, aiId, file, options);
+        async aiTestScenarioPost(scenarioId: number, aiId: number, body?: any, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
+            const localVarAxiosArgs = await AiApiAxiosParamCreator(configuration).aiTestScenarioPost(scenarioId, aiId, body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -1080,7 +1052,7 @@ export const AiApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async aiVersionPut(aiId: number, version: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async aiVersionPut(aiId: number, version: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await AiApiAxiosParamCreator(configuration).aiVersionPut(aiId, version, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -1102,7 +1074,7 @@ export const AiApiFactory = function (configuration?: Configuration, basePath?: 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async aiBinDelete(options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async aiBinDelete(options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return AiApiFp(configuration).aiBinDelete(options).then((request) => request(axios, basePath));
         },
         /**
@@ -1110,12 +1082,12 @@ export const AiApiFactory = function (configuration?: Configuration, basePath?: 
          * @summary ai - change-folder
          * @param {number} aiId 
          * @param {number} folderId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async aiChangeFolderPostForm(aiId: number, folderId: number, file?: Blob, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return AiApiFp(configuration).aiChangeFolderPostForm(aiId, folderId, file, options).then((request) => request(axios, basePath));
+        async aiChangeFolderPost(aiId: number, folderId: number, body?: any, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
+            return AiApiFp(configuration).aiChangeFolderPost(aiId, folderId, body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -1124,7 +1096,7 @@ export const AiApiFactory = function (configuration?: Configuration, basePath?: 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async aiDeleteDelete(aiId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async aiDeleteDelete(aiId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return AiApiFp(configuration).aiDeleteDelete(aiId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1134,7 +1106,7 @@ export const AiApiFactory = function (configuration?: Configuration, basePath?: 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async aiDestroyDelete(aiId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async aiDestroyDelete(aiId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return AiApiFp(configuration).aiDestroyDelete(aiId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1143,7 +1115,7 @@ export const AiApiFactory = function (configuration?: Configuration, basePath?: 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async aiGetFarmerAisGet(options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async aiGetFarmerAisGet(options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return AiApiFp(configuration).aiGetFarmerAisGet(options).then((request) => request(axios, basePath));
         },
         /**
@@ -1153,7 +1125,7 @@ export const AiApiFactory = function (configuration?: Configuration, basePath?: 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async aiGetGet(aiId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async aiGetGet(aiId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return AiApiFp(configuration).aiGetGet(aiId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1162,47 +1134,47 @@ export const AiApiFactory = function (configuration?: Configuration, basePath?: 
          * @param {number} folderId 
          * @param {number} version 
          * @param {string} name 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async aiNewNamePostForm(folderId: number, version: number, name: string, file?: Blob, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return AiApiFp(configuration).aiNewNamePostForm(folderId, version, name, file, options).then((request) => request(axios, basePath));
+        async aiNewNamePost(folderId: number, version: number, name: string, body?: any, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
+            return AiApiFp(configuration).aiNewNamePost(folderId, version, name, body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary ai - rename
          * @param {number} aiId 
          * @param {string} newName 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async aiRenamePostForm(aiId: number, newName: string, file?: Blob, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return AiApiFp(configuration).aiRenamePostForm(aiId, newName, file, options).then((request) => request(axios, basePath));
+        async aiRenamePost(aiId: number, newName: string, body?: any, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
+            return AiApiFp(configuration).aiRenamePost(aiId, newName, body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary ai - restore
          * @param {number} aiId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async aiRestorePostForm(aiId: number, file?: Blob, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return AiApiFp(configuration).aiRestorePostForm(aiId, file, options).then((request) => request(axios, basePath));
+        async aiRestorePost(aiId: number, body?: any, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
+            return AiApiFp(configuration).aiRestorePost(aiId, body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary ai - save
          * @param {number} aiId 
          * @param {string} code 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async aiSavePostForm(aiId: number, code: string, file?: Blob, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return AiApiFp(configuration).aiSavePostForm(aiId, code, file, options).then((request) => request(axios, basePath));
+        async aiSavePost(aiId: number, code: string, body?: any, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
+            return AiApiFp(configuration).aiSavePost(aiId, code, body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -1212,31 +1184,31 @@ export const AiApiFactory = function (configuration?: Configuration, basePath?: 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async aiStrictPut(aiId: number, strict: boolean, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async aiStrictPut(aiId: number, strict: boolean, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return AiApiFp(configuration).aiStrictPut(aiId, strict, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary ai - sync
          * @param {any} ais 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async aiSyncPostForm(ais: any, file?: Blob, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return AiApiFp(configuration).aiSyncPostForm(ais, file, options).then((request) => request(axios, basePath));
+        async aiSyncPost(ais: any, body?: any, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
+            return AiApiFp(configuration).aiSyncPost(ais, body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary ai - test-scenario
          * @param {number} scenarioId 
          * @param {number} aiId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async aiTestScenarioPostForm(scenarioId: number, aiId: number, file?: Blob, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return AiApiFp(configuration).aiTestScenarioPostForm(scenarioId, aiId, file, options).then((request) => request(axios, basePath));
+        async aiTestScenarioPost(scenarioId: number, aiId: number, body?: any, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
+            return AiApiFp(configuration).aiTestScenarioPost(scenarioId, aiId, body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -1246,7 +1218,7 @@ export const AiApiFactory = function (configuration?: Configuration, basePath?: 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async aiVersionPut(aiId: number, version: number, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async aiVersionPut(aiId: number, version: number, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return AiApiFp(configuration).aiVersionPut(aiId, version, options).then((request) => request(axios, basePath));
         },
     };
@@ -1266,7 +1238,7 @@ export class AiApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof AiApi
      */
-    public async aiBinDelete(options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async aiBinDelete(options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return AiApiFp(this.configuration).aiBinDelete(options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -1274,13 +1246,13 @@ export class AiApi extends BaseAPI {
      * @summary ai - change-folder
      * @param {number} aiId 
      * @param {number} folderId 
-     * @param {Blob} [file] 
+     * @param {any} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof AiApi
      */
-    public async aiChangeFolderPostForm(aiId: number, folderId: number, file?: Blob, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return AiApiFp(this.configuration).aiChangeFolderPostForm(aiId, folderId, file, options).then((request) => request(this.axios, this.basePath));
+    public async aiChangeFolderPost(aiId: number, folderId: number, body?: any, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
+        return AiApiFp(this.configuration).aiChangeFolderPost(aiId, folderId, body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
@@ -1290,7 +1262,7 @@ export class AiApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof AiApi
      */
-    public async aiDeleteDelete(aiId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async aiDeleteDelete(aiId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return AiApiFp(this.configuration).aiDeleteDelete(aiId, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -1301,7 +1273,7 @@ export class AiApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof AiApi
      */
-    public async aiDestroyDelete(aiId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async aiDestroyDelete(aiId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return AiApiFp(this.configuration).aiDestroyDelete(aiId, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -1311,7 +1283,7 @@ export class AiApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof AiApi
      */
-    public async aiGetFarmerAisGet(options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async aiGetFarmerAisGet(options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return AiApiFp(this.configuration).aiGetFarmerAisGet(options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -1322,7 +1294,7 @@ export class AiApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof AiApi
      */
-    public async aiGetGet(aiId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async aiGetGet(aiId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return AiApiFp(this.configuration).aiGetGet(aiId, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -1331,51 +1303,51 @@ export class AiApi extends BaseAPI {
      * @param {number} folderId 
      * @param {number} version 
      * @param {string} name 
-     * @param {Blob} [file] 
+     * @param {any} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof AiApi
      */
-    public async aiNewNamePostForm(folderId: number, version: number, name: string, file?: Blob, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return AiApiFp(this.configuration).aiNewNamePostForm(folderId, version, name, file, options).then((request) => request(this.axios, this.basePath));
+    public async aiNewNamePost(folderId: number, version: number, name: string, body?: any, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
+        return AiApiFp(this.configuration).aiNewNamePost(folderId, version, name, body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
      * @summary ai - rename
      * @param {number} aiId 
      * @param {string} newName 
-     * @param {Blob} [file] 
+     * @param {any} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof AiApi
      */
-    public async aiRenamePostForm(aiId: number, newName: string, file?: Blob, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return AiApiFp(this.configuration).aiRenamePostForm(aiId, newName, file, options).then((request) => request(this.axios, this.basePath));
+    public async aiRenamePost(aiId: number, newName: string, body?: any, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
+        return AiApiFp(this.configuration).aiRenamePost(aiId, newName, body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
      * @summary ai - restore
      * @param {number} aiId 
-     * @param {Blob} [file] 
+     * @param {any} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof AiApi
      */
-    public async aiRestorePostForm(aiId: number, file?: Blob, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return AiApiFp(this.configuration).aiRestorePostForm(aiId, file, options).then((request) => request(this.axios, this.basePath));
+    public async aiRestorePost(aiId: number, body?: any, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
+        return AiApiFp(this.configuration).aiRestorePost(aiId, body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
      * @summary ai - save
      * @param {number} aiId 
      * @param {string} code 
-     * @param {Blob} [file] 
+     * @param {any} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof AiApi
      */
-    public async aiSavePostForm(aiId: number, code: string, file?: Blob, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return AiApiFp(this.configuration).aiSavePostForm(aiId, code, file, options).then((request) => request(this.axios, this.basePath));
+    public async aiSavePost(aiId: number, code: string, body?: any, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
+        return AiApiFp(this.configuration).aiSavePost(aiId, code, body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
@@ -1386,33 +1358,33 @@ export class AiApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof AiApi
      */
-    public async aiStrictPut(aiId: number, strict: boolean, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async aiStrictPut(aiId: number, strict: boolean, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return AiApiFp(this.configuration).aiStrictPut(aiId, strict, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
      * @summary ai - sync
      * @param {any} ais 
-     * @param {Blob} [file] 
+     * @param {any} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof AiApi
      */
-    public async aiSyncPostForm(ais: any, file?: Blob, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return AiApiFp(this.configuration).aiSyncPostForm(ais, file, options).then((request) => request(this.axios, this.basePath));
+    public async aiSyncPost(ais: any, body?: any, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
+        return AiApiFp(this.configuration).aiSyncPost(ais, body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
      * @summary ai - test-scenario
      * @param {number} scenarioId 
      * @param {number} aiId 
-     * @param {Blob} [file] 
+     * @param {any} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof AiApi
      */
-    public async aiTestScenarioPostForm(scenarioId: number, aiId: number, file?: Blob, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return AiApiFp(this.configuration).aiTestScenarioPostForm(scenarioId, aiId, file, options).then((request) => request(this.axios, this.basePath));
+    public async aiTestScenarioPost(scenarioId: number, aiId: number, body?: any, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
+        return AiApiFp(this.configuration).aiTestScenarioPost(scenarioId, aiId, body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
@@ -1423,7 +1395,7 @@ export class AiApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof AiApi
      */
-    public async aiVersionPut(aiId: number, version: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async aiVersionPut(aiId: number, version: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return AiApiFp(this.configuration).aiVersionPut(aiId, version, options).then((request) => request(this.axios, this.basePath));
     }
 }

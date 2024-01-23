@@ -33,3 +33,4 @@ openapitools.json
 src/common/api/.swagger-codegen-ignore
 src/common/api/.swagger-codegen/VERSION
 yarn.lock
+typescript-axios-client-generated/

@@ -11,11 +11,13 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import type {AxiosInstance, AxiosRequestConfig, AxiosResponse} from "axios";
+
+import type {AxiosResponse, AxiosInstance, AxiosRequestConfig} from "axios";
 import globalAxios from "axios";
 import { Configuration } from '@/common/api';
-import type {RequestArgs} from "@/common/api/base";
-import {BASE_PATH, BaseAPI, RequiredError} from "@/common/api/base";
+// Some imports not used depending on template conditions
+// @ts-ignore
+import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
 /**
  * TournamentApi - axios parameter creator
  * @export
@@ -27,18 +29,18 @@ export const TournamentApiAxiosParamCreator = function (configuration?: Configur
          * @summary tournament - comment
          * @param {number} tournamentId 
          * @param {string} comment 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        tournamentCommentPostForm: async (tournamentId: number, comment: string, file?: Blob, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        tournamentCommentPost: async (tournamentId: number, comment: string, body?: any, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'tournamentId' is not null or undefined
             if (tournamentId === null || tournamentId === undefined) {
-                throw new RequiredError('tournamentId','Required parameter tournamentId was null or undefined when calling tournamentCommentPostForm.');
+                throw new RequiredError('tournamentId','Required parameter tournamentId was null or undefined when calling tournamentCommentPost.');
             }
             // verify required parameter 'comment' is not null or undefined
             if (comment === null || comment === undefined) {
-                throw new RequiredError('comment','Required parameter comment was null or undefined when calling tournamentCommentPostForm.');
+                throw new RequiredError('comment','Required parameter comment was null or undefined when calling tournamentCommentPost.');
             }
             const localVarPath = `/tournament/comment`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -50,9 +52,8 @@ export const TournamentApiAxiosParamCreator = function (configuration?: Configur
             const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-            const localVarFormParams = new FormData();
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -69,12 +70,8 @@ export const TournamentApiAxiosParamCreator = function (configuration?: Configur
                 localVarQueryParameter['comment'] = comment;
             }
 
-
-            if (file !== undefined) { 
-                localVarFormParams.append('file', file as any);
-            }
-
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
                 query.set(key, localVarQueryParameter[key]);
@@ -85,7 +82,8 @@ export const TournamentApiAxiosParamCreator = function (configuration?: Configur
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = localVarFormParams;
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -96,14 +94,14 @@ export const TournamentApiAxiosParamCreator = function (configuration?: Configur
          * 
          * @summary tournament - generate
          * @param {number} tournamentId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        tournamentGeneratePostForm: async (tournamentId: number, file?: Blob, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        tournamentGeneratePost: async (tournamentId: number, body?: any, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'tournamentId' is not null or undefined
             if (tournamentId === null || tournamentId === undefined) {
-                throw new RequiredError('tournamentId','Required parameter tournamentId was null or undefined when calling tournamentGeneratePostForm.');
+                throw new RequiredError('tournamentId','Required parameter tournamentId was null or undefined when calling tournamentGeneratePost.');
             }
             const localVarPath = `/tournament/generate`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -115,9 +113,8 @@ export const TournamentApiAxiosParamCreator = function (configuration?: Configur
             const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-            const localVarFormParams = new FormData();
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -130,12 +127,8 @@ export const TournamentApiAxiosParamCreator = function (configuration?: Configur
                 localVarQueryParameter['tournament_id'] = tournamentId;
             }
 
-
-            if (file !== undefined) { 
-                localVarFormParams.append('file', file as any);
-            }
-
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
                 query.set(key, localVarQueryParameter[key]);
@@ -146,7 +139,8 @@ export const TournamentApiAxiosParamCreator = function (configuration?: Configur
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = localVarFormParams;
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -175,15 +169,6 @@ export const TournamentApiAxiosParamCreator = function (configuration?: Configur
             const localVarRequestOptions :AxiosRequestConfig = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-
-            // authentication bearerAuth required
-            // http bearer authentication required
-            if (configuration && configuration.accessToken) {
-                const accessToken = typeof configuration.accessToken === 'function'
-                    ? await configuration.accessToken()
-                    : await configuration.accessToken;
-                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
-            }
 
             if (tournamentId !== undefined) {
                 localVarQueryParameter['tournament_id'] = tournamentId;
@@ -219,12 +204,12 @@ export const TournamentApiFp = function(configuration?: Configuration) {
          * @summary tournament - comment
          * @param {number} tournamentId 
          * @param {string} comment 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async tournamentCommentPostForm(tournamentId: number, comment: string, file?: Blob, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await TournamentApiAxiosParamCreator(configuration).tournamentCommentPostForm(tournamentId, comment, file, options);
+        async tournamentCommentPost(tournamentId: number, comment: string, body?: any, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
+            const localVarAxiosArgs = await TournamentApiAxiosParamCreator(configuration).tournamentCommentPost(tournamentId, comment, body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -234,12 +219,12 @@ export const TournamentApiFp = function(configuration?: Configuration) {
          * 
          * @summary tournament - generate
          * @param {number} tournamentId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async tournamentGeneratePostForm(tournamentId: number, file?: Blob, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await TournamentApiAxiosParamCreator(configuration).tournamentGeneratePostForm(tournamentId, file, options);
+        async tournamentGeneratePost(tournamentId: number, body?: any, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
+            const localVarAxiosArgs = await TournamentApiAxiosParamCreator(configuration).tournamentGeneratePost(tournamentId, body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -252,7 +237,7 @@ export const TournamentApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async tournamentGetGet(tournamentId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async tournamentGetGet(tournamentId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await TournamentApiAxiosParamCreator(configuration).tournamentGetGet(tournamentId, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -273,23 +258,23 @@ export const TournamentApiFactory = function (configuration?: Configuration, bas
          * @summary tournament - comment
          * @param {number} tournamentId 
          * @param {string} comment 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async tournamentCommentPostForm(tournamentId: number, comment: string, file?: Blob, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return TournamentApiFp(configuration).tournamentCommentPostForm(tournamentId, comment, file, options).then((request) => request(axios, basePath));
+        async tournamentCommentPost(tournamentId: number, comment: string, body?: any, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
+            return TournamentApiFp(configuration).tournamentCommentPost(tournamentId, comment, body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary tournament - generate
          * @param {number} tournamentId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async tournamentGeneratePostForm(tournamentId: number, file?: Blob, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return TournamentApiFp(configuration).tournamentGeneratePostForm(tournamentId, file, options).then((request) => request(axios, basePath));
+        async tournamentGeneratePost(tournamentId: number, body?: any, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
+            return TournamentApiFp(configuration).tournamentGeneratePost(tournamentId, body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -298,7 +283,7 @@ export const TournamentApiFactory = function (configuration?: Configuration, bas
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async tournamentGetGet(tournamentId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async tournamentGetGet(tournamentId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return TournamentApiFp(configuration).tournamentGetGet(tournamentId, options).then((request) => request(axios, basePath));
         },
     };
@@ -316,25 +301,25 @@ export class TournamentApi extends BaseAPI {
      * @summary tournament - comment
      * @param {number} tournamentId 
      * @param {string} comment 
-     * @param {Blob} [file] 
+     * @param {any} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof TournamentApi
      */
-    public async tournamentCommentPostForm(tournamentId: number, comment: string, file?: Blob, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return TournamentApiFp(this.configuration).tournamentCommentPostForm(tournamentId, comment, file, options).then((request) => request(this.axios, this.basePath));
+    public async tournamentCommentPost(tournamentId: number, comment: string, body?: any, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
+        return TournamentApiFp(this.configuration).tournamentCommentPost(tournamentId, comment, body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
      * @summary tournament - generate
      * @param {number} tournamentId 
-     * @param {Blob} [file] 
+     * @param {any} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof TournamentApi
      */
-    public async tournamentGeneratePostForm(tournamentId: number, file?: Blob, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return TournamentApiFp(this.configuration).tournamentGeneratePostForm(tournamentId, file, options).then((request) => request(this.axios, this.basePath));
+    public async tournamentGeneratePost(tournamentId: number, body?: any, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
+        return TournamentApiFp(this.configuration).tournamentGeneratePost(tournamentId, body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
@@ -344,7 +329,7 @@ export class TournamentApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof TournamentApi
      */
-    public async tournamentGetGet(tournamentId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async tournamentGetGet(tournamentId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return TournamentApiFp(this.configuration).tournamentGetGet(tournamentId, options).then((request) => request(this.axios, this.basePath));
     }
 }

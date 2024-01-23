@@ -95,9 +95,15 @@ apiData.forEach((endpoint) => {
                             }
 
                             if (!schemaType.includes(schema.type)) {
-                                schema.type = StringUtil.replaceArray(schema.type, ['json'], ['string'])
-                            }else{
-                                schema.type = 'object'
+                                const finds = ['json', '.*']
+                                const replace = ['string', 'object']
+
+                                finds.forEach((v, index) => {
+                                    if([schema.type].includes(v)){
+                                        schema.type = StringUtil.replaceArray(schema.type, v, replace[index])
+                                        return false;
+                                    }
+                                })
                             }
 
                             if (schema.type === 'array') {
@@ -116,11 +122,10 @@ apiData.forEach((endpoint) => {
         if (endpoint.method === "post") {
             openApiConfig.paths[path][endpoint.method].requestBody = {
                 content: (() => {
-                    const index = _.findIndex(endpoint.parameters_types, (v) => v === 'file');
                     const contentObj = {};
                     let contentType = "application/x-www-form-urlencoded; charset=UTF-8";
 
-                    if (index >= 0) {
+                    if (listOfNames.length > 0) {
                         contentType = "multipart/form-data";
                     }
 

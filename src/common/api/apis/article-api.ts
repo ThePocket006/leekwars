@@ -11,11 +11,13 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import type {AxiosInstance, AxiosRequestConfig, AxiosResponse} from "axios";
+
+import type {AxiosResponse, AxiosInstance, AxiosRequestConfig} from "axios";
 import globalAxios from "axios";
 import { Configuration } from '@/common/api';
-import type {RequestArgs} from "@/common/api/base";
-import {BASE_PATH, BaseAPI, RequiredError} from "@/common/api/base";
+// Some imports not used depending on template conditions
+// @ts-ignore
+import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
 /**
  * ArticleApi - axios parameter creator
  * @export
@@ -39,15 +41,6 @@ export const ArticleApiAxiosParamCreator = function (configuration?: Configurati
             const localVarRequestOptions :AxiosRequestConfig = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-
-            // authentication bearerAuth required
-            // http bearer authentication required
-            if (configuration && configuration.accessToken) {
-                const accessToken = typeof configuration.accessToken === 'function'
-                    ? await configuration.accessToken()
-                    : await configuration.accessToken;
-                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
-            }
 
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
@@ -80,7 +73,7 @@ export const ArticleApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async articleAllGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async articleAllGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await ArticleApiAxiosParamCreator(configuration).articleAllGet(options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -102,7 +95,7 @@ export const ArticleApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async articleAllGet(options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async articleAllGet(options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return ArticleApiFp(configuration).articleAllGet(options).then((request) => request(axios, basePath));
         },
     };
@@ -122,7 +115,7 @@ export class ArticleApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ArticleApi
      */
-    public async articleAllGet(options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async articleAllGet(options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return ArticleApiFp(this.configuration).articleAllGet(options).then((request) => request(this.axios, this.basePath));
     }
 }

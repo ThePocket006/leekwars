@@ -28,5 +28,5 @@ export interface FarmerSetavatarBody {
      * @type {Blob}
      * @memberof FarmerSetavatarBody
      */
-    file?: Blob;
+    avatar?: Blob;
 }

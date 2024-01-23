@@ -28,5 +28,5 @@ export interface TeamSetemblemBody {
      * @type {Blob}
      * @memberof TeamSetemblemBody
      */
-    file?: Blob;
+    emblem?: Blob;
 }

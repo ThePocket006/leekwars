@@ -11,11 +11,13 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import type {AxiosInstance, AxiosRequestConfig, AxiosResponse} from "axios";
+
+import type {AxiosResponse, AxiosInstance, AxiosRequestConfig} from "axios";
 import globalAxios from "axios";
 import { Configuration } from '@/common/api';
-import type {RequestArgs} from "@/common/api/base";
-import {BASE_PATH, BaseAPI, RequiredError} from "@/common/api/base";
+// Some imports not used depending on template conditions
+// @ts-ignore
+import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
 /**
  * MarketApi - axios parameter creator
  * @export
@@ -26,14 +28,14 @@ export const MarketApiAxiosParamCreator = function (configuration?: Configuratio
          * 
          * @summary market - buy-crystals
          * @param {string} itemId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        marketBuyCrystalsPostForm: async (itemId: string, file?: Blob, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        marketBuyCrystalsPost: async (itemId: string, body?: any, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'itemId' is not null or undefined
             if (itemId === null || itemId === undefined) {
-                throw new RequiredError('itemId','Required parameter itemId was null or undefined when calling marketBuyCrystalsPostForm.');
+                throw new RequiredError('itemId','Required parameter itemId was null or undefined when calling marketBuyCrystalsPost.');
             }
             const localVarPath = `/market/buy-crystals`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -45,9 +47,8 @@ export const MarketApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-            const localVarFormParams = new FormData();
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -60,12 +61,8 @@ export const MarketApiAxiosParamCreator = function (configuration?: Configuratio
                 localVarQueryParameter['item_id'] = itemId;
             }
 
-
-            if (file !== undefined) { 
-                localVarFormParams.append('file', file as any);
-            }
-
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
                 query.set(key, localVarQueryParameter[key]);
@@ -76,7 +73,8 @@ export const MarketApiAxiosParamCreator = function (configuration?: Configuratio
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = localVarFormParams;
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -87,14 +85,14 @@ export const MarketApiAxiosParamCreator = function (configuration?: Configuratio
          * 
          * @summary market - buy-habs
          * @param {string} itemId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        marketBuyHabsPostForm: async (itemId: string, file?: Blob, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        marketBuyHabsPost: async (itemId: string, body?: any, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'itemId' is not null or undefined
             if (itemId === null || itemId === undefined) {
-                throw new RequiredError('itemId','Required parameter itemId was null or undefined when calling marketBuyHabsPostForm.');
+                throw new RequiredError('itemId','Required parameter itemId was null or undefined when calling marketBuyHabsPost.');
             }
             const localVarPath = `/market/buy-habs`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -106,9 +104,8 @@ export const MarketApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-            const localVarFormParams = new FormData();
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -121,12 +118,8 @@ export const MarketApiAxiosParamCreator = function (configuration?: Configuratio
                 localVarQueryParameter['item_id'] = itemId;
             }
 
-
-            if (file !== undefined) { 
-                localVarFormParams.append('file', file as any);
-            }
-
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
                 query.set(key, localVarQueryParameter[key]);
@@ -137,7 +130,8 @@ export const MarketApiAxiosParamCreator = function (configuration?: Configuratio
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = localVarFormParams;
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -148,14 +142,14 @@ export const MarketApiAxiosParamCreator = function (configuration?: Configuratio
          * 
          * @summary market - sell-habs
          * @param {number} itemId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        marketSellHabsPostForm: async (itemId: number, file?: Blob, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        marketSellHabsPost: async (itemId: number, body?: any, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'itemId' is not null or undefined
             if (itemId === null || itemId === undefined) {
-                throw new RequiredError('itemId','Required parameter itemId was null or undefined when calling marketSellHabsPostForm.');
+                throw new RequiredError('itemId','Required parameter itemId was null or undefined when calling marketSellHabsPost.');
             }
             const localVarPath = `/market/sell-habs`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -167,9 +161,8 @@ export const MarketApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-            const localVarFormParams = new FormData();
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -182,12 +175,8 @@ export const MarketApiAxiosParamCreator = function (configuration?: Configuratio
                 localVarQueryParameter['item_id'] = itemId;
             }
 
-
-            if (file !== undefined) { 
-                localVarFormParams.append('file', file as any);
-            }
-
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
                 query.set(key, localVarQueryParameter[key]);
@@ -198,7 +187,8 @@ export const MarketApiAxiosParamCreator = function (configuration?: Configuratio
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = localVarFormParams;
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -218,12 +208,12 @@ export const MarketApiFp = function(configuration?: Configuration) {
          * 
          * @summary market - buy-crystals
          * @param {string} itemId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async marketBuyCrystalsPostForm(itemId: string, file?: Blob, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await MarketApiAxiosParamCreator(configuration).marketBuyCrystalsPostForm(itemId, file, options);
+        async marketBuyCrystalsPost(itemId: string, body?: any, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
+            const localVarAxiosArgs = await MarketApiAxiosParamCreator(configuration).marketBuyCrystalsPost(itemId, body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -233,12 +223,12 @@ export const MarketApiFp = function(configuration?: Configuration) {
          * 
          * @summary market - buy-habs
          * @param {string} itemId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async marketBuyHabsPostForm(itemId: string, file?: Blob, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await MarketApiAxiosParamCreator(configuration).marketBuyHabsPostForm(itemId, file, options);
+        async marketBuyHabsPost(itemId: string, body?: any, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
+            const localVarAxiosArgs = await MarketApiAxiosParamCreator(configuration).marketBuyHabsPost(itemId, body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -248,12 +238,12 @@ export const MarketApiFp = function(configuration?: Configuration) {
          * 
          * @summary market - sell-habs
          * @param {number} itemId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async marketSellHabsPostForm(itemId: number, file?: Blob, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await MarketApiAxiosParamCreator(configuration).marketSellHabsPostForm(itemId, file, options);
+        async marketSellHabsPost(itemId: number, body?: any, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
+            const localVarAxiosArgs = await MarketApiAxiosParamCreator(configuration).marketSellHabsPost(itemId, body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -272,34 +262,34 @@ export const MarketApiFactory = function (configuration?: Configuration, basePat
          * 
          * @summary market - buy-crystals
          * @param {string} itemId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async marketBuyCrystalsPostForm(itemId: string, file?: Blob, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return MarketApiFp(configuration).marketBuyCrystalsPostForm(itemId, file, options).then((request) => request(axios, basePath));
+        async marketBuyCrystalsPost(itemId: string, body?: any, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
+            return MarketApiFp(configuration).marketBuyCrystalsPost(itemId, body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary market - buy-habs
          * @param {string} itemId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async marketBuyHabsPostForm(itemId: string, file?: Blob, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return MarketApiFp(configuration).marketBuyHabsPostForm(itemId, file, options).then((request) => request(axios, basePath));
+        async marketBuyHabsPost(itemId: string, body?: any, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
+            return MarketApiFp(configuration).marketBuyHabsPost(itemId, body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary market - sell-habs
          * @param {number} itemId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async marketSellHabsPostForm(itemId: number, file?: Blob, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return MarketApiFp(configuration).marketSellHabsPostForm(itemId, file, options).then((request) => request(axios, basePath));
+        async marketSellHabsPost(itemId: number, body?: any, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
+            return MarketApiFp(configuration).marketSellHabsPost(itemId, body, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -315,36 +305,36 @@ export class MarketApi extends BaseAPI {
      * 
      * @summary market - buy-crystals
      * @param {string} itemId 
-     * @param {Blob} [file] 
+     * @param {any} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof MarketApi
      */
-    public async marketBuyCrystalsPostForm(itemId: string, file?: Blob, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return MarketApiFp(this.configuration).marketBuyCrystalsPostForm(itemId, file, options).then((request) => request(this.axios, this.basePath));
+    public async marketBuyCrystalsPost(itemId: string, body?: any, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
+        return MarketApiFp(this.configuration).marketBuyCrystalsPost(itemId, body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
      * @summary market - buy-habs
      * @param {string} itemId 
-     * @param {Blob} [file] 
+     * @param {any} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof MarketApi
      */
-    public async marketBuyHabsPostForm(itemId: string, file?: Blob, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return MarketApiFp(this.configuration).marketBuyHabsPostForm(itemId, file, options).then((request) => request(this.axios, this.basePath));
+    public async marketBuyHabsPost(itemId: string, body?: any, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
+        return MarketApiFp(this.configuration).marketBuyHabsPost(itemId, body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
      * @summary market - sell-habs
      * @param {number} itemId 
-     * @param {Blob} [file] 
+     * @param {any} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof MarketApi
      */
-    public async marketSellHabsPostForm(itemId: number, file?: Blob, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return MarketApiFp(this.configuration).marketSellHabsPostForm(itemId, file, options).then((request) => request(this.axios, this.basePath));
+    public async marketSellHabsPost(itemId: number, body?: any, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
+        return MarketApiFp(this.configuration).marketSellHabsPost(itemId, body, options).then((request) => request(this.axios, this.basePath));
     }
 }

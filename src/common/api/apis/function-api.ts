@@ -11,11 +11,13 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import type {AxiosInstance, AxiosRequestConfig, AxiosResponse} from "axios";
+
+import type {AxiosResponse, AxiosInstance, AxiosRequestConfig} from "axios";
 import globalAxios from "axios";
 import { Configuration } from '@/common/api';
-import type {RequestArgs} from "@/common/api/base";
-import {BASE_PATH, BaseAPI, RequiredError} from "@/common/api/base";
+// Some imports not used depending on template conditions
+// @ts-ignore
+import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
 /**
  * FunctionApi - axios parameter creator
  * @export
@@ -39,15 +41,6 @@ export const FunctionApiAxiosParamCreator = function (configuration?: Configurat
             const localVarRequestOptions :AxiosRequestConfig = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-
-            // authentication bearerAuth required
-            // http bearer authentication required
-            if (configuration && configuration.accessToken) {
-                const accessToken = typeof configuration.accessToken === 'function'
-                    ? await configuration.accessToken()
-                    : await configuration.accessToken;
-                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
-            }
 
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
@@ -83,7 +76,7 @@ export const FunctionApiAxiosParamCreator = function (configuration?: Configurat
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -123,7 +116,7 @@ export const FunctionApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async functionGetAllGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async functionGetAllGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await FunctionApiAxiosParamCreator(configuration).functionGetAllGet(options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -136,7 +129,7 @@ export const FunctionApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async functionGetCategoriesGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async functionGetCategoriesGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await FunctionApiAxiosParamCreator(configuration).functionGetCategoriesGet(options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -158,7 +151,7 @@ export const FunctionApiFactory = function (configuration?: Configuration, baseP
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async functionGetAllGet(options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async functionGetAllGet(options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return FunctionApiFp(configuration).functionGetAllGet(options).then((request) => request(axios, basePath));
         },
         /**
@@ -167,7 +160,7 @@ export const FunctionApiFactory = function (configuration?: Configuration, baseP
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async functionGetCategoriesGet(options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async functionGetCategoriesGet(options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return FunctionApiFp(configuration).functionGetCategoriesGet(options).then((request) => request(axios, basePath));
         },
     };
@@ -187,7 +180,7 @@ export class FunctionApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof FunctionApi
      */
-    public async functionGetAllGet(options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async functionGetAllGet(options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return FunctionApiFp(this.configuration).functionGetAllGet(options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -197,7 +190,7 @@ export class FunctionApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof FunctionApi
      */
-    public async functionGetCategoriesGet(options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async functionGetCategoriesGet(options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return FunctionApiFp(this.configuration).functionGetCategoriesGet(options).then((request) => request(this.axios, this.basePath));
     }
 }

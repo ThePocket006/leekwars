@@ -11,11 +11,13 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import type {AxiosInstance, AxiosRequestConfig, AxiosResponse} from "axios";
+
+import type {AxiosResponse, AxiosInstance, AxiosRequestConfig} from "axios";
 import globalAxios from "axios";
 import { Configuration } from '@/common/api';
-import type {RequestArgs} from "@/common/api/base";
-import {BASE_PATH, BaseAPI, RequiredError} from "@/common/api/base";
+// Some imports not used depending on template conditions
+// @ts-ignore
+import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
 /**
  * EncyclopediaApi - axios parameter creator
  * @export
@@ -26,14 +28,14 @@ export const EncyclopediaApiAxiosParamCreator = function (configuration?: Config
          * 
          * @summary encyclopedia - end-edition
          * @param {number} pageId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        encyclopediaEndEditionPostForm: async (pageId: number, file?: Blob, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        encyclopediaEndEditionPost: async (pageId: number, body?: any, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'pageId' is not null or undefined
             if (pageId === null || pageId === undefined) {
-                throw new RequiredError('pageId','Required parameter pageId was null or undefined when calling encyclopediaEndEditionPostForm.');
+                throw new RequiredError('pageId','Required parameter pageId was null or undefined when calling encyclopediaEndEditionPost.');
             }
             const localVarPath = `/encyclopedia/end-edition`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -45,9 +47,8 @@ export const EncyclopediaApiAxiosParamCreator = function (configuration?: Config
             const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-            const localVarFormParams = new FormData();
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -60,12 +61,8 @@ export const EncyclopediaApiAxiosParamCreator = function (configuration?: Config
                 localVarQueryParameter['page_id'] = pageId;
             }
 
-
-            if (file !== undefined) { 
-                localVarFormParams.append('file', file as any);
-            }
-
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
                 query.set(key, localVarQueryParameter[key]);
@@ -76,7 +73,8 @@ export const EncyclopediaApiAxiosParamCreator = function (configuration?: Config
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = localVarFormParams;
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -105,15 +103,6 @@ export const EncyclopediaApiAxiosParamCreator = function (configuration?: Config
             const localVarRequestOptions :AxiosRequestConfig = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-
-            // authentication bearerAuth required
-            // http bearer authentication required
-            if (configuration && configuration.accessToken) {
-                const accessToken = typeof configuration.accessToken === 'function'
-                    ? await configuration.accessToken()
-                    : await configuration.accessToken;
-                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
-            }
 
             if (locale !== undefined) {
                 localVarQueryParameter['locale'] = locale;
@@ -163,7 +152,7 @@ export const EncyclopediaApiAxiosParamCreator = function (configuration?: Config
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -219,7 +208,7 @@ export const EncyclopediaApiAxiosParamCreator = function (configuration?: Config
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -266,7 +255,7 @@ export const EncyclopediaApiAxiosParamCreator = function (configuration?: Config
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -324,15 +313,6 @@ export const EncyclopediaApiAxiosParamCreator = function (configuration?: Config
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
-            // http bearer authentication required
-            if (configuration && configuration.accessToken) {
-                const accessToken = typeof configuration.accessToken === 'function'
-                    ? await configuration.accessToken()
-                    : await configuration.accessToken;
-                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
-            }
-
             if (language !== undefined) {
                 localVarQueryParameter['language'] = language;
             }
@@ -366,18 +346,18 @@ export const EncyclopediaApiAxiosParamCreator = function (configuration?: Config
          * @summary encyclopedia - set-language
          * @param {number} pageId 
          * @param {string} language 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        encyclopediaSetLanguagePostForm: async (pageId: number, language: string, file?: Blob, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        encyclopediaSetLanguagePost: async (pageId: number, language: string, body?: any, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'pageId' is not null or undefined
             if (pageId === null || pageId === undefined) {
-                throw new RequiredError('pageId','Required parameter pageId was null or undefined when calling encyclopediaSetLanguagePostForm.');
+                throw new RequiredError('pageId','Required parameter pageId was null or undefined when calling encyclopediaSetLanguagePost.');
             }
             // verify required parameter 'language' is not null or undefined
             if (language === null || language === undefined) {
-                throw new RequiredError('language','Required parameter language was null or undefined when calling encyclopediaSetLanguagePostForm.');
+                throw new RequiredError('language','Required parameter language was null or undefined when calling encyclopediaSetLanguagePost.');
             }
             const localVarPath = `/encyclopedia/set-language`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -389,9 +369,8 @@ export const EncyclopediaApiAxiosParamCreator = function (configuration?: Config
             const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-            const localVarFormParams = new FormData();
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -408,12 +387,8 @@ export const EncyclopediaApiAxiosParamCreator = function (configuration?: Config
                 localVarQueryParameter['language'] = language;
             }
 
-
-            if (file !== undefined) { 
-                localVarFormParams.append('file', file as any);
-            }
-
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
                 query.set(key, localVarQueryParameter[key]);
@@ -424,7 +399,8 @@ export const EncyclopediaApiAxiosParamCreator = function (configuration?: Config
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = localVarFormParams;
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -435,14 +411,14 @@ export const EncyclopediaApiAxiosParamCreator = function (configuration?: Config
          * 
          * @summary encyclopedia - start-edition
          * @param {number} pageId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        encyclopediaStartEditionPostForm: async (pageId: number, file?: Blob, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        encyclopediaStartEditionPost: async (pageId: number, body?: any, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'pageId' is not null or undefined
             if (pageId === null || pageId === undefined) {
-                throw new RequiredError('pageId','Required parameter pageId was null or undefined when calling encyclopediaStartEditionPostForm.');
+                throw new RequiredError('pageId','Required parameter pageId was null or undefined when calling encyclopediaStartEditionPost.');
             }
             const localVarPath = `/encyclopedia/start-edition`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -454,9 +430,8 @@ export const EncyclopediaApiAxiosParamCreator = function (configuration?: Config
             const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-            const localVarFormParams = new FormData();
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -469,12 +444,8 @@ export const EncyclopediaApiAxiosParamCreator = function (configuration?: Config
                 localVarQueryParameter['page_id'] = pageId;
             }
 
-
-            if (file !== undefined) { 
-                localVarFormParams.append('file', file as any);
-            }
-
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
                 query.set(key, localVarQueryParameter[key]);
@@ -485,7 +456,8 @@ export const EncyclopediaApiAxiosParamCreator = function (configuration?: Config
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = localVarFormParams;
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -540,7 +512,7 @@ export const EncyclopediaApiAxiosParamCreator = function (configuration?: Config
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -602,12 +574,12 @@ export const EncyclopediaApiFp = function(configuration?: Configuration) {
          * 
          * @summary encyclopedia - end-edition
          * @param {number} pageId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async encyclopediaEndEditionPostForm(pageId: number, file?: Blob, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await EncyclopediaApiAxiosParamCreator(configuration).encyclopediaEndEditionPostForm(pageId, file, options);
+        async encyclopediaEndEditionPost(pageId: number, body?: any, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
+            const localVarAxiosArgs = await EncyclopediaApiAxiosParamCreator(configuration).encyclopediaEndEditionPost(pageId, body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -620,7 +592,7 @@ export const EncyclopediaApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async encyclopediaGetAllLocaleGet(locale: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async encyclopediaGetAllLocaleGet(locale: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await EncyclopediaApiAxiosParamCreator(configuration).encyclopediaGetAllLocaleGet(locale, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -635,7 +607,7 @@ export const EncyclopediaApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async encyclopediaGetGet(language: string, code: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async encyclopediaGetGet(language: string, code: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await EncyclopediaApiAxiosParamCreator(configuration).encyclopediaGetGet(language, code, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -649,7 +621,7 @@ export const EncyclopediaApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async encyclopediaGetLastPagesGet(language: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async encyclopediaGetLastPagesGet(language: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await EncyclopediaApiAxiosParamCreator(configuration).encyclopediaGetLastPagesGet(language, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -662,7 +634,7 @@ export const EncyclopediaApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async encyclopediaGetLockedPagesGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async encyclopediaGetLockedPagesGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await EncyclopediaApiAxiosParamCreator(configuration).encyclopediaGetLockedPagesGet(options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -678,7 +650,7 @@ export const EncyclopediaApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async encyclopediaSearchGet(language: string, _query: string, page: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async encyclopediaSearchGet(language: string, _query: string, page: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await EncyclopediaApiAxiosParamCreator(configuration).encyclopediaSearchGet(language, _query, page, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -690,12 +662,12 @@ export const EncyclopediaApiFp = function(configuration?: Configuration) {
          * @summary encyclopedia - set-language
          * @param {number} pageId 
          * @param {string} language 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async encyclopediaSetLanguagePostForm(pageId: number, language: string, file?: Blob, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await EncyclopediaApiAxiosParamCreator(configuration).encyclopediaSetLanguagePostForm(pageId, language, file, options);
+        async encyclopediaSetLanguagePost(pageId: number, language: string, body?: any, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
+            const localVarAxiosArgs = await EncyclopediaApiAxiosParamCreator(configuration).encyclopediaSetLanguagePost(pageId, language, body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -705,12 +677,12 @@ export const EncyclopediaApiFp = function(configuration?: Configuration) {
          * 
          * @summary encyclopedia - start-edition
          * @param {number} pageId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async encyclopediaStartEditionPostForm(pageId: number, file?: Blob, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await EncyclopediaApiAxiosParamCreator(configuration).encyclopediaStartEditionPostForm(pageId, file, options);
+        async encyclopediaStartEditionPost(pageId: number, body?: any, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
+            const localVarAxiosArgs = await EncyclopediaApiAxiosParamCreator(configuration).encyclopediaStartEditionPost(pageId, body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -728,7 +700,7 @@ export const EncyclopediaApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async encyclopediaUpdatePut(pageId: number, language: string, title: string, content: string, parent: number, reference: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async encyclopediaUpdatePut(pageId: number, language: string, title: string, content: string, parent: number, reference: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await EncyclopediaApiAxiosParamCreator(configuration).encyclopediaUpdatePut(pageId, language, title, content, parent, reference, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -748,12 +720,12 @@ export const EncyclopediaApiFactory = function (configuration?: Configuration, b
          * 
          * @summary encyclopedia - end-edition
          * @param {number} pageId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async encyclopediaEndEditionPostForm(pageId: number, file?: Blob, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return EncyclopediaApiFp(configuration).encyclopediaEndEditionPostForm(pageId, file, options).then((request) => request(axios, basePath));
+        async encyclopediaEndEditionPost(pageId: number, body?: any, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
+            return EncyclopediaApiFp(configuration).encyclopediaEndEditionPost(pageId, body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -762,7 +734,7 @@ export const EncyclopediaApiFactory = function (configuration?: Configuration, b
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async encyclopediaGetAllLocaleGet(locale: string, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async encyclopediaGetAllLocaleGet(locale: string, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return EncyclopediaApiFp(configuration).encyclopediaGetAllLocaleGet(locale, options).then((request) => request(axios, basePath));
         },
         /**
@@ -773,7 +745,7 @@ export const EncyclopediaApiFactory = function (configuration?: Configuration, b
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async encyclopediaGetGet(language: string, code: string, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async encyclopediaGetGet(language: string, code: string, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return EncyclopediaApiFp(configuration).encyclopediaGetGet(language, code, options).then((request) => request(axios, basePath));
         },
         /**
@@ -783,7 +755,7 @@ export const EncyclopediaApiFactory = function (configuration?: Configuration, b
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async encyclopediaGetLastPagesGet(language: string, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async encyclopediaGetLastPagesGet(language: string, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return EncyclopediaApiFp(configuration).encyclopediaGetLastPagesGet(language, options).then((request) => request(axios, basePath));
         },
         /**
@@ -792,7 +764,7 @@ export const EncyclopediaApiFactory = function (configuration?: Configuration, b
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async encyclopediaGetLockedPagesGet(options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async encyclopediaGetLockedPagesGet(options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return EncyclopediaApiFp(configuration).encyclopediaGetLockedPagesGet(options).then((request) => request(axios, basePath));
         },
         /**
@@ -804,7 +776,7 @@ export const EncyclopediaApiFactory = function (configuration?: Configuration, b
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async encyclopediaSearchGet(language: string, _query: string, page: number, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async encyclopediaSearchGet(language: string, _query: string, page: number, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return EncyclopediaApiFp(configuration).encyclopediaSearchGet(language, _query, page, options).then((request) => request(axios, basePath));
         },
         /**
@@ -812,23 +784,23 @@ export const EncyclopediaApiFactory = function (configuration?: Configuration, b
          * @summary encyclopedia - set-language
          * @param {number} pageId 
          * @param {string} language 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async encyclopediaSetLanguagePostForm(pageId: number, language: string, file?: Blob, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return EncyclopediaApiFp(configuration).encyclopediaSetLanguagePostForm(pageId, language, file, options).then((request) => request(axios, basePath));
+        async encyclopediaSetLanguagePost(pageId: number, language: string, body?: any, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
+            return EncyclopediaApiFp(configuration).encyclopediaSetLanguagePost(pageId, language, body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary encyclopedia - start-edition
          * @param {number} pageId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async encyclopediaStartEditionPostForm(pageId: number, file?: Blob, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return EncyclopediaApiFp(configuration).encyclopediaStartEditionPostForm(pageId, file, options).then((request) => request(axios, basePath));
+        async encyclopediaStartEditionPost(pageId: number, body?: any, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
+            return EncyclopediaApiFp(configuration).encyclopediaStartEditionPost(pageId, body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -842,7 +814,7 @@ export const EncyclopediaApiFactory = function (configuration?: Configuration, b
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async encyclopediaUpdatePut(pageId: number, language: string, title: string, content: string, parent: number, reference: number, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async encyclopediaUpdatePut(pageId: number, language: string, title: string, content: string, parent: number, reference: number, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return EncyclopediaApiFp(configuration).encyclopediaUpdatePut(pageId, language, title, content, parent, reference, options).then((request) => request(axios, basePath));
         },
     };
@@ -859,13 +831,13 @@ export class EncyclopediaApi extends BaseAPI {
      * 
      * @summary encyclopedia - end-edition
      * @param {number} pageId 
-     * @param {Blob} [file] 
+     * @param {any} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof EncyclopediaApi
      */
-    public async encyclopediaEndEditionPostForm(pageId: number, file?: Blob, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return EncyclopediaApiFp(this.configuration).encyclopediaEndEditionPostForm(pageId, file, options).then((request) => request(this.axios, this.basePath));
+    public async encyclopediaEndEditionPost(pageId: number, body?: any, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
+        return EncyclopediaApiFp(this.configuration).encyclopediaEndEditionPost(pageId, body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
@@ -875,7 +847,7 @@ export class EncyclopediaApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof EncyclopediaApi
      */
-    public async encyclopediaGetAllLocaleGet(locale: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async encyclopediaGetAllLocaleGet(locale: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return EncyclopediaApiFp(this.configuration).encyclopediaGetAllLocaleGet(locale, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -887,7 +859,7 @@ export class EncyclopediaApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof EncyclopediaApi
      */
-    public async encyclopediaGetGet(language: string, code: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async encyclopediaGetGet(language: string, code: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return EncyclopediaApiFp(this.configuration).encyclopediaGetGet(language, code, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -898,7 +870,7 @@ export class EncyclopediaApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof EncyclopediaApi
      */
-    public async encyclopediaGetLastPagesGet(language: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async encyclopediaGetLastPagesGet(language: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return EncyclopediaApiFp(this.configuration).encyclopediaGetLastPagesGet(language, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -908,7 +880,7 @@ export class EncyclopediaApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof EncyclopediaApi
      */
-    public async encyclopediaGetLockedPagesGet(options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async encyclopediaGetLockedPagesGet(options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return EncyclopediaApiFp(this.configuration).encyclopediaGetLockedPagesGet(options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -921,7 +893,7 @@ export class EncyclopediaApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof EncyclopediaApi
      */
-    public async encyclopediaSearchGet(language: string, _query: string, page: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async encyclopediaSearchGet(language: string, _query: string, page: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return EncyclopediaApiFp(this.configuration).encyclopediaSearchGet(language, _query, page, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -929,25 +901,25 @@ export class EncyclopediaApi extends BaseAPI {
      * @summary encyclopedia - set-language
      * @param {number} pageId 
      * @param {string} language 
-     * @param {Blob} [file] 
+     * @param {any} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof EncyclopediaApi
      */
-    public async encyclopediaSetLanguagePostForm(pageId: number, language: string, file?: Blob, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return EncyclopediaApiFp(this.configuration).encyclopediaSetLanguagePostForm(pageId, language, file, options).then((request) => request(this.axios, this.basePath));
+    public async encyclopediaSetLanguagePost(pageId: number, language: string, body?: any, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
+        return EncyclopediaApiFp(this.configuration).encyclopediaSetLanguagePost(pageId, language, body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
      * @summary encyclopedia - start-edition
      * @param {number} pageId 
-     * @param {Blob} [file] 
+     * @param {any} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof EncyclopediaApi
      */
-    public async encyclopediaStartEditionPostForm(pageId: number, file?: Blob, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return EncyclopediaApiFp(this.configuration).encyclopediaStartEditionPostForm(pageId, file, options).then((request) => request(this.axios, this.basePath));
+    public async encyclopediaStartEditionPost(pageId: number, body?: any, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
+        return EncyclopediaApiFp(this.configuration).encyclopediaStartEditionPost(pageId, body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
@@ -962,7 +934,7 @@ export class EncyclopediaApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof EncyclopediaApi
      */
-    public async encyclopediaUpdatePut(pageId: number, language: string, title: string, content: string, parent: number, reference: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async encyclopediaUpdatePut(pageId: number, language: string, title: string, content: string, parent: number, reference: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return EncyclopediaApiFp(this.configuration).encyclopediaUpdatePut(pageId, language, title, content, parent, reference, options).then((request) => request(this.axios, this.basePath));
     }
 }

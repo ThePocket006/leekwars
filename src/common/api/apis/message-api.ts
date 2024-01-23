@@ -11,11 +11,13 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import type {AxiosInstance, AxiosRequestConfig, AxiosResponse} from "axios";
+
+import type {AxiosResponse, AxiosInstance, AxiosRequestConfig} from "axios";
 import globalAxios from "axios";
 import { Configuration } from '@/common/api';
-import type {RequestArgs} from "@/common/api/base";
-import {BASE_PATH, BaseAPI, RequiredError} from "@/common/api/base";
+// Some imports not used depending on template conditions
+// @ts-ignore
+import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
 /**
  * MessageApi - axios parameter creator
  * @export
@@ -27,18 +29,18 @@ export const MessageApiAxiosParamCreator = function (configuration?: Configurati
          * @summary message - create-conversation
          * @param {number} farmerId 
          * @param {string} message 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        messageCreateConversationPostForm: async (farmerId: number, message: string, file?: Blob, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        messageCreateConversationPost: async (farmerId: number, message: string, body?: any, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'farmerId' is not null or undefined
             if (farmerId === null || farmerId === undefined) {
-                throw new RequiredError('farmerId','Required parameter farmerId was null or undefined when calling messageCreateConversationPostForm.');
+                throw new RequiredError('farmerId','Required parameter farmerId was null or undefined when calling messageCreateConversationPost.');
             }
             // verify required parameter 'message' is not null or undefined
             if (message === null || message === undefined) {
-                throw new RequiredError('message','Required parameter message was null or undefined when calling messageCreateConversationPostForm.');
+                throw new RequiredError('message','Required parameter message was null or undefined when calling messageCreateConversationPost.');
             }
             const localVarPath = `/message/create-conversation`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -50,9 +52,8 @@ export const MessageApiAxiosParamCreator = function (configuration?: Configurati
             const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-            const localVarFormParams = new FormData();
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -69,12 +70,8 @@ export const MessageApiAxiosParamCreator = function (configuration?: Configurati
                 localVarQueryParameter['message'] = message;
             }
 
-
-            if (file !== undefined) { 
-                localVarFormParams.append('file', file as any);
-            }
-
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
                 query.set(key, localVarQueryParameter[key]);
@@ -85,7 +82,8 @@ export const MessageApiAxiosParamCreator = function (configuration?: Configurati
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = localVarFormParams;
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -120,7 +118,7 @@ export const MessageApiAxiosParamCreator = function (configuration?: Configurati
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -176,7 +174,7 @@ export const MessageApiAxiosParamCreator = function (configuration?: Configurati
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -233,7 +231,7 @@ export const MessageApiAxiosParamCreator = function (configuration?: Configurati
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -289,7 +287,7 @@ export const MessageApiAxiosParamCreator = function (configuration?: Configurati
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -351,7 +349,7 @@ export const MessageApiAxiosParamCreator = function (configuration?: Configurati
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -392,14 +390,14 @@ export const MessageApiAxiosParamCreator = function (configuration?: Configurati
          * 
          * @summary message - quit-conversation
          * @param {number} conversationId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        messageQuitConversationPostForm: async (conversationId: number, file?: Blob, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        messageQuitConversationPost: async (conversationId: number, body?: any, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'conversationId' is not null or undefined
             if (conversationId === null || conversationId === undefined) {
-                throw new RequiredError('conversationId','Required parameter conversationId was null or undefined when calling messageQuitConversationPostForm.');
+                throw new RequiredError('conversationId','Required parameter conversationId was null or undefined when calling messageQuitConversationPost.');
             }
             const localVarPath = `/message/quit-conversation`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -411,9 +409,8 @@ export const MessageApiAxiosParamCreator = function (configuration?: Configurati
             const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-            const localVarFormParams = new FormData();
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -426,12 +423,8 @@ export const MessageApiAxiosParamCreator = function (configuration?: Configurati
                 localVarQueryParameter['conversation_id'] = conversationId;
             }
 
-
-            if (file !== undefined) { 
-                localVarFormParams.append('file', file as any);
-            }
-
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
                 query.set(key, localVarQueryParameter[key]);
@@ -442,7 +435,8 @@ export const MessageApiAxiosParamCreator = function (configuration?: Configurati
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = localVarFormParams;
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -453,14 +447,14 @@ export const MessageApiAxiosParamCreator = function (configuration?: Configurati
          * 
          * @summary message - read
          * @param {number} conversationId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        messageReadPostForm: async (conversationId: number, file?: Blob, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        messageReadPost: async (conversationId: number, body?: any, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'conversationId' is not null or undefined
             if (conversationId === null || conversationId === undefined) {
-                throw new RequiredError('conversationId','Required parameter conversationId was null or undefined when calling messageReadPostForm.');
+                throw new RequiredError('conversationId','Required parameter conversationId was null or undefined when calling messageReadPost.');
             }
             const localVarPath = `/message/read`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -472,9 +466,8 @@ export const MessageApiAxiosParamCreator = function (configuration?: Configurati
             const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-            const localVarFormParams = new FormData();
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -487,12 +480,8 @@ export const MessageApiAxiosParamCreator = function (configuration?: Configurati
                 localVarQueryParameter['conversation_id'] = conversationId;
             }
 
-
-            if (file !== undefined) { 
-                localVarFormParams.append('file', file as any);
-            }
-
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
                 query.set(key, localVarQueryParameter[key]);
@@ -503,7 +492,8 @@ export const MessageApiAxiosParamCreator = function (configuration?: Configurati
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = localVarFormParams;
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -515,18 +505,18 @@ export const MessageApiAxiosParamCreator = function (configuration?: Configurati
          * @summary message - send-message
          * @param {number} conversationId 
          * @param {string} message 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        messageSendMessagePostForm: async (conversationId: number, message: string, file?: Blob, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        messageSendMessagePost: async (conversationId: number, message: string, body?: any, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'conversationId' is not null or undefined
             if (conversationId === null || conversationId === undefined) {
-                throw new RequiredError('conversationId','Required parameter conversationId was null or undefined when calling messageSendMessagePostForm.');
+                throw new RequiredError('conversationId','Required parameter conversationId was null or undefined when calling messageSendMessagePost.');
             }
             // verify required parameter 'message' is not null or undefined
             if (message === null || message === undefined) {
-                throw new RequiredError('message','Required parameter message was null or undefined when calling messageSendMessagePostForm.');
+                throw new RequiredError('message','Required parameter message was null or undefined when calling messageSendMessagePost.');
             }
             const localVarPath = `/message/send-message`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -538,9 +528,8 @@ export const MessageApiAxiosParamCreator = function (configuration?: Configurati
             const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-            const localVarFormParams = new FormData();
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -557,12 +546,8 @@ export const MessageApiAxiosParamCreator = function (configuration?: Configurati
                 localVarQueryParameter['message'] = message;
             }
 
-
-            if (file !== undefined) { 
-                localVarFormParams.append('file', file as any);
-            }
-
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
                 query.set(key, localVarQueryParameter[key]);
@@ -573,7 +558,8 @@ export const MessageApiAxiosParamCreator = function (configuration?: Configurati
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = localVarFormParams;
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -584,14 +570,14 @@ export const MessageApiAxiosParamCreator = function (configuration?: Configurati
          * 
          * @summary message - toggle-notifications
          * @param {number} conversationId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        messageToggleNotificationsPostForm: async (conversationId: number, file?: Blob, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        messageToggleNotificationsPost: async (conversationId: number, body?: any, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'conversationId' is not null or undefined
             if (conversationId === null || conversationId === undefined) {
-                throw new RequiredError('conversationId','Required parameter conversationId was null or undefined when calling messageToggleNotificationsPostForm.');
+                throw new RequiredError('conversationId','Required parameter conversationId was null or undefined when calling messageToggleNotificationsPost.');
             }
             const localVarPath = `/message/toggle-notifications`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -603,9 +589,8 @@ export const MessageApiAxiosParamCreator = function (configuration?: Configurati
             const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-            const localVarFormParams = new FormData();
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -618,12 +603,8 @@ export const MessageApiAxiosParamCreator = function (configuration?: Configurati
                 localVarQueryParameter['conversation_id'] = conversationId;
             }
 
-
-            if (file !== undefined) { 
-                localVarFormParams.append('file', file as any);
-            }
-
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
                 query.set(key, localVarQueryParameter[key]);
@@ -634,7 +615,8 @@ export const MessageApiAxiosParamCreator = function (configuration?: Configurati
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = localVarFormParams;
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -655,12 +637,12 @@ export const MessageApiFp = function(configuration?: Configuration) {
          * @summary message - create-conversation
          * @param {number} farmerId 
          * @param {string} message 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async messageCreateConversationPostForm(farmerId: number, message: string, file?: Blob, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await MessageApiAxiosParamCreator(configuration).messageCreateConversationPostForm(farmerId, message, file, options);
+        async messageCreateConversationPost(farmerId: number, message: string, body?: any, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
+            const localVarAxiosArgs = await MessageApiAxiosParamCreator(configuration).messageCreateConversationPost(farmerId, message, body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -674,7 +656,7 @@ export const MessageApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async messageDeleteDelete(messages: string, mute: boolean, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async messageDeleteDelete(messages: string, mute: boolean, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await MessageApiAxiosParamCreator(configuration).messageDeleteDelete(messages, mute, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -688,7 +670,7 @@ export const MessageApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async messageFindConversationGet(targetFarmerId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async messageFindConversationGet(targetFarmerId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await MessageApiAxiosParamCreator(configuration).messageFindConversationGet(targetFarmerId, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -703,7 +685,7 @@ export const MessageApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async messageGetConversationsGet(offset: number, limit: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async messageGetConversationsGet(offset: number, limit: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await MessageApiAxiosParamCreator(configuration).messageGetConversationsGet(offset, limit, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -717,7 +699,7 @@ export const MessageApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async messageGetLatestConversationsGet(count: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async messageGetLatestConversationsGet(count: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await MessageApiAxiosParamCreator(configuration).messageGetLatestConversationsGet(count, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -733,7 +715,7 @@ export const MessageApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async messageGetMessagesGet(conversationId: number, count: number, offset: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async messageGetMessagesGet(conversationId: number, count: number, offset: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await MessageApiAxiosParamCreator(configuration).messageGetMessagesGet(conversationId, count, offset, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -744,12 +726,12 @@ export const MessageApiFp = function(configuration?: Configuration) {
          * 
          * @summary message - quit-conversation
          * @param {number} conversationId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async messageQuitConversationPostForm(conversationId: number, file?: Blob, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await MessageApiAxiosParamCreator(configuration).messageQuitConversationPostForm(conversationId, file, options);
+        async messageQuitConversationPost(conversationId: number, body?: any, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
+            const localVarAxiosArgs = await MessageApiAxiosParamCreator(configuration).messageQuitConversationPost(conversationId, body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -759,12 +741,12 @@ export const MessageApiFp = function(configuration?: Configuration) {
          * 
          * @summary message - read
          * @param {number} conversationId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async messageReadPostForm(conversationId: number, file?: Blob, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await MessageApiAxiosParamCreator(configuration).messageReadPostForm(conversationId, file, options);
+        async messageReadPost(conversationId: number, body?: any, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
+            const localVarAxiosArgs = await MessageApiAxiosParamCreator(configuration).messageReadPost(conversationId, body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -775,12 +757,12 @@ export const MessageApiFp = function(configuration?: Configuration) {
          * @summary message - send-message
          * @param {number} conversationId 
          * @param {string} message 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async messageSendMessagePostForm(conversationId: number, message: string, file?: Blob, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await MessageApiAxiosParamCreator(configuration).messageSendMessagePostForm(conversationId, message, file, options);
+        async messageSendMessagePost(conversationId: number, message: string, body?: any, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
+            const localVarAxiosArgs = await MessageApiAxiosParamCreator(configuration).messageSendMessagePost(conversationId, message, body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -790,12 +772,12 @@ export const MessageApiFp = function(configuration?: Configuration) {
          * 
          * @summary message - toggle-notifications
          * @param {number} conversationId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async messageToggleNotificationsPostForm(conversationId: number, file?: Blob, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await MessageApiAxiosParamCreator(configuration).messageToggleNotificationsPostForm(conversationId, file, options);
+        async messageToggleNotificationsPost(conversationId: number, body?: any, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
+            const localVarAxiosArgs = await MessageApiAxiosParamCreator(configuration).messageToggleNotificationsPost(conversationId, body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -815,12 +797,12 @@ export const MessageApiFactory = function (configuration?: Configuration, basePa
          * @summary message - create-conversation
          * @param {number} farmerId 
          * @param {string} message 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async messageCreateConversationPostForm(farmerId: number, message: string, file?: Blob, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return MessageApiFp(configuration).messageCreateConversationPostForm(farmerId, message, file, options).then((request) => request(axios, basePath));
+        async messageCreateConversationPost(farmerId: number, message: string, body?: any, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
+            return MessageApiFp(configuration).messageCreateConversationPost(farmerId, message, body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -830,7 +812,7 @@ export const MessageApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async messageDeleteDelete(messages: string, mute: boolean, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async messageDeleteDelete(messages: string, mute: boolean, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return MessageApiFp(configuration).messageDeleteDelete(messages, mute, options).then((request) => request(axios, basePath));
         },
         /**
@@ -840,7 +822,7 @@ export const MessageApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async messageFindConversationGet(targetFarmerId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async messageFindConversationGet(targetFarmerId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return MessageApiFp(configuration).messageFindConversationGet(targetFarmerId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -851,7 +833,7 @@ export const MessageApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async messageGetConversationsGet(offset: number, limit: number, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async messageGetConversationsGet(offset: number, limit: number, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return MessageApiFp(configuration).messageGetConversationsGet(offset, limit, options).then((request) => request(axios, basePath));
         },
         /**
@@ -861,7 +843,7 @@ export const MessageApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async messageGetLatestConversationsGet(count: number, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async messageGetLatestConversationsGet(count: number, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return MessageApiFp(configuration).messageGetLatestConversationsGet(count, options).then((request) => request(axios, basePath));
         },
         /**
@@ -873,53 +855,53 @@ export const MessageApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async messageGetMessagesGet(conversationId: number, count: number, offset: number, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async messageGetMessagesGet(conversationId: number, count: number, offset: number, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return MessageApiFp(configuration).messageGetMessagesGet(conversationId, count, offset, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary message - quit-conversation
          * @param {number} conversationId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async messageQuitConversationPostForm(conversationId: number, file?: Blob, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return MessageApiFp(configuration).messageQuitConversationPostForm(conversationId, file, options).then((request) => request(axios, basePath));
+        async messageQuitConversationPost(conversationId: number, body?: any, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
+            return MessageApiFp(configuration).messageQuitConversationPost(conversationId, body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary message - read
          * @param {number} conversationId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async messageReadPostForm(conversationId: number, file?: Blob, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return MessageApiFp(configuration).messageReadPostForm(conversationId, file, options).then((request) => request(axios, basePath));
+        async messageReadPost(conversationId: number, body?: any, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
+            return MessageApiFp(configuration).messageReadPost(conversationId, body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary message - send-message
          * @param {number} conversationId 
          * @param {string} message 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async messageSendMessagePostForm(conversationId: number, message: string, file?: Blob, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return MessageApiFp(configuration).messageSendMessagePostForm(conversationId, message, file, options).then((request) => request(axios, basePath));
+        async messageSendMessagePost(conversationId: number, message: string, body?: any, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
+            return MessageApiFp(configuration).messageSendMessagePost(conversationId, message, body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary message - toggle-notifications
          * @param {number} conversationId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async messageToggleNotificationsPostForm(conversationId: number, file?: Blob, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return MessageApiFp(configuration).messageToggleNotificationsPostForm(conversationId, file, options).then((request) => request(axios, basePath));
+        async messageToggleNotificationsPost(conversationId: number, body?: any, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
+            return MessageApiFp(configuration).messageToggleNotificationsPost(conversationId, body, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -936,13 +918,13 @@ export class MessageApi extends BaseAPI {
      * @summary message - create-conversation
      * @param {number} farmerId 
      * @param {string} message 
-     * @param {Blob} [file] 
+     * @param {any} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof MessageApi
      */
-    public async messageCreateConversationPostForm(farmerId: number, message: string, file?: Blob, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return MessageApiFp(this.configuration).messageCreateConversationPostForm(farmerId, message, file, options).then((request) => request(this.axios, this.basePath));
+    public async messageCreateConversationPost(farmerId: number, message: string, body?: any, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
+        return MessageApiFp(this.configuration).messageCreateConversationPost(farmerId, message, body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
@@ -953,7 +935,7 @@ export class MessageApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof MessageApi
      */
-    public async messageDeleteDelete(messages: string, mute: boolean, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async messageDeleteDelete(messages: string, mute: boolean, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return MessageApiFp(this.configuration).messageDeleteDelete(messages, mute, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -964,7 +946,7 @@ export class MessageApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof MessageApi
      */
-    public async messageFindConversationGet(targetFarmerId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async messageFindConversationGet(targetFarmerId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return MessageApiFp(this.configuration).messageFindConversationGet(targetFarmerId, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -976,7 +958,7 @@ export class MessageApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof MessageApi
      */
-    public async messageGetConversationsGet(offset: number, limit: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async messageGetConversationsGet(offset: number, limit: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return MessageApiFp(this.configuration).messageGetConversationsGet(offset, limit, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -987,7 +969,7 @@ export class MessageApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof MessageApi
      */
-    public async messageGetLatestConversationsGet(count: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async messageGetLatestConversationsGet(count: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return MessageApiFp(this.configuration).messageGetLatestConversationsGet(count, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -1000,56 +982,56 @@ export class MessageApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof MessageApi
      */
-    public async messageGetMessagesGet(conversationId: number, count: number, offset: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async messageGetMessagesGet(conversationId: number, count: number, offset: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return MessageApiFp(this.configuration).messageGetMessagesGet(conversationId, count, offset, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
      * @summary message - quit-conversation
      * @param {number} conversationId 
-     * @param {Blob} [file] 
+     * @param {any} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof MessageApi
      */
-    public async messageQuitConversationPostForm(conversationId: number, file?: Blob, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return MessageApiFp(this.configuration).messageQuitConversationPostForm(conversationId, file, options).then((request) => request(this.axios, this.basePath));
+    public async messageQuitConversationPost(conversationId: number, body?: any, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
+        return MessageApiFp(this.configuration).messageQuitConversationPost(conversationId, body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
      * @summary message - read
      * @param {number} conversationId 
-     * @param {Blob} [file] 
+     * @param {any} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof MessageApi
      */
-    public async messageReadPostForm(conversationId: number, file?: Blob, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return MessageApiFp(this.configuration).messageReadPostForm(conversationId, file, options).then((request) => request(this.axios, this.basePath));
+    public async messageReadPost(conversationId: number, body?: any, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
+        return MessageApiFp(this.configuration).messageReadPost(conversationId, body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
      * @summary message - send-message
      * @param {number} conversationId 
      * @param {string} message 
-     * @param {Blob} [file] 
+     * @param {any} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof MessageApi
      */
-    public async messageSendMessagePostForm(conversationId: number, message: string, file?: Blob, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return MessageApiFp(this.configuration).messageSendMessagePostForm(conversationId, message, file, options).then((request) => request(this.axios, this.basePath));
+    public async messageSendMessagePost(conversationId: number, message: string, body?: any, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
+        return MessageApiFp(this.configuration).messageSendMessagePost(conversationId, message, body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
      * @summary message - toggle-notifications
      * @param {number} conversationId 
-     * @param {Blob} [file] 
+     * @param {any} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof MessageApi
      */
-    public async messageToggleNotificationsPostForm(conversationId: number, file?: Blob, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return MessageApiFp(this.configuration).messageToggleNotificationsPostForm(conversationId, file, options).then((request) => request(this.axios, this.basePath));
+    public async messageToggleNotificationsPost(conversationId: number, body?: any, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
+        return MessageApiFp(this.configuration).messageToggleNotificationsPost(conversationId, body, options).then((request) => request(this.axios, this.basePath));
     }
 }

@@ -11,11 +11,13 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import type {AxiosInstance, AxiosRequestConfig, AxiosResponse} from "axios";
+
+import type {AxiosResponse, AxiosInstance, AxiosRequestConfig} from "axios";
 import globalAxios from "axios";
 import { Configuration } from '@/common/api';
-import type {RequestArgs} from "@/common/api/base";
-import {BASE_PATH, BaseAPI, RequiredError} from "@/common/api/base";
+// Some imports not used depending on template conditions
+// @ts-ignore
+import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
 /**
  * TrophyTemplateApi - axios parameter creator
  * @export
@@ -50,7 +52,7 @@ export const TrophyTemplateApiAxiosParamCreator = function (configuration?: Conf
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -100,7 +102,7 @@ export const TrophyTemplateApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async trophyTemplateGetGet(code: string, locale: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async trophyTemplateGetGet(code: string, locale: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await TrophyTemplateApiAxiosParamCreator(configuration).trophyTemplateGetGet(code, locale, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -124,7 +126,7 @@ export const TrophyTemplateApiFactory = function (configuration?: Configuration,
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async trophyTemplateGetGet(code: string, locale: string, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async trophyTemplateGetGet(code: string, locale: string, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return TrophyTemplateApiFp(configuration).trophyTemplateGetGet(code, locale, options).then((request) => request(axios, basePath));
         },
     };
@@ -146,7 +148,7 @@ export class TrophyTemplateApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof TrophyTemplateApi
      */
-    public async trophyTemplateGetGet(code: string, locale: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async trophyTemplateGetGet(code: string, locale: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return TrophyTemplateApiFp(this.configuration).trophyTemplateGetGet(code, locale, options).then((request) => request(this.axios, this.basePath));
     }
 }

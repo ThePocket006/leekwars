@@ -11,11 +11,13 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import type {AxiosInstance, AxiosRequestConfig, AxiosResponse} from "axios";
+
+import type {AxiosResponse, AxiosInstance, AxiosRequestConfig} from "axios";
 import globalAxios from "axios";
 import { Configuration } from '@/common/api';
-import type {RequestArgs} from "@/common/api/base";
-import {BASE_PATH, BaseAPI, RequiredError} from "@/common/api/base";
+// Some imports not used depending on template conditions
+// @ts-ignore
+import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
 /**
  * TestMapApi - axios parameter creator
  * @export
@@ -45,7 +47,7 @@ export const TestMapApiAxiosParamCreator = function (configuration?: Configurati
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -92,7 +94,7 @@ export const TestMapApiAxiosParamCreator = function (configuration?: Configurati
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -121,14 +123,14 @@ export const TestMapApiAxiosParamCreator = function (configuration?: Configurati
          * 
          * @summary test-map - new
          * @param {string} name 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        testMapNewPostForm: async (name: string, file?: Blob, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        testMapNewPost: async (name: string, body?: any, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'name' is not null or undefined
             if (name === null || name === undefined) {
-                throw new RequiredError('name','Required parameter name was null or undefined when calling testMapNewPostForm.');
+                throw new RequiredError('name','Required parameter name was null or undefined when calling testMapNewPost.');
             }
             const localVarPath = `/test-map/new`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -140,9 +142,8 @@ export const TestMapApiAxiosParamCreator = function (configuration?: Configurati
             const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-            const localVarFormParams = new FormData();
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -155,12 +156,8 @@ export const TestMapApiAxiosParamCreator = function (configuration?: Configurati
                 localVarQueryParameter['name'] = name;
             }
 
-
-            if (file !== undefined) { 
-                localVarFormParams.append('file', file as any);
-            }
-
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
                 query.set(key, localVarQueryParameter[key]);
@@ -171,7 +168,8 @@ export const TestMapApiAxiosParamCreator = function (configuration?: Configurati
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = localVarFormParams;
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -183,18 +181,18 @@ export const TestMapApiAxiosParamCreator = function (configuration?: Configurati
          * @summary test-map - update
          * @param {number} id 
          * @param {string} data 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        testMapUpdatePostForm: async (id: number, data: string, file?: Blob, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        testMapUpdatePost: async (id: number, data: string, body?: any, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             if (id === null || id === undefined) {
-                throw new RequiredError('id','Required parameter id was null or undefined when calling testMapUpdatePostForm.');
+                throw new RequiredError('id','Required parameter id was null or undefined when calling testMapUpdatePost.');
             }
             // verify required parameter 'data' is not null or undefined
             if (data === null || data === undefined) {
-                throw new RequiredError('data','Required parameter data was null or undefined when calling testMapUpdatePostForm.');
+                throw new RequiredError('data','Required parameter data was null or undefined when calling testMapUpdatePost.');
             }
             const localVarPath = `/test-map/update`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -206,9 +204,8 @@ export const TestMapApiAxiosParamCreator = function (configuration?: Configurati
             const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-            const localVarFormParams = new FormData();
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -225,12 +222,8 @@ export const TestMapApiAxiosParamCreator = function (configuration?: Configurati
                 localVarQueryParameter['data'] = data;
             }
 
-
-            if (file !== undefined) { 
-                localVarFormParams.append('file', file as any);
-            }
-
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
                 query.set(key, localVarQueryParameter[key]);
@@ -241,7 +234,8 @@ export const TestMapApiAxiosParamCreator = function (configuration?: Configurati
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = localVarFormParams;
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -264,7 +258,7 @@ export const TestMapApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async testMapDeleteDelete(id: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async testMapDeleteDelete(id: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await TestMapApiAxiosParamCreator(configuration).testMapDeleteDelete(id, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -277,7 +271,7 @@ export const TestMapApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async testMapGetAllGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async testMapGetAllGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await TestMapApiAxiosParamCreator(configuration).testMapGetAllGet(options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -288,12 +282,12 @@ export const TestMapApiFp = function(configuration?: Configuration) {
          * 
          * @summary test-map - new
          * @param {string} name 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async testMapNewPostForm(name: string, file?: Blob, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await TestMapApiAxiosParamCreator(configuration).testMapNewPostForm(name, file, options);
+        async testMapNewPost(name: string, body?: any, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
+            const localVarAxiosArgs = await TestMapApiAxiosParamCreator(configuration).testMapNewPost(name, body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -304,12 +298,12 @@ export const TestMapApiFp = function(configuration?: Configuration) {
          * @summary test-map - update
          * @param {number} id 
          * @param {string} data 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async testMapUpdatePostForm(id: number, data: string, file?: Blob, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await TestMapApiAxiosParamCreator(configuration).testMapUpdatePostForm(id, data, file, options);
+        async testMapUpdatePost(id: number, data: string, body?: any, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
+            const localVarAxiosArgs = await TestMapApiAxiosParamCreator(configuration).testMapUpdatePost(id, data, body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -331,7 +325,7 @@ export const TestMapApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async testMapDeleteDelete(id: number, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async testMapDeleteDelete(id: number, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return TestMapApiFp(configuration).testMapDeleteDelete(id, options).then((request) => request(axios, basePath));
         },
         /**
@@ -340,31 +334,31 @@ export const TestMapApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async testMapGetAllGet(options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async testMapGetAllGet(options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return TestMapApiFp(configuration).testMapGetAllGet(options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary test-map - new
          * @param {string} name 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async testMapNewPostForm(name: string, file?: Blob, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return TestMapApiFp(configuration).testMapNewPostForm(name, file, options).then((request) => request(axios, basePath));
+        async testMapNewPost(name: string, body?: any, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
+            return TestMapApiFp(configuration).testMapNewPost(name, body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary test-map - update
          * @param {number} id 
          * @param {string} data 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async testMapUpdatePostForm(id: number, data: string, file?: Blob, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return TestMapApiFp(configuration).testMapUpdatePostForm(id, data, file, options).then((request) => request(axios, basePath));
+        async testMapUpdatePost(id: number, data: string, body?: any, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
+            return TestMapApiFp(configuration).testMapUpdatePost(id, data, body, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -384,7 +378,7 @@ export class TestMapApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof TestMapApi
      */
-    public async testMapDeleteDelete(id: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async testMapDeleteDelete(id: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return TestMapApiFp(this.configuration).testMapDeleteDelete(id, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -394,32 +388,32 @@ export class TestMapApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof TestMapApi
      */
-    public async testMapGetAllGet(options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async testMapGetAllGet(options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return TestMapApiFp(this.configuration).testMapGetAllGet(options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
      * @summary test-map - new
      * @param {string} name 
-     * @param {Blob} [file] 
+     * @param {any} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof TestMapApi
      */
-    public async testMapNewPostForm(name: string, file?: Blob, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return TestMapApiFp(this.configuration).testMapNewPostForm(name, file, options).then((request) => request(this.axios, this.basePath));
+    public async testMapNewPost(name: string, body?: any, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
+        return TestMapApiFp(this.configuration).testMapNewPost(name, body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
      * @summary test-map - update
      * @param {number} id 
      * @param {string} data 
-     * @param {Blob} [file] 
+     * @param {any} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof TestMapApi
      */
-    public async testMapUpdatePostForm(id: number, data: string, file?: Blob, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return TestMapApiFp(this.configuration).testMapUpdatePostForm(id, data, file, options).then((request) => request(this.axios, this.basePath));
+    public async testMapUpdatePost(id: number, data: string, body?: any, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
+        return TestMapApiFp(this.configuration).testMapUpdatePost(id, data, body, options).then((request) => request(this.axios, this.basePath));
     }
 }

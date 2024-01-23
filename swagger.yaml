@@ -79,12 +79,12 @@ paths:
         - name: ai_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
         - name: folder_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
       requestBody:
         content:
@@ -110,7 +110,7 @@ paths:
         - name: ai_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
   /ai/destroy:
     delete:
@@ -130,7 +130,7 @@ paths:
         - name: ai_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
   /ai/get:
     get:
@@ -151,7 +151,7 @@ paths:
         - name: ai_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
   /ai/get-farmer-ais:
     get:
@@ -187,17 +187,17 @@ paths:
         - name: folder_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
         - name: version
           in: query
           schema:
-            type: object
+            type: number
           required: true
         - name: name
           in: query
           schema:
-            type: object
+            type: string
           required: true
       requestBody:
         content:
@@ -223,12 +223,12 @@ paths:
         - name: ai_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
         - name: new_name
           in: query
           schema:
-            type: object
+            type: string
           required: true
       requestBody:
         content:
@@ -254,7 +254,7 @@ paths:
         - name: ai_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
       requestBody:
         content:
@@ -281,12 +281,12 @@ paths:
         - name: ai_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
         - name: code
           in: query
           schema:
-            type: object
+            type: string
           required: true
       requestBody:
         content:
@@ -312,12 +312,12 @@ paths:
         - name: ai_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
         - name: strict
           in: query
           schema:
-            type: object
+            type: boolean
           required: true
   /ai/sync:
     post:
@@ -364,12 +364,12 @@ paths:
         - name: scenario_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
         - name: ai_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
       requestBody:
         content:
@@ -395,12 +395,12 @@ paths:
         - name: ai_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
         - name: version
           in: query
           schema:
-            type: object
+            type: number
           required: true
   /ai-folder/change-folder:
     post:
@@ -420,12 +420,12 @@ paths:
         - name: folder_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
         - name: dest_folder_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
       requestBody:
         content:
@@ -451,7 +451,7 @@ paths:
         - name: folder_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
   /ai-folder/new-name:
     post:
@@ -471,12 +471,12 @@ paths:
         - name: folder_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
         - name: name
           in: query
           schema:
-            type: object
+            type: string
           required: true
       requestBody:
         content:
@@ -502,12 +502,12 @@ paths:
         - name: folder_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
         - name: new_name
           in: query
           schema:
-            type: object
+            type: string
           required: true
       requestBody:
         content:
@@ -547,7 +547,7 @@ paths:
         - name: language
           in: query
           schema:
-            type: object
+            type: string
           required: true
   /changelog/get-last:
     get:
@@ -567,7 +567,7 @@ paths:
         - name: language
           in: query
           schema:
-            type: object
+            type: string
           required: true
   /chip/get-all:
     get:
@@ -643,7 +643,7 @@ paths:
         - name: page_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
       requestBody:
         content:
@@ -669,12 +669,12 @@ paths:
         - name: language
           in: query
           schema:
-            type: object
+            type: string
           required: true
         - name: code
           in: query
           schema:
-            type: object
+            type: string
           required: true
   /encyclopedia/get-all-locale:
     get:
@@ -694,7 +694,7 @@ paths:
         - name: locale
           in: query
           schema:
-            type: object
+            type: string
           required: true
   /encyclopedia/get-last-pages:
     get:
@@ -714,7 +714,7 @@ paths:
         - name: language
           in: query
           schema:
-            type: object
+            type: string
           required: true
   /encyclopedia/get-locked-pages:
     get:
@@ -748,17 +748,17 @@ paths:
         - name: language
           in: query
           schema:
-            type: object
+            type: string
           required: true
         - name: query
           in: query
           schema:
-            type: object
+            type: string
           required: true
         - name: page
           in: query
           schema:
-            type: object
+            type: number
           required: true
   /encyclopedia/set-language:
     post:
@@ -778,12 +778,12 @@ paths:
         - name: page_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
         - name: language
           in: query
           schema:
-            type: object
+            type: string
           required: true
       requestBody:
         content:
@@ -809,7 +809,7 @@ paths:
         - name: page_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
       requestBody:
         content:
@@ -835,32 +835,32 @@ paths:
         - name: page_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
         - name: language
           in: query
           schema:
-            type: object
+            type: string
           required: true
         - name: title
           in: query
           schema:
-            type: object
+            type: string
           required: true
         - name: content
           in: query
           schema:
-            type: object
+            type: string
           required: true
         - name: parent
           in: query
           schema:
-            type: object
+            type: number
           required: true
         - name: reference
           in: query
           schema:
-            type: object
+            type: number
           required: true
   /farmer/change-country:
     post:
@@ -880,7 +880,7 @@ paths:
         - name: country_code
           in: query
           schema:
-            type: object
+            type: string
           required: true
       requestBody:
         content:
@@ -920,7 +920,7 @@ paths:
         - name: farmer_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
   /farmer/get-connected:
     get:
@@ -968,12 +968,12 @@ paths:
         - name: login
           in: query
           schema:
-            type: object
+            type: string
           required: true
         - name: password
           in: query
           schema:
-            type: object
+            type: string
           required: true
       requestBody:
         content:
@@ -1013,7 +1013,7 @@ paths:
         - name: name
           in: query
           schema:
-            type: object
+            type: string
           required: true
       requestBody:
         content:
@@ -1039,7 +1039,7 @@ paths:
         - name: name
           in: query
           schema:
-            type: object
+            type: string
           required: true
       requestBody:
         content:
@@ -1065,7 +1065,7 @@ paths:
         - name: id
           in: query
           schema:
-            type: object
+            type: number
           required: true
   /farmer/set-avatar:
     post:
@@ -1109,7 +1109,7 @@ paths:
         - name: github
           in: query
           schema:
-            type: object
+            type: string
           required: true
       requestBody:
         content:
@@ -1135,7 +1135,7 @@ paths:
         - name: in_garden
           in: query
           schema:
-            type: object
+            type: boolean
           required: true
       requestBody:
         content:
@@ -1161,7 +1161,7 @@ paths:
         - name: language
           in: query
           schema:
-            type: object
+            type: string
           required: true
   /farmer/set-show-ai-lines:
     put:
@@ -1181,7 +1181,7 @@ paths:
         - name: show_ai_lines
           in: query
           schema:
-            type: object
+            type: boolean
           required: true
   /farmer/set-title:
     put:
@@ -1201,22 +1201,22 @@ paths:
         - name: icon
           in: query
           schema:
-            type: object
+            type: number
           required: true
         - name: noun
           in: query
           schema:
-            type: object
+            type: number
           required: true
         - name: gender
           in: query
           schema:
-            type: object
+            type: number
           required: true
         - name: adjective
           in: query
           schema:
-            type: object
+            type: number
           required: true
   /farmer/set-website:
     post:
@@ -1236,7 +1236,7 @@ paths:
         - name: website
           in: query
           schema:
-            type: object
+            type: string
           required: true
       requestBody:
         content:
@@ -1276,12 +1276,12 @@ paths:
         - name: fight_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
         - name: comment
           in: query
           schema:
-            type: object
+            type: string
           required: true
       requestBody:
         content:
@@ -1321,7 +1321,7 @@ paths:
         - name: fight_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
   /fight/get-logs:
     get:
@@ -1341,7 +1341,7 @@ paths:
         - name: fight_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
   /forum/mark-as-read:
     post:
@@ -1375,37 +1375,37 @@ paths:
         - name: query
           in: query
           schema:
-            type: object
+            type: string
           required: true
         - name: farmer
           in: query
           schema:
-            type: object
+            type: string
           required: true
         - name: category
           in: query
           schema:
-            type: object
+            type: string
           required: true
         - name: page
           in: query
           schema:
-            type: object
+            type: number
           required: true
         - name: order
           in: query
           schema:
-            type: object
+            type: string
           required: true
         - name: admin
           in: query
           schema:
-            type: object
+            type: boolean
           required: true
         - name: moderator
           in: query
           schema:
-            type: object
+            type: boolean
           required: true
   /function/get-all:
     get:
@@ -1455,7 +1455,7 @@ paths:
         - name: composition_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
   /garden/get-farmer-opponents:
     get:
@@ -1491,7 +1491,7 @@ paths:
         - name: leek_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
   /garden/start-farmer-challenge:
     post:
@@ -1511,12 +1511,12 @@ paths:
         - name: target_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
         - name: seed
           in: query
           schema:
-            type: object
+            type: number
           required: true
       requestBody:
         content:
@@ -1542,7 +1542,7 @@ paths:
         - name: target_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
       requestBody:
         content:
@@ -1568,17 +1568,17 @@ paths:
         - name: leek_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
         - name: target_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
         - name: seed
           in: query
           schema:
-            type: object
+            type: number
           required: true
       requestBody:
         content:
@@ -1604,12 +1604,12 @@ paths:
         - name: leek_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
         - name: target_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
       requestBody:
         content:
@@ -1635,17 +1635,17 @@ paths:
         - name: composition_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
         - name: target_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
         - name: seed
           in: query
           schema:
-            type: object
+            type: number
           required: true
       requestBody:
         content:
@@ -1671,12 +1671,12 @@ paths:
         - name: composition_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
         - name: target_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
       requestBody:
         content:
@@ -1702,7 +1702,7 @@ paths:
         - name: group_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
       requestBody:
         content:
@@ -1728,7 +1728,7 @@ paths:
         - name: group_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
       requestBody:
         content:
@@ -1754,27 +1754,29 @@ paths:
         - name: group_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
         - name: level
           in: query
           schema:
-            type: object
+            type: number
           required: true
         - name: characteristics
           in: query
           schema:
-            type: object
+            type: string
           required: true
         - name: weapons
           in: query
           schema:
-            type: object
+            type: array
+            items: {}
           required: true
         - name: chips
           in: query
           schema:
-            type: object
+            type: array
+            items: {}
           required: true
   /groupe/get:
     get:
@@ -1794,7 +1796,7 @@ paths:
         - name: group_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
   /groupe/give-item:
     post:
@@ -1814,17 +1816,17 @@ paths:
         - name: group_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
         - name: member_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
         - name: item_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
       requestBody:
         content:
@@ -1850,17 +1852,17 @@ paths:
         - name: group_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
         - name: member_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
         - name: email
           in: query
           schema:
-            type: object
+            type: string
           required: true
   /groupe/member-leek-name:
     put:
@@ -1880,17 +1882,17 @@ paths:
         - name: group_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
         - name: member_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
         - name: leek_name
           in: query
           schema:
-            type: object
+            type: string
           required: true
   /groupe/member-name:
     put:
@@ -1910,17 +1912,17 @@ paths:
         - name: group_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
         - name: member_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
         - name: name
           in: query
           schema:
-            type: object
+            type: string
           required: true
   /groupe/member-password:
     put:
@@ -1940,17 +1942,17 @@ paths:
         - name: group_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
         - name: member_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
         - name: password
           in: query
           schema:
-            type: object
+            type: string
           required: true
   /groupe/remove-member:
     delete:
@@ -1970,12 +1972,12 @@ paths:
         - name: group_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
         - name: member_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
   /groupe/send-invite:
     post:
@@ -1995,12 +1997,12 @@ paths:
         - name: group_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
         - name: member_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
       requestBody:
         content:
@@ -2026,12 +2028,12 @@ paths:
         - name: group_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
         - name: enabled
           in: query
           schema:
-            type: object
+            type: boolean
           required: true
   /groupe/setting-br:
     put:
@@ -2051,12 +2053,12 @@ paths:
         - name: group_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
         - name: enabled
           in: query
           schema:
-            type: object
+            type: boolean
           required: true
   /groupe/setting-buy-fights:
     put:
@@ -2076,12 +2078,12 @@ paths:
         - name: group_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
         - name: enabled
           in: query
           schema:
-            type: object
+            type: boolean
           required: true
   /groupe/setting-chat:
     put:
@@ -2101,12 +2103,12 @@ paths:
         - name: group_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
         - name: enabled
           in: query
           schema:
-            type: object
+            type: boolean
           required: true
   /groupe/setting-equipment-blocked:
     put:
@@ -2126,12 +2128,12 @@ paths:
         - name: group_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
         - name: enabled
           in: query
           schema:
-            type: object
+            type: boolean
           required: true
   /groupe/setting-new-leek:
     put:
@@ -2151,12 +2153,12 @@ paths:
         - name: group_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
         - name: enabled
           in: query
           schema:
-            type: object
+            type: boolean
           required: true
   /groupe/setting-public-chat:
     put:
@@ -2176,12 +2178,12 @@ paths:
         - name: group_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
         - name: enabled
           in: query
           schema:
-            type: object
+            type: boolean
           required: true
   /groupe/setting-tournaments:
     put:
@@ -2201,12 +2203,12 @@ paths:
         - name: group_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
         - name: enabled
           in: query
           schema:
-            type: object
+            type: boolean
           required: true
   /groupe/setting-xp-blocked:
     put:
@@ -2226,12 +2228,12 @@ paths:
         - name: group_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
         - name: enabled
           in: query
           schema:
-            type: object
+            type: boolean
           required: true
   /groupe/start-battle-royale:
     post:
@@ -2251,7 +2253,7 @@ paths:
         - name: group_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
       requestBody:
         content:
@@ -2277,7 +2279,7 @@ paths:
         - name: group_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
       requestBody:
         content:
@@ -2303,7 +2305,7 @@ paths:
         - name: group_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
       requestBody:
         content:
@@ -2343,7 +2345,7 @@ paths:
         - name: farmer_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
   /history/get-leek-history:
     get:
@@ -2363,7 +2365,7 @@ paths:
         - name: leek_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
   /history/get-team-history:
     get:
@@ -2383,7 +2385,7 @@ paths:
         - name: team_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
   /item/get-all:
     get:
@@ -2417,12 +2419,12 @@ paths:
         - name: template
           in: query
           schema:
-            type: object
+            type: number
           required: true
         - name: quantity
           in: query
           schema:
-            type: object
+            type: number
           required: true
       requestBody:
         content:
@@ -2448,12 +2450,12 @@ paths:
         - name: file
           in: query
           schema:
-            type: object
+            type: string
           required: true
         - name: lang
           in: query
           schema:
-            type: object
+            type: string
           required: true
   /leek/add-chip:
     post:
@@ -2473,12 +2475,12 @@ paths:
         - name: leek_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
         - name: chip_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
       requestBody:
         content:
@@ -2504,12 +2506,12 @@ paths:
         - name: leek_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
         - name: weapon_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
       requestBody:
         content:
@@ -2535,7 +2537,7 @@ paths:
         - name: name
           in: query
           schema:
-            type: object
+            type: string
           required: true
       requestBody:
         content:
@@ -2561,12 +2563,12 @@ paths:
         - name: leek_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
         - name: key
           in: query
           schema:
-            type: object
+            type: string
           required: true
   /leek/get:
     get:
@@ -2586,7 +2588,7 @@ paths:
         - name: leek_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
   /leek/get-count:
     get:
@@ -2634,7 +2636,7 @@ paths:
         - name: leek_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
   /leek/get-registers:
     get:
@@ -2655,7 +2657,7 @@ paths:
         - name: leek_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
   /leek/register-auto-br:
     post:
@@ -2675,7 +2677,7 @@ paths:
         - name: leek_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
       requestBody:
         content:
@@ -2701,7 +2703,7 @@ paths:
         - name: leek_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
       requestBody:
         content:
@@ -2727,7 +2729,7 @@ paths:
         - name: leek_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
   /leek/remove-chip:
     delete:
@@ -2747,7 +2749,7 @@ paths:
         - name: chip_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
   /leek/remove-hat:
     delete:
@@ -2767,7 +2769,7 @@ paths:
         - name: leek_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
   /leek/remove-weapon:
     delete:
@@ -2787,7 +2789,7 @@ paths:
         - name: weapon_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
   /leek/rename-crystals:
     post:
@@ -2807,12 +2809,12 @@ paths:
         - name: leek_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
         - name: new_name
           in: query
           schema:
-            type: object
+            type: string
           required: true
       requestBody:
         content:
@@ -2838,12 +2840,12 @@ paths:
         - name: leek_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
         - name: new_name
           in: query
           schema:
-            type: object
+            type: string
           required: true
       requestBody:
         content:
@@ -2869,7 +2871,7 @@ paths:
         - name: id
           in: query
           schema:
-            type: object
+            type: number
           required: true
   /leek/set-ai:
     post:
@@ -2889,12 +2891,12 @@ paths:
         - name: leek_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
         - name: ai_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
       requestBody:
         content:
@@ -2920,12 +2922,12 @@ paths:
         - name: leek_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
         - name: face
           in: query
           schema:
-            type: object
+            type: number
           required: true
   /leek/set-hat:
     post:
@@ -2945,12 +2947,12 @@ paths:
         - name: leek_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
         - name: hat_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
       requestBody:
         content:
@@ -2976,12 +2978,12 @@ paths:
         - name: leek_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
         - name: in_garden
           in: query
           schema:
-            type: object
+            type: boolean
           required: true
       requestBody:
         content:
@@ -3007,12 +3009,12 @@ paths:
         - name: leek_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
         - name: metal
           in: query
           schema:
-            type: object
+            type: boolean
           required: true
   /leek/set-register:
     post:
@@ -3032,17 +3034,17 @@ paths:
         - name: leek_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
         - name: key
           in: query
           schema:
-            type: object
+            type: string
           required: true
         - name: value
           in: query
           schema:
-            type: object
+            type: string
           required: true
       requestBody:
         content:
@@ -3068,12 +3070,12 @@ paths:
         - name: leek_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
         - name: weapon
           in: query
           schema:
-            type: object
+            type: number
           required: true
   /leek/set-xp-blocked:
     put:
@@ -3093,12 +3095,12 @@ paths:
         - name: leek_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
         - name: xp_blocked
           in: query
           schema:
-            type: object
+            type: boolean
           required: true
   /leek/spend-capital:
     post:
@@ -3118,7 +3120,7 @@ paths:
         - name: leek_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
         - name: characteristics
           in: query
@@ -3149,7 +3151,7 @@ paths:
         - name: leek_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
       requestBody:
         content:
@@ -3175,7 +3177,7 @@ paths:
         - name: leek_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
       requestBody:
         content:
@@ -3201,12 +3203,12 @@ paths:
         - name: leek_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
         - name: potion_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
       requestBody:
         content:
@@ -3246,7 +3248,7 @@ paths:
         - name: item_id
           in: query
           schema:
-            type: object
+            type: string
           required: true
       requestBody:
         content:
@@ -3272,7 +3274,7 @@ paths:
         - name: item_id
           in: query
           schema:
-            type: object
+            type: string
           required: true
       requestBody:
         content:
@@ -3298,7 +3300,7 @@ paths:
         - name: item_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
       requestBody:
         content:
@@ -3324,12 +3326,12 @@ paths:
         - name: farmer_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
         - name: message
           in: query
           schema:
-            type: object
+            type: string
           required: true
       requestBody:
         content:
@@ -3355,12 +3357,12 @@ paths:
         - name: messages
           in: query
           schema:
-            type: object
+            type: string
           required: true
         - name: mute
           in: query
           schema:
-            type: object
+            type: boolean
           required: true
   /message/find-conversation:
     get:
@@ -3380,7 +3382,7 @@ paths:
         - name: target_farmer_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
   /message/get-conversations:
     get:
@@ -3400,12 +3402,12 @@ paths:
         - name: offset
           in: query
           schema:
-            type: object
+            type: number
           required: true
         - name: limit
           in: query
           schema:
-            type: object
+            type: number
           required: true
   /message/get-latest-conversations:
     get:
@@ -3425,7 +3427,7 @@ paths:
         - name: count
           in: query
           schema:
-            type: object
+            type: number
           required: true
   /message/get-messages:
     get:
@@ -3445,17 +3447,17 @@ paths:
         - name: conversation_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
         - name: count
           in: query
           schema:
-            type: object
+            type: number
           required: true
         - name: offset
           in: query
           schema:
-            type: object
+            type: number
           required: true
   /message/quit-conversation:
     post:
@@ -3475,7 +3477,7 @@ paths:
         - name: conversation_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
       requestBody:
         content:
@@ -3501,7 +3503,7 @@ paths:
         - name: conversation_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
       requestBody:
         content:
@@ -3527,12 +3529,12 @@ paths:
         - name: conversation_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
         - name: message
           in: query
           schema:
-            type: object
+            type: string
           required: true
       requestBody:
         content:
@@ -3558,7 +3560,7 @@ paths:
         - name: conversation_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
       requestBody:
         content:
@@ -3584,12 +3586,12 @@ paths:
         - name: reaction
           in: query
           schema:
-            type: object
+            type: string
           required: true
         - name: message_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
       requestBody:
         content:
@@ -3615,7 +3617,7 @@ paths:
         - name: message_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
   /notification/get-latest:
     get:
@@ -3635,7 +3637,7 @@ paths:
         - name: count
           in: query
           schema:
-            type: object
+            type: number
           required: true
   /notification/read:
     post:
@@ -3655,7 +3657,7 @@ paths:
         - name: notification_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
       requestBody:
         content:
@@ -3737,22 +3739,22 @@ paths:
         - name: category
           in: query
           schema:
-            type: object
+            type: string
           required: true
         - name: order
           in: query
           schema:
-            type: object
+            type: string
           required: true
         - name: page
           in: query
           schema:
-            type: object
+            type: number
           required: true
         - name: country
           in: query
           schema:
-            type: object
+            type: string
           required: true
   /ranking/get-active:
     get:
@@ -3772,22 +3774,22 @@ paths:
         - name: category
           in: query
           schema:
-            type: object
+            type: string
           required: true
         - name: order
           in: query
           schema:
-            type: object
+            type: string
           required: true
         - name: page
           in: query
           schema:
-            type: object
+            type: number
           required: true
         - name: country
           in: query
           schema:
-            type: object
+            type: string
           required: true
   /ranking/get-farmer-rank:
     get:
@@ -3807,12 +3809,12 @@ paths:
         - name: farmer_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
         - name: order
           in: query
           schema:
-            type: object
+            type: string
           required: true
   /ranking/get-farmer-rank-active:
     get:
@@ -3832,12 +3834,12 @@ paths:
         - name: farmer_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
         - name: order
           in: query
           schema:
-            type: object
+            type: string
           required: true
   /ranking/get-home-ranking:
     get:
@@ -3871,12 +3873,12 @@ paths:
         - name: leek_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
         - name: order
           in: query
           schema:
-            type: object
+            type: string
           required: true
   /ranking/get-leek-rank-active:
     get:
@@ -3896,12 +3898,12 @@ paths:
         - name: leek_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
         - name: order
           in: query
           schema:
-            type: object
+            type: string
           required: true
   /ranking/get-team-rank:
     get:
@@ -3921,12 +3923,12 @@ paths:
         - name: team_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
         - name: order
           in: query
           schema:
-            type: object
+            type: string
           required: true
   /ranking/get-team-rank-active:
     get:
@@ -3946,12 +3948,12 @@ paths:
         - name: team_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
         - name: order
           in: query
           schema:
-            type: object
+            type: string
           required: true
   /ranking/search:
     post:
@@ -3971,22 +3973,22 @@ paths:
         - name: query
           in: query
           schema:
-            type: object
+            type: string
           required: true
         - name: search_leeks
           in: query
           schema:
-            type: object
+            type: boolean
           required: true
         - name: search_farmers
           in: query
           schema:
-            type: object
+            type: boolean
           required: true
         - name: search_teams
           in: query
           schema:
-            type: object
+            type: boolean
           required: true
       requestBody:
         content:
@@ -4068,7 +4070,7 @@ paths:
         - name: candidacy_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
       requestBody:
         content:
@@ -4094,7 +4096,7 @@ paths:
         - name: farmer_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
       requestBody:
         content:
@@ -4134,7 +4136,7 @@ paths:
         - name: team_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
       requestBody:
         content:
@@ -4160,7 +4162,7 @@ paths:
         - name: description
           in: query
           schema:
-            type: object
+            type: string
           required: true
   /team/change-member-grade:
     post:
@@ -4180,12 +4182,12 @@ paths:
         - name: member_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
         - name: new_grade
           in: query
           schema:
-            type: object
+            type: string
           required: true
       requestBody:
         content:
@@ -4211,12 +4213,12 @@ paths:
         - name: new_owner
           in: query
           schema:
-            type: object
+            type: number
           required: true
         - name: password
           in: query
           schema:
-            type: object
+            type: string
           required: true
       requestBody:
         content:
@@ -4242,7 +4244,7 @@ paths:
         - name: id
           in: query
           schema:
-            type: object
+            type: number
           required: true
   /team/create:
     post:
@@ -4262,7 +4264,7 @@ paths:
         - name: team_name
           in: query
           schema:
-            type: object
+            type: string
           required: true
       requestBody:
         content:
@@ -4288,7 +4290,7 @@ paths:
         - name: composition_name
           in: query
           schema:
-            type: object
+            type: string
           required: true
       requestBody:
         content:
@@ -4314,7 +4316,7 @@ paths:
         - name: composition_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
   /team/dissolve:
     post:
@@ -4348,7 +4350,7 @@ paths:
         - name: team_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
   /team/get-connected:
     get:
@@ -4368,7 +4370,7 @@ paths:
         - name: team_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
   /team/get-private:
     get:
@@ -4388,7 +4390,7 @@ paths:
         - name: team_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
   /team/move-leek:
     post:
@@ -4408,12 +4410,12 @@ paths:
         - name: leek_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
         - name: to
           in: query
           schema:
-            type: object
+            type: number
           required: true
       requestBody:
         content:
@@ -4453,7 +4455,7 @@ paths:
         - name: team_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
   /team/register-tournament:
     post:
@@ -4473,7 +4475,7 @@ paths:
         - name: composition_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
       requestBody:
         content:
@@ -4499,7 +4501,7 @@ paths:
         - name: candidacy_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
       requestBody:
         content:
@@ -4525,12 +4527,12 @@ paths:
         - name: composition_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
         - name: composition_name
           in: query
           schema:
-            type: object
+            type: string
           required: true
   /team/rich-tooltip:
     get:
@@ -4550,7 +4552,7 @@ paths:
         - name: id
           in: query
           schema:
-            type: object
+            type: number
           required: true
   /team/send-candidacy:
     post:
@@ -4570,7 +4572,7 @@ paths:
         - name: team_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
       requestBody:
         content:
@@ -4596,7 +4598,7 @@ paths:
         - name: team_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
       requestBody:
         content:
@@ -4625,7 +4627,7 @@ paths:
         - name: level
           in: query
           schema:
-            type: object
+            type: number
           required: true
   /team/set-opened:
     post:
@@ -4645,7 +4647,7 @@ paths:
         - name: opened
           in: query
           schema:
-            type: object
+            type: boolean
           required: true
       requestBody:
         content:
@@ -4671,7 +4673,7 @@ paths:
         - name: ai_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
   /team/unregister-tournament:
     post:
@@ -4691,7 +4693,7 @@ paths:
         - name: composition_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
       requestBody:
         content:
@@ -4731,7 +4733,7 @@ paths:
         - name: id
           in: query
           schema:
-            type: object
+            type: string
           required: true
   /test-leek/get-all:
     get:
@@ -4765,7 +4767,7 @@ paths:
         - name: name
           in: query
           schema:
-            type: object
+            type: string
           required: true
       requestBody:
         content:
@@ -4791,12 +4793,12 @@ paths:
         - name: id
           in: query
           schema:
-            type: object
+            type: number
           required: true
         - name: data
           in: query
           schema:
-            type: object
+            type: string
           required: true
       requestBody:
         content:
@@ -4822,7 +4824,7 @@ paths:
         - name: id
           in: query
           schema:
-            type: object
+            type: number
           required: true
   /test-map/get-all:
     get:
@@ -4856,7 +4858,7 @@ paths:
         - name: name
           in: query
           schema:
-            type: object
+            type: string
           required: true
       requestBody:
         content:
@@ -4882,12 +4884,12 @@ paths:
         - name: id
           in: query
           schema:
-            type: object
+            type: number
           required: true
         - name: data
           in: query
           schema:
-            type: object
+            type: string
           required: true
       requestBody:
         content:
@@ -4913,22 +4915,22 @@ paths:
         - name: scenario_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
         - name: leek
           in: query
           schema:
-            type: object
+            type: number
           required: true
         - name: team
           in: query
           schema:
-            type: object
+            type: number
           required: true
         - name: ai
           in: query
           schema:
-            type: object
+            type: string
           required: true
       requestBody:
         content:
@@ -4954,7 +4956,7 @@ paths:
         - name: id
           in: query
           schema:
-            type: object
+            type: number
           required: true
   /test-scenario/delete-leek:
     delete:
@@ -4974,12 +4976,12 @@ paths:
         - name: scenario_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
         - name: leek
           in: query
           schema:
-            type: object
+            type: number
           required: true
   /test-scenario/get-all:
     get:
@@ -5013,7 +5015,7 @@ paths:
         - name: name
           in: query
           schema:
-            type: object
+            type: string
           required: true
       requestBody:
         content:
@@ -5039,12 +5041,12 @@ paths:
         - name: id
           in: query
           schema:
-            type: object
+            type: number
           required: true
         - name: data
           in: query
           schema:
-            type: object
+            type: string
           required: true
       requestBody:
         content:
@@ -5070,12 +5072,12 @@ paths:
         - name: tournament_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
         - name: comment
           in: query
           schema:
-            type: object
+            type: string
           required: true
       requestBody:
         content:
@@ -5101,7 +5103,7 @@ paths:
         - name: tournament_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
       requestBody:
         content:
@@ -5127,7 +5129,7 @@ paths:
         - name: tournament_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
   /trophy/get-all:
     get:
@@ -5175,12 +5177,12 @@ paths:
         - name: farmer_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
         - name: lang
           in: query
           schema:
-            type: object
+            type: string
           required: true
   /trophy/get-trophy-words:
     get:
@@ -5215,7 +5217,7 @@ paths:
         - name: lang
           in: query
           schema:
-            type: object
+            type: string
           required: true
   /trophy/retrieve-all-rewards:
     post:
@@ -5249,7 +5251,7 @@ paths:
         - name: trophy_id
           in: query
           schema:
-            type: object
+            type: number
           required: true
       requestBody:
         content:
@@ -5275,12 +5277,12 @@ paths:
         - name: code
           in: query
           schema:
-            type: object
+            type: string
           required: true
         - name: locale
           in: query
           schema:
-            type: object
+            type: string
           required: true
   /weapon/get-all:
     get:

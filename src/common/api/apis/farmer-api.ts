@@ -11,11 +11,13 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import type {AxiosInstance, AxiosRequestConfig, AxiosResponse} from "axios";
+
+import type {AxiosResponse, AxiosInstance, AxiosRequestConfig} from "axios";
 import globalAxios from "axios";
 import { Configuration } from '@/common/api';
-import type {RequestArgs} from "@/common/api/base";
-import {BASE_PATH, BaseAPI, RequiredError} from "@/common/api/base";
+// Some imports not used depending on template conditions
+// @ts-ignore
+import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
 /**
  * FarmerApi - axios parameter creator
  * @export
@@ -26,14 +28,14 @@ export const FarmerApiAxiosParamCreator = function (configuration?: Configuratio
          * 
          * @summary farmer - change-country
          * @param {string} countryCode 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        farmerChangeCountryPostForm: async (countryCode: string, file?: Blob, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        farmerChangeCountryPost: async (countryCode: string, body?: any, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'countryCode' is not null or undefined
             if (countryCode === null || countryCode === undefined) {
-                throw new RequiredError('countryCode','Required parameter countryCode was null or undefined when calling farmerChangeCountryPostForm.');
+                throw new RequiredError('countryCode','Required parameter countryCode was null or undefined when calling farmerChangeCountryPost.');
             }
             const localVarPath = `/farmer/change-country`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -45,9 +47,8 @@ export const FarmerApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-            const localVarFormParams = new FormData();
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -60,12 +61,8 @@ export const FarmerApiAxiosParamCreator = function (configuration?: Configuratio
                 localVarQueryParameter['country_code'] = countryCode;
             }
 
-
-            if (file !== undefined) { 
-                localVarFormParams.append('file', file as any);
-            }
-
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
                 query.set(key, localVarQueryParameter[key]);
@@ -76,7 +73,8 @@ export const FarmerApiAxiosParamCreator = function (configuration?: Configuratio
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = localVarFormParams;
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -100,15 +98,6 @@ export const FarmerApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarRequestOptions :AxiosRequestConfig = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-
-            // authentication bearerAuth required
-            // http bearer authentication required
-            if (configuration && configuration.accessToken) {
-                const accessToken = typeof configuration.accessToken === 'function'
-                    ? await configuration.accessToken()
-                    : await configuration.accessToken;
-                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
-            }
 
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
@@ -144,15 +133,6 @@ export const FarmerApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
-            // http bearer authentication required
-            if (configuration && configuration.accessToken) {
-                const accessToken = typeof configuration.accessToken === 'function'
-                    ? await configuration.accessToken()
-                    : await configuration.accessToken;
-                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
-            }
-
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
                 query.set(key, localVarQueryParameter[key]);
@@ -187,7 +167,7 @@ export const FarmerApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -235,15 +215,6 @@ export const FarmerApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
-            // http bearer authentication required
-            if (configuration && configuration.accessToken) {
-                const accessToken = typeof configuration.accessToken === 'function'
-                    ? await configuration.accessToken()
-                    : await configuration.accessToken;
-                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
-            }
-
             if (farmerId !== undefined) {
                 localVarQueryParameter['farmer_id'] = farmerId;
             }
@@ -269,18 +240,18 @@ export const FarmerApiAxiosParamCreator = function (configuration?: Configuratio
          * @summary farmer - login-token
          * @param {string} login 
          * @param {string} password 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        farmerLoginTokenPostForm: async (login: string, password: string, file?: Blob, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        farmerLoginTokenPost: async (login: string, password: string, body?: any, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'login' is not null or undefined
             if (login === null || login === undefined) {
-                throw new RequiredError('login','Required parameter login was null or undefined when calling farmerLoginTokenPostForm.');
+                throw new RequiredError('login','Required parameter login was null or undefined when calling farmerLoginTokenPost.');
             }
             // verify required parameter 'password' is not null or undefined
             if (password === null || password === undefined) {
-                throw new RequiredError('password','Required parameter password was null or undefined when calling farmerLoginTokenPostForm.');
+                throw new RequiredError('password','Required parameter password was null or undefined when calling farmerLoginTokenPost.');
             }
             const localVarPath = `/farmer/login-token`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -292,9 +263,8 @@ export const FarmerApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-            const localVarFormParams = new FormData();
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -311,12 +281,8 @@ export const FarmerApiAxiosParamCreator = function (configuration?: Configuratio
                 localVarQueryParameter['password'] = password;
             }
 
-
-            if (file !== undefined) { 
-                localVarFormParams.append('file', file as any);
-            }
-
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
                 query.set(key, localVarQueryParameter[key]);
@@ -327,7 +293,8 @@ export const FarmerApiAxiosParamCreator = function (configuration?: Configuratio
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = localVarFormParams;
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -352,7 +319,7 @@ export const FarmerApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -381,14 +348,14 @@ export const FarmerApiAxiosParamCreator = function (configuration?: Configuratio
          * 
          * @summary farmer - rename-crystals
          * @param {string} name 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        farmerRenameCrystalsPostForm: async (name: string, file?: Blob, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        farmerRenameCrystalsPost: async (name: string, body?: any, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'name' is not null or undefined
             if (name === null || name === undefined) {
-                throw new RequiredError('name','Required parameter name was null or undefined when calling farmerRenameCrystalsPostForm.');
+                throw new RequiredError('name','Required parameter name was null or undefined when calling farmerRenameCrystalsPost.');
             }
             const localVarPath = `/farmer/rename-crystals`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -400,9 +367,8 @@ export const FarmerApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-            const localVarFormParams = new FormData();
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -415,12 +381,8 @@ export const FarmerApiAxiosParamCreator = function (configuration?: Configuratio
                 localVarQueryParameter['name'] = name;
             }
 
-
-            if (file !== undefined) { 
-                localVarFormParams.append('file', file as any);
-            }
-
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
                 query.set(key, localVarQueryParameter[key]);
@@ -431,7 +393,8 @@ export const FarmerApiAxiosParamCreator = function (configuration?: Configuratio
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = localVarFormParams;
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -442,14 +405,14 @@ export const FarmerApiAxiosParamCreator = function (configuration?: Configuratio
          * 
          * @summary farmer - rename-habs
          * @param {string} name 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        farmerRenameHabsPostForm: async (name: string, file?: Blob, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        farmerRenameHabsPost: async (name: string, body?: any, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'name' is not null or undefined
             if (name === null || name === undefined) {
-                throw new RequiredError('name','Required parameter name was null or undefined when calling farmerRenameHabsPostForm.');
+                throw new RequiredError('name','Required parameter name was null or undefined when calling farmerRenameHabsPost.');
             }
             const localVarPath = `/farmer/rename-habs`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -461,9 +424,8 @@ export const FarmerApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-            const localVarFormParams = new FormData();
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -476,12 +438,8 @@ export const FarmerApiAxiosParamCreator = function (configuration?: Configuratio
                 localVarQueryParameter['name'] = name;
             }
 
-
-            if (file !== undefined) { 
-                localVarFormParams.append('file', file as any);
-            }
-
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
                 query.set(key, localVarQueryParameter[key]);
@@ -492,7 +450,8 @@ export const FarmerApiAxiosParamCreator = function (configuration?: Configuratio
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = localVarFormParams;
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -522,7 +481,7 @@ export const FarmerApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -554,11 +513,11 @@ export const FarmerApiAxiosParamCreator = function (configuration?: Configuratio
         /**
          * 
          * @summary farmer - set-avatar
-         * @param {Blob} [file] 
+         * @param {Blob} [avatar] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        farmerSetAvatarPostForm: async (file?: Blob, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        farmerSetAvatarPostForm: async (avatar?: Blob, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/farmer/set-avatar`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, 'https://example.com');
@@ -571,7 +530,7 @@ export const FarmerApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarQueryParameter = {} as any;
             const localVarFormParams = new FormData();
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -581,11 +540,11 @@ export const FarmerApiAxiosParamCreator = function (configuration?: Configuratio
             }
 
 
-            if (file !== undefined) { 
-                localVarFormParams.append('file', file as any);
+            if (avatar !== undefined) { 
+                localVarFormParams.append('avatar', avatar as any);
             }
 
-            localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+            localVarHeaderParameter['Content-Type'] = 'multipart/form-data';
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
                 query.set(key, localVarQueryParameter[key]);
@@ -607,14 +566,14 @@ export const FarmerApiAxiosParamCreator = function (configuration?: Configuratio
          * 
          * @summary farmer - set-github
          * @param {string} github 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        farmerSetGithubPostForm: async (github: string, file?: Blob, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        farmerSetGithubPost: async (github: string, body?: any, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'github' is not null or undefined
             if (github === null || github === undefined) {
-                throw new RequiredError('github','Required parameter github was null or undefined when calling farmerSetGithubPostForm.');
+                throw new RequiredError('github','Required parameter github was null or undefined when calling farmerSetGithubPost.');
             }
             const localVarPath = `/farmer/set-github`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -626,9 +585,8 @@ export const FarmerApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-            const localVarFormParams = new FormData();
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -641,12 +599,8 @@ export const FarmerApiAxiosParamCreator = function (configuration?: Configuratio
                 localVarQueryParameter['github'] = github;
             }
 
-
-            if (file !== undefined) { 
-                localVarFormParams.append('file', file as any);
-            }
-
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
                 query.set(key, localVarQueryParameter[key]);
@@ -657,7 +611,8 @@ export const FarmerApiAxiosParamCreator = function (configuration?: Configuratio
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = localVarFormParams;
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -668,14 +623,14 @@ export const FarmerApiAxiosParamCreator = function (configuration?: Configuratio
          * 
          * @summary farmer - set-in-garden
          * @param {boolean} inGarden 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        farmerSetInGardenPostForm: async (inGarden: boolean, file?: Blob, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        farmerSetInGardenPost: async (inGarden: boolean, body?: any, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'inGarden' is not null or undefined
             if (inGarden === null || inGarden === undefined) {
-                throw new RequiredError('inGarden','Required parameter inGarden was null or undefined when calling farmerSetInGardenPostForm.');
+                throw new RequiredError('inGarden','Required parameter inGarden was null or undefined when calling farmerSetInGardenPost.');
             }
             const localVarPath = `/farmer/set-in-garden`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -687,9 +642,8 @@ export const FarmerApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-            const localVarFormParams = new FormData();
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -702,12 +656,8 @@ export const FarmerApiAxiosParamCreator = function (configuration?: Configuratio
                 localVarQueryParameter['in_garden'] = inGarden;
             }
 
-
-            if (file !== undefined) { 
-                localVarFormParams.append('file', file as any);
-            }
-
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
                 query.set(key, localVarQueryParameter[key]);
@@ -718,7 +668,8 @@ export const FarmerApiAxiosParamCreator = function (configuration?: Configuratio
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = localVarFormParams;
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -748,7 +699,7 @@ export const FarmerApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -800,7 +751,7 @@ export const FarmerApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -867,7 +818,7 @@ export const FarmerApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -912,14 +863,14 @@ export const FarmerApiAxiosParamCreator = function (configuration?: Configuratio
          * 
          * @summary farmer - set-website
          * @param {string} website 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        farmerSetWebsitePostForm: async (website: string, file?: Blob, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        farmerSetWebsitePost: async (website: string, body?: any, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'website' is not null or undefined
             if (website === null || website === undefined) {
-                throw new RequiredError('website','Required parameter website was null or undefined when calling farmerSetWebsitePostForm.');
+                throw new RequiredError('website','Required parameter website was null or undefined when calling farmerSetWebsitePost.');
             }
             const localVarPath = `/farmer/set-website`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -931,9 +882,8 @@ export const FarmerApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-            const localVarFormParams = new FormData();
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -946,12 +896,8 @@ export const FarmerApiAxiosParamCreator = function (configuration?: Configuratio
                 localVarQueryParameter['website'] = website;
             }
 
-
-            if (file !== undefined) { 
-                localVarFormParams.append('file', file as any);
-            }
-
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
                 query.set(key, localVarQueryParameter[key]);
@@ -962,7 +908,8 @@ export const FarmerApiAxiosParamCreator = function (configuration?: Configuratio
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = localVarFormParams;
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -987,7 +934,7 @@ export const FarmerApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -1025,12 +972,12 @@ export const FarmerApiFp = function(configuration?: Configuration) {
          * 
          * @summary farmer - change-country
          * @param {string} countryCode 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async farmerChangeCountryPostForm(countryCode: string, file?: Blob, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await FarmerApiAxiosParamCreator(configuration).farmerChangeCountryPostForm(countryCode, file, options);
+        async farmerChangeCountryPost(countryCode: string, body?: any, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
+            const localVarAxiosArgs = await FarmerApiAxiosParamCreator(configuration).farmerChangeCountryPost(countryCode, body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -1042,7 +989,7 @@ export const FarmerApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async farmerContributorsGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async farmerContributorsGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await FarmerApiAxiosParamCreator(configuration).farmerContributorsGet(options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -1055,7 +1002,7 @@ export const FarmerApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async farmerGetConnectedGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async farmerGetConnectedGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await FarmerApiAxiosParamCreator(configuration).farmerGetConnectedGet(options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -1068,7 +1015,7 @@ export const FarmerApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async farmerGetFromTokenGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async farmerGetFromTokenGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await FarmerApiAxiosParamCreator(configuration).farmerGetFromTokenGet(options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -1082,7 +1029,7 @@ export const FarmerApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async farmerGetGet(farmerId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async farmerGetGet(farmerId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await FarmerApiAxiosParamCreator(configuration).farmerGetGet(farmerId, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -1094,12 +1041,12 @@ export const FarmerApiFp = function(configuration?: Configuration) {
          * @summary farmer - login-token
          * @param {string} login 
          * @param {string} password 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async farmerLoginTokenPostForm(login: string, password: string, file?: Blob, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await FarmerApiAxiosParamCreator(configuration).farmerLoginTokenPostForm(login, password, file, options);
+        async farmerLoginTokenPost(login: string, password: string, body?: any, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
+            const localVarAxiosArgs = await FarmerApiAxiosParamCreator(configuration).farmerLoginTokenPost(login, password, body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -1111,7 +1058,7 @@ export const FarmerApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async farmerRegisterTournamentPost(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async farmerRegisterTournamentPost(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await FarmerApiAxiosParamCreator(configuration).farmerRegisterTournamentPost(options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -1122,12 +1069,12 @@ export const FarmerApiFp = function(configuration?: Configuration) {
          * 
          * @summary farmer - rename-crystals
          * @param {string} name 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async farmerRenameCrystalsPostForm(name: string, file?: Blob, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await FarmerApiAxiosParamCreator(configuration).farmerRenameCrystalsPostForm(name, file, options);
+        async farmerRenameCrystalsPost(name: string, body?: any, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
+            const localVarAxiosArgs = await FarmerApiAxiosParamCreator(configuration).farmerRenameCrystalsPost(name, body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -1137,12 +1084,12 @@ export const FarmerApiFp = function(configuration?: Configuration) {
          * 
          * @summary farmer - rename-habs
          * @param {string} name 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async farmerRenameHabsPostForm(name: string, file?: Blob, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await FarmerApiAxiosParamCreator(configuration).farmerRenameHabsPostForm(name, file, options);
+        async farmerRenameHabsPost(name: string, body?: any, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
+            const localVarAxiosArgs = await FarmerApiAxiosParamCreator(configuration).farmerRenameHabsPost(name, body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -1155,7 +1102,7 @@ export const FarmerApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async farmerRichTooltipGet(id: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async farmerRichTooltipGet(id: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await FarmerApiAxiosParamCreator(configuration).farmerRichTooltipGet(id, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -1165,12 +1112,12 @@ export const FarmerApiFp = function(configuration?: Configuration) {
         /**
          * 
          * @summary farmer - set-avatar
-         * @param {Blob} [file] 
+         * @param {Blob} [avatar] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async farmerSetAvatarPostForm(file?: Blob, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await FarmerApiAxiosParamCreator(configuration).farmerSetAvatarPostForm(file, options);
+        async farmerSetAvatarPostForm(avatar?: Blob, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
+            const localVarAxiosArgs = await FarmerApiAxiosParamCreator(configuration).farmerSetAvatarPostForm(avatar, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -1180,12 +1127,12 @@ export const FarmerApiFp = function(configuration?: Configuration) {
          * 
          * @summary farmer - set-github
          * @param {string} github 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async farmerSetGithubPostForm(github: string, file?: Blob, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await FarmerApiAxiosParamCreator(configuration).farmerSetGithubPostForm(github, file, options);
+        async farmerSetGithubPost(github: string, body?: any, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
+            const localVarAxiosArgs = await FarmerApiAxiosParamCreator(configuration).farmerSetGithubPost(github, body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -1195,12 +1142,12 @@ export const FarmerApiFp = function(configuration?: Configuration) {
          * 
          * @summary farmer - set-in-garden
          * @param {boolean} inGarden 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async farmerSetInGardenPostForm(inGarden: boolean, file?: Blob, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await FarmerApiAxiosParamCreator(configuration).farmerSetInGardenPostForm(inGarden, file, options);
+        async farmerSetInGardenPost(inGarden: boolean, body?: any, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
+            const localVarAxiosArgs = await FarmerApiAxiosParamCreator(configuration).farmerSetInGardenPost(inGarden, body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -1213,7 +1160,7 @@ export const FarmerApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async farmerSetLanguagePut(language: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async farmerSetLanguagePut(language: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await FarmerApiAxiosParamCreator(configuration).farmerSetLanguagePut(language, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -1227,7 +1174,7 @@ export const FarmerApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async farmerSetShowAiLinesPut(showAiLines: boolean, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async farmerSetShowAiLinesPut(showAiLines: boolean, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await FarmerApiAxiosParamCreator(configuration).farmerSetShowAiLinesPut(showAiLines, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -1244,7 +1191,7 @@ export const FarmerApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async farmerSetTitlePut(icon: number, noun: number, gender: number, adjective: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async farmerSetTitlePut(icon: number, noun: number, gender: number, adjective: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await FarmerApiAxiosParamCreator(configuration).farmerSetTitlePut(icon, noun, gender, adjective, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -1255,12 +1202,12 @@ export const FarmerApiFp = function(configuration?: Configuration) {
          * 
          * @summary farmer - set-website
          * @param {string} website 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async farmerSetWebsitePostForm(website: string, file?: Blob, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await FarmerApiAxiosParamCreator(configuration).farmerSetWebsitePostForm(website, file, options);
+        async farmerSetWebsitePost(website: string, body?: any, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
+            const localVarAxiosArgs = await FarmerApiAxiosParamCreator(configuration).farmerSetWebsitePost(website, body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -1272,7 +1219,7 @@ export const FarmerApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async farmerUnregisterTournamentPost(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async farmerUnregisterTournamentPost(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await FarmerApiAxiosParamCreator(configuration).farmerUnregisterTournamentPost(options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -1292,12 +1239,12 @@ export const FarmerApiFactory = function (configuration?: Configuration, basePat
          * 
          * @summary farmer - change-country
          * @param {string} countryCode 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async farmerChangeCountryPostForm(countryCode: string, file?: Blob, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return FarmerApiFp(configuration).farmerChangeCountryPostForm(countryCode, file, options).then((request) => request(axios, basePath));
+        async farmerChangeCountryPost(countryCode: string, body?: any, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
+            return FarmerApiFp(configuration).farmerChangeCountryPost(countryCode, body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -1305,7 +1252,7 @@ export const FarmerApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async farmerContributorsGet(options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async farmerContributorsGet(options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return FarmerApiFp(configuration).farmerContributorsGet(options).then((request) => request(axios, basePath));
         },
         /**
@@ -1314,7 +1261,7 @@ export const FarmerApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async farmerGetConnectedGet(options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async farmerGetConnectedGet(options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return FarmerApiFp(configuration).farmerGetConnectedGet(options).then((request) => request(axios, basePath));
         },
         /**
@@ -1323,7 +1270,7 @@ export const FarmerApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async farmerGetFromTokenGet(options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async farmerGetFromTokenGet(options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return FarmerApiFp(configuration).farmerGetFromTokenGet(options).then((request) => request(axios, basePath));
         },
         /**
@@ -1333,7 +1280,7 @@ export const FarmerApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async farmerGetGet(farmerId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async farmerGetGet(farmerId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return FarmerApiFp(configuration).farmerGetGet(farmerId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1341,12 +1288,12 @@ export const FarmerApiFactory = function (configuration?: Configuration, basePat
          * @summary farmer - login-token
          * @param {string} login 
          * @param {string} password 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async farmerLoginTokenPostForm(login: string, password: string, file?: Blob, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return FarmerApiFp(configuration).farmerLoginTokenPostForm(login, password, file, options).then((request) => request(axios, basePath));
+        async farmerLoginTokenPost(login: string, password: string, body?: any, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
+            return FarmerApiFp(configuration).farmerLoginTokenPost(login, password, body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -1354,30 +1301,30 @@ export const FarmerApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async farmerRegisterTournamentPost(options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async farmerRegisterTournamentPost(options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return FarmerApiFp(configuration).farmerRegisterTournamentPost(options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary farmer - rename-crystals
          * @param {string} name 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async farmerRenameCrystalsPostForm(name: string, file?: Blob, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return FarmerApiFp(configuration).farmerRenameCrystalsPostForm(name, file, options).then((request) => request(axios, basePath));
+        async farmerRenameCrystalsPost(name: string, body?: any, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
+            return FarmerApiFp(configuration).farmerRenameCrystalsPost(name, body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary farmer - rename-habs
          * @param {string} name 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async farmerRenameHabsPostForm(name: string, file?: Blob, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return FarmerApiFp(configuration).farmerRenameHabsPostForm(name, file, options).then((request) => request(axios, basePath));
+        async farmerRenameHabsPost(name: string, body?: any, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
+            return FarmerApiFp(configuration).farmerRenameHabsPost(name, body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -1386,40 +1333,40 @@ export const FarmerApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async farmerRichTooltipGet(id: number, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async farmerRichTooltipGet(id: number, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return FarmerApiFp(configuration).farmerRichTooltipGet(id, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary farmer - set-avatar
-         * @param {Blob} [file] 
+         * @param {Blob} [avatar] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async farmerSetAvatarPostForm(file?: Blob, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return FarmerApiFp(configuration).farmerSetAvatarPostForm(file, options).then((request) => request(axios, basePath));
+        async farmerSetAvatarPostForm(avatar?: Blob, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
+            return FarmerApiFp(configuration).farmerSetAvatarPostForm(avatar, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary farmer - set-github
          * @param {string} github 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async farmerSetGithubPostForm(github: string, file?: Blob, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return FarmerApiFp(configuration).farmerSetGithubPostForm(github, file, options).then((request) => request(axios, basePath));
+        async farmerSetGithubPost(github: string, body?: any, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
+            return FarmerApiFp(configuration).farmerSetGithubPost(github, body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary farmer - set-in-garden
          * @param {boolean} inGarden 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async farmerSetInGardenPostForm(inGarden: boolean, file?: Blob, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return FarmerApiFp(configuration).farmerSetInGardenPostForm(inGarden, file, options).then((request) => request(axios, basePath));
+        async farmerSetInGardenPost(inGarden: boolean, body?: any, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
+            return FarmerApiFp(configuration).farmerSetInGardenPost(inGarden, body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -1428,7 +1375,7 @@ export const FarmerApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async farmerSetLanguagePut(language: string, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async farmerSetLanguagePut(language: string, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return FarmerApiFp(configuration).farmerSetLanguagePut(language, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1438,7 +1385,7 @@ export const FarmerApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async farmerSetShowAiLinesPut(showAiLines: boolean, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async farmerSetShowAiLinesPut(showAiLines: boolean, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return FarmerApiFp(configuration).farmerSetShowAiLinesPut(showAiLines, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1451,19 +1398,19 @@ export const FarmerApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async farmerSetTitlePut(icon: number, noun: number, gender: number, adjective: number, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async farmerSetTitlePut(icon: number, noun: number, gender: number, adjective: number, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return FarmerApiFp(configuration).farmerSetTitlePut(icon, noun, gender, adjective, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary farmer - set-website
          * @param {string} website 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async farmerSetWebsitePostForm(website: string, file?: Blob, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return FarmerApiFp(configuration).farmerSetWebsitePostForm(website, file, options).then((request) => request(axios, basePath));
+        async farmerSetWebsitePost(website: string, body?: any, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
+            return FarmerApiFp(configuration).farmerSetWebsitePost(website, body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -1471,7 +1418,7 @@ export const FarmerApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async farmerUnregisterTournamentPost(options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async farmerUnregisterTournamentPost(options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return FarmerApiFp(configuration).farmerUnregisterTournamentPost(options).then((request) => request(axios, basePath));
         },
     };
@@ -1488,13 +1435,13 @@ export class FarmerApi extends BaseAPI {
      * 
      * @summary farmer - change-country
      * @param {string} countryCode 
-     * @param {Blob} [file] 
+     * @param {any} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof FarmerApi
      */
-    public async farmerChangeCountryPostForm(countryCode: string, file?: Blob, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return FarmerApiFp(this.configuration).farmerChangeCountryPostForm(countryCode, file, options).then((request) => request(this.axios, this.basePath));
+    public async farmerChangeCountryPost(countryCode: string, body?: any, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
+        return FarmerApiFp(this.configuration).farmerChangeCountryPost(countryCode, body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
@@ -1503,7 +1450,7 @@ export class FarmerApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof FarmerApi
      */
-    public async farmerContributorsGet(options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async farmerContributorsGet(options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return FarmerApiFp(this.configuration).farmerContributorsGet(options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -1513,7 +1460,7 @@ export class FarmerApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof FarmerApi
      */
-    public async farmerGetConnectedGet(options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async farmerGetConnectedGet(options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return FarmerApiFp(this.configuration).farmerGetConnectedGet(options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -1523,7 +1470,7 @@ export class FarmerApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof FarmerApi
      */
-    public async farmerGetFromTokenGet(options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async farmerGetFromTokenGet(options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return FarmerApiFp(this.configuration).farmerGetFromTokenGet(options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -1534,7 +1481,7 @@ export class FarmerApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof FarmerApi
      */
-    public async farmerGetGet(farmerId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async farmerGetGet(farmerId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return FarmerApiFp(this.configuration).farmerGetGet(farmerId, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -1542,13 +1489,13 @@ export class FarmerApi extends BaseAPI {
      * @summary farmer - login-token
      * @param {string} login 
      * @param {string} password 
-     * @param {Blob} [file] 
+     * @param {any} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof FarmerApi
      */
-    public async farmerLoginTokenPostForm(login: string, password: string, file?: Blob, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return FarmerApiFp(this.configuration).farmerLoginTokenPostForm(login, password, file, options).then((request) => request(this.axios, this.basePath));
+    public async farmerLoginTokenPost(login: string, password: string, body?: any, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
+        return FarmerApiFp(this.configuration).farmerLoginTokenPost(login, password, body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
@@ -1557,32 +1504,32 @@ export class FarmerApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof FarmerApi
      */
-    public async farmerRegisterTournamentPost(options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async farmerRegisterTournamentPost(options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return FarmerApiFp(this.configuration).farmerRegisterTournamentPost(options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
      * @summary farmer - rename-crystals
      * @param {string} name 
-     * @param {Blob} [file] 
+     * @param {any} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof FarmerApi
      */
-    public async farmerRenameCrystalsPostForm(name: string, file?: Blob, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return FarmerApiFp(this.configuration).farmerRenameCrystalsPostForm(name, file, options).then((request) => request(this.axios, this.basePath));
+    public async farmerRenameCrystalsPost(name: string, body?: any, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
+        return FarmerApiFp(this.configuration).farmerRenameCrystalsPost(name, body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
      * @summary farmer - rename-habs
      * @param {string} name 
-     * @param {Blob} [file] 
+     * @param {any} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof FarmerApi
      */
-    public async farmerRenameHabsPostForm(name: string, file?: Blob, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return FarmerApiFp(this.configuration).farmerRenameHabsPostForm(name, file, options).then((request) => request(this.axios, this.basePath));
+    public async farmerRenameHabsPost(name: string, body?: any, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
+        return FarmerApiFp(this.configuration).farmerRenameHabsPost(name, body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
@@ -1592,43 +1539,43 @@ export class FarmerApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof FarmerApi
      */
-    public async farmerRichTooltipGet(id: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async farmerRichTooltipGet(id: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return FarmerApiFp(this.configuration).farmerRichTooltipGet(id, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
      * @summary farmer - set-avatar
-     * @param {Blob} [file] 
+     * @param {Blob} [avatar] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof FarmerApi
      */
-    public async farmerSetAvatarPostForm(file?: Blob, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return FarmerApiFp(this.configuration).farmerSetAvatarPostForm(file, options).then((request) => request(this.axios, this.basePath));
+    public async farmerSetAvatarPostForm(avatar?: Blob, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
+        return FarmerApiFp(this.configuration).farmerSetAvatarPostForm(avatar, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
      * @summary farmer - set-github
      * @param {string} github 
-     * @param {Blob} [file] 
+     * @param {any} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof FarmerApi
      */
-    public async farmerSetGithubPostForm(github: string, file?: Blob, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return FarmerApiFp(this.configuration).farmerSetGithubPostForm(github, file, options).then((request) => request(this.axios, this.basePath));
+    public async farmerSetGithubPost(github: string, body?: any, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
+        return FarmerApiFp(this.configuration).farmerSetGithubPost(github, body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
      * @summary farmer - set-in-garden
      * @param {boolean} inGarden 
-     * @param {Blob} [file] 
+     * @param {any} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof FarmerApi
      */
-    public async farmerSetInGardenPostForm(inGarden: boolean, file?: Blob, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return FarmerApiFp(this.configuration).farmerSetInGardenPostForm(inGarden, file, options).then((request) => request(this.axios, this.basePath));
+    public async farmerSetInGardenPost(inGarden: boolean, body?: any, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
+        return FarmerApiFp(this.configuration).farmerSetInGardenPost(inGarden, body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
@@ -1638,7 +1585,7 @@ export class FarmerApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof FarmerApi
      */
-    public async farmerSetLanguagePut(language: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async farmerSetLanguagePut(language: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return FarmerApiFp(this.configuration).farmerSetLanguagePut(language, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -1649,7 +1596,7 @@ export class FarmerApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof FarmerApi
      */
-    public async farmerSetShowAiLinesPut(showAiLines: boolean, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async farmerSetShowAiLinesPut(showAiLines: boolean, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return FarmerApiFp(this.configuration).farmerSetShowAiLinesPut(showAiLines, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -1663,20 +1610,20 @@ export class FarmerApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof FarmerApi
      */
-    public async farmerSetTitlePut(icon: number, noun: number, gender: number, adjective: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async farmerSetTitlePut(icon: number, noun: number, gender: number, adjective: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return FarmerApiFp(this.configuration).farmerSetTitlePut(icon, noun, gender, adjective, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
      * @summary farmer - set-website
      * @param {string} website 
-     * @param {Blob} [file] 
+     * @param {any} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof FarmerApi
      */
-    public async farmerSetWebsitePostForm(website: string, file?: Blob, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return FarmerApiFp(this.configuration).farmerSetWebsitePostForm(website, file, options).then((request) => request(this.axios, this.basePath));
+    public async farmerSetWebsitePost(website: string, body?: any, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
+        return FarmerApiFp(this.configuration).farmerSetWebsitePost(website, body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
@@ -1685,7 +1632,7 @@ export class FarmerApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof FarmerApi
      */
-    public async farmerUnregisterTournamentPost(options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async farmerUnregisterTournamentPost(options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return FarmerApiFp(this.configuration).farmerUnregisterTournamentPost(options).then((request) => request(this.axios, this.basePath));
     }
 }

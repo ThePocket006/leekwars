@@ -11,11 +11,13 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import type {AxiosInstance, AxiosRequestConfig, AxiosResponse} from "axios";
+
+import type {AxiosResponse, AxiosInstance, AxiosRequestConfig} from "axios";
 import globalAxios from "axios";
 import { Configuration } from '@/common/api';
-import type {RequestArgs} from "@/common/api/base";
-import {BASE_PATH, BaseAPI, RequiredError} from "@/common/api/base";
+// Some imports not used depending on template conditions
+// @ts-ignore
+import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
 /**
  * TestLeekApi - axios parameter creator
  * @export
@@ -45,7 +47,7 @@ export const TestLeekApiAxiosParamCreator = function (configuration?: Configurat
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -92,7 +94,7 @@ export const TestLeekApiAxiosParamCreator = function (configuration?: Configurat
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -121,14 +123,14 @@ export const TestLeekApiAxiosParamCreator = function (configuration?: Configurat
          * 
          * @summary test-leek - new
          * @param {string} name 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        testLeekNewPostForm: async (name: string, file?: Blob, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        testLeekNewPost: async (name: string, body?: any, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'name' is not null or undefined
             if (name === null || name === undefined) {
-                throw new RequiredError('name','Required parameter name was null or undefined when calling testLeekNewPostForm.');
+                throw new RequiredError('name','Required parameter name was null or undefined when calling testLeekNewPost.');
             }
             const localVarPath = `/test-leek/new`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -140,9 +142,8 @@ export const TestLeekApiAxiosParamCreator = function (configuration?: Configurat
             const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-            const localVarFormParams = new FormData();
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -155,12 +156,8 @@ export const TestLeekApiAxiosParamCreator = function (configuration?: Configurat
                 localVarQueryParameter['name'] = name;
             }
 
-
-            if (file !== undefined) { 
-                localVarFormParams.append('file', file as any);
-            }
-
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
                 query.set(key, localVarQueryParameter[key]);
@@ -171,7 +168,8 @@ export const TestLeekApiAxiosParamCreator = function (configuration?: Configurat
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = localVarFormParams;
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -183,18 +181,18 @@ export const TestLeekApiAxiosParamCreator = function (configuration?: Configurat
          * @summary test-leek - update
          * @param {number} id 
          * @param {string} data 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        testLeekUpdatePostForm: async (id: number, data: string, file?: Blob, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        testLeekUpdatePost: async (id: number, data: string, body?: any, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             if (id === null || id === undefined) {
-                throw new RequiredError('id','Required parameter id was null or undefined when calling testLeekUpdatePostForm.');
+                throw new RequiredError('id','Required parameter id was null or undefined when calling testLeekUpdatePost.');
             }
             // verify required parameter 'data' is not null or undefined
             if (data === null || data === undefined) {
-                throw new RequiredError('data','Required parameter data was null or undefined when calling testLeekUpdatePostForm.');
+                throw new RequiredError('data','Required parameter data was null or undefined when calling testLeekUpdatePost.');
             }
             const localVarPath = `/test-leek/update`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -206,9 +204,8 @@ export const TestLeekApiAxiosParamCreator = function (configuration?: Configurat
             const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-            const localVarFormParams = new FormData();
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -225,12 +222,8 @@ export const TestLeekApiAxiosParamCreator = function (configuration?: Configurat
                 localVarQueryParameter['data'] = data;
             }
 
-
-            if (file !== undefined) { 
-                localVarFormParams.append('file', file as any);
-            }
-
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
                 query.set(key, localVarQueryParameter[key]);
@@ -241,7 +234,8 @@ export const TestLeekApiAxiosParamCreator = function (configuration?: Configurat
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = localVarFormParams;
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -264,7 +258,7 @@ export const TestLeekApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async testLeekDeleteDelete(id: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async testLeekDeleteDelete(id: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await TestLeekApiAxiosParamCreator(configuration).testLeekDeleteDelete(id, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -277,7 +271,7 @@ export const TestLeekApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async testLeekGetAllGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async testLeekGetAllGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await TestLeekApiAxiosParamCreator(configuration).testLeekGetAllGet(options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -288,12 +282,12 @@ export const TestLeekApiFp = function(configuration?: Configuration) {
          * 
          * @summary test-leek - new
          * @param {string} name 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async testLeekNewPostForm(name: string, file?: Blob, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await TestLeekApiAxiosParamCreator(configuration).testLeekNewPostForm(name, file, options);
+        async testLeekNewPost(name: string, body?: any, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
+            const localVarAxiosArgs = await TestLeekApiAxiosParamCreator(configuration).testLeekNewPost(name, body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -304,12 +298,12 @@ export const TestLeekApiFp = function(configuration?: Configuration) {
          * @summary test-leek - update
          * @param {number} id 
          * @param {string} data 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async testLeekUpdatePostForm(id: number, data: string, file?: Blob, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await TestLeekApiAxiosParamCreator(configuration).testLeekUpdatePostForm(id, data, file, options);
+        async testLeekUpdatePost(id: number, data: string, body?: any, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
+            const localVarAxiosArgs = await TestLeekApiAxiosParamCreator(configuration).testLeekUpdatePost(id, data, body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -331,7 +325,7 @@ export const TestLeekApiFactory = function (configuration?: Configuration, baseP
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async testLeekDeleteDelete(id: string, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async testLeekDeleteDelete(id: string, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return TestLeekApiFp(configuration).testLeekDeleteDelete(id, options).then((request) => request(axios, basePath));
         },
         /**
@@ -340,31 +334,31 @@ export const TestLeekApiFactory = function (configuration?: Configuration, baseP
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async testLeekGetAllGet(options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async testLeekGetAllGet(options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return TestLeekApiFp(configuration).testLeekGetAllGet(options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary test-leek - new
          * @param {string} name 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async testLeekNewPostForm(name: string, file?: Blob, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return TestLeekApiFp(configuration).testLeekNewPostForm(name, file, options).then((request) => request(axios, basePath));
+        async testLeekNewPost(name: string, body?: any, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
+            return TestLeekApiFp(configuration).testLeekNewPost(name, body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary test-leek - update
          * @param {number} id 
          * @param {string} data 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async testLeekUpdatePostForm(id: number, data: string, file?: Blob, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return TestLeekApiFp(configuration).testLeekUpdatePostForm(id, data, file, options).then((request) => request(axios, basePath));
+        async testLeekUpdatePost(id: number, data: string, body?: any, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
+            return TestLeekApiFp(configuration).testLeekUpdatePost(id, data, body, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -384,7 +378,7 @@ export class TestLeekApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof TestLeekApi
      */
-    public async testLeekDeleteDelete(id: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async testLeekDeleteDelete(id: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return TestLeekApiFp(this.configuration).testLeekDeleteDelete(id, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -394,32 +388,32 @@ export class TestLeekApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof TestLeekApi
      */
-    public async testLeekGetAllGet(options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async testLeekGetAllGet(options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return TestLeekApiFp(this.configuration).testLeekGetAllGet(options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
      * @summary test-leek - new
      * @param {string} name 
-     * @param {Blob} [file] 
+     * @param {any} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof TestLeekApi
      */
-    public async testLeekNewPostForm(name: string, file?: Blob, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return TestLeekApiFp(this.configuration).testLeekNewPostForm(name, file, options).then((request) => request(this.axios, this.basePath));
+    public async testLeekNewPost(name: string, body?: any, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
+        return TestLeekApiFp(this.configuration).testLeekNewPost(name, body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
      * @summary test-leek - update
      * @param {number} id 
      * @param {string} data 
-     * @param {Blob} [file] 
+     * @param {any} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof TestLeekApi
      */
-    public async testLeekUpdatePostForm(id: number, data: string, file?: Blob, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return TestLeekApiFp(this.configuration).testLeekUpdatePostForm(id, data, file, options).then((request) => request(this.axios, this.basePath));
+    public async testLeekUpdatePost(id: number, data: string, body?: any, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
+        return TestLeekApiFp(this.configuration).testLeekUpdatePost(id, data, body, options).then((request) => request(this.axios, this.basePath));
     }
 }

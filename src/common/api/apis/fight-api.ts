@@ -11,11 +11,13 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import type {AxiosInstance, AxiosRequestConfig, AxiosResponse} from "axios";
+
+import type {AxiosResponse, AxiosInstance, AxiosRequestConfig} from "axios";
 import globalAxios from "axios";
 import { Configuration } from '@/common/api';
-import type {RequestArgs} from "@/common/api/base";
-import {BASE_PATH, BaseAPI, RequiredError} from "@/common/api/base";
+// Some imports not used depending on template conditions
+// @ts-ignore
+import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
 /**
  * FightApi - axios parameter creator
  * @export
@@ -27,18 +29,18 @@ export const FightApiAxiosParamCreator = function (configuration?: Configuration
          * @summary fight - comment
          * @param {number} fightId 
          * @param {string} comment 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        fightCommentPostForm: async (fightId: number, comment: string, file?: Blob, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        fightCommentPost: async (fightId: number, comment: string, body?: any, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'fightId' is not null or undefined
             if (fightId === null || fightId === undefined) {
-                throw new RequiredError('fightId','Required parameter fightId was null or undefined when calling fightCommentPostForm.');
+                throw new RequiredError('fightId','Required parameter fightId was null or undefined when calling fightCommentPost.');
             }
             // verify required parameter 'comment' is not null or undefined
             if (comment === null || comment === undefined) {
-                throw new RequiredError('comment','Required parameter comment was null or undefined when calling fightCommentPostForm.');
+                throw new RequiredError('comment','Required parameter comment was null or undefined when calling fightCommentPost.');
             }
             const localVarPath = `/fight/comment`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -50,9 +52,8 @@ export const FightApiAxiosParamCreator = function (configuration?: Configuration
             const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-            const localVarFormParams = new FormData();
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -69,12 +70,8 @@ export const FightApiAxiosParamCreator = function (configuration?: Configuration
                 localVarQueryParameter['comment'] = comment;
             }
 
-
-            if (file !== undefined) { 
-                localVarFormParams.append('file', file as any);
-            }
-
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
                 query.set(key, localVarQueryParameter[key]);
@@ -85,7 +82,8 @@ export const FightApiAxiosParamCreator = function (configuration?: Configuration
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = localVarFormParams;
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -109,15 +107,6 @@ export const FightApiAxiosParamCreator = function (configuration?: Configuration
             const localVarRequestOptions :AxiosRequestConfig = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-
-            // authentication bearerAuth required
-            // http bearer authentication required
-            if (configuration && configuration.accessToken) {
-                const accessToken = typeof configuration.accessToken === 'function'
-                    ? await configuration.accessToken()
-                    : await configuration.accessToken;
-                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
-            }
 
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
@@ -157,15 +146,6 @@ export const FightApiAxiosParamCreator = function (configuration?: Configuration
             const localVarRequestOptions :AxiosRequestConfig = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-
-            // authentication bearerAuth required
-            // http bearer authentication required
-            if (configuration && configuration.accessToken) {
-                const accessToken = typeof configuration.accessToken === 'function'
-                    ? await configuration.accessToken()
-                    : await configuration.accessToken;
-                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
-            }
 
             if (fightId !== undefined) {
                 localVarQueryParameter['fight_id'] = fightId;
@@ -210,7 +190,7 @@ export const FightApiAxiosParamCreator = function (configuration?: Configuration
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -253,12 +233,12 @@ export const FightApiFp = function(configuration?: Configuration) {
          * @summary fight - comment
          * @param {number} fightId 
          * @param {string} comment 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async fightCommentPostForm(fightId: number, comment: string, file?: Blob, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await FightApiAxiosParamCreator(configuration).fightCommentPostForm(fightId, comment, file, options);
+        async fightCommentPost(fightId: number, comment: string, body?: any, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
+            const localVarAxiosArgs = await FightApiAxiosParamCreator(configuration).fightCommentPost(fightId, comment, body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -270,7 +250,7 @@ export const FightApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async fightFullmoonGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async fightFullmoonGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await FightApiAxiosParamCreator(configuration).fightFullmoonGet(options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -284,7 +264,7 @@ export const FightApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async fightGetGet(fightId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async fightGetGet(fightId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await FightApiAxiosParamCreator(configuration).fightGetGet(fightId, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -298,7 +278,7 @@ export const FightApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async fightGetLogsGet(fightId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async fightGetLogsGet(fightId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await FightApiAxiosParamCreator(configuration).fightGetLogsGet(fightId, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -319,12 +299,12 @@ export const FightApiFactory = function (configuration?: Configuration, basePath
          * @summary fight - comment
          * @param {number} fightId 
          * @param {string} comment 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async fightCommentPostForm(fightId: number, comment: string, file?: Blob, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return FightApiFp(configuration).fightCommentPostForm(fightId, comment, file, options).then((request) => request(axios, basePath));
+        async fightCommentPost(fightId: number, comment: string, body?: any, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
+            return FightApiFp(configuration).fightCommentPost(fightId, comment, body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -332,7 +312,7 @@ export const FightApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async fightFullmoonGet(options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async fightFullmoonGet(options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return FightApiFp(configuration).fightFullmoonGet(options).then((request) => request(axios, basePath));
         },
         /**
@@ -342,7 +322,7 @@ export const FightApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async fightGetGet(fightId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async fightGetGet(fightId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return FightApiFp(configuration).fightGetGet(fightId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -352,7 +332,7 @@ export const FightApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async fightGetLogsGet(fightId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async fightGetLogsGet(fightId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return FightApiFp(configuration).fightGetLogsGet(fightId, options).then((request) => request(axios, basePath));
         },
     };
@@ -370,13 +350,13 @@ export class FightApi extends BaseAPI {
      * @summary fight - comment
      * @param {number} fightId 
      * @param {string} comment 
-     * @param {Blob} [file] 
+     * @param {any} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof FightApi
      */
-    public async fightCommentPostForm(fightId: number, comment: string, file?: Blob, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return FightApiFp(this.configuration).fightCommentPostForm(fightId, comment, file, options).then((request) => request(this.axios, this.basePath));
+    public async fightCommentPost(fightId: number, comment: string, body?: any, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
+        return FightApiFp(this.configuration).fightCommentPost(fightId, comment, body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
@@ -385,7 +365,7 @@ export class FightApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof FightApi
      */
-    public async fightFullmoonGet(options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async fightFullmoonGet(options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return FightApiFp(this.configuration).fightFullmoonGet(options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -396,7 +376,7 @@ export class FightApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof FightApi
      */
-    public async fightGetGet(fightId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async fightGetGet(fightId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return FightApiFp(this.configuration).fightGetGet(fightId, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -407,7 +387,7 @@ export class FightApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof FightApi
      */
-    public async fightGetLogsGet(fightId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async fightGetLogsGet(fightId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return FightApiFp(this.configuration).fightGetLogsGet(fightId, options).then((request) => request(this.axios, this.basePath));
     }
 }

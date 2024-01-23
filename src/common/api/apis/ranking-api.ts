@@ -11,11 +11,13 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import type {AxiosInstance, AxiosRequestConfig, AxiosResponse} from "axios";
+
+import type {AxiosResponse, AxiosInstance, AxiosRequestConfig} from "axios";
 import globalAxios from "axios";
 import { Configuration } from '@/common/api';
-import type {RequestArgs} from "@/common/api/base";
-import {BASE_PATH, BaseAPI, RequiredError} from "@/common/api/base";
+// Some imports not used depending on template conditions
+// @ts-ignore
+import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
 /**
  * RankingApi - axios parameter creator
  * @export
@@ -39,15 +41,6 @@ export const RankingApiAxiosParamCreator = function (configuration?: Configurati
             const localVarRequestOptions :AxiosRequestConfig = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-
-            // authentication bearerAuth required
-            // http bearer authentication required
-            if (configuration && configuration.accessToken) {
-                const accessToken = typeof configuration.accessToken === 'function'
-                    ? await configuration.accessToken()
-                    : await configuration.accessToken;
-                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
-            }
 
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
@@ -103,7 +96,7 @@ export const RankingApiAxiosParamCreator = function (configuration?: Configurati
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -172,7 +165,7 @@ export const RankingApiAxiosParamCreator = function (configuration?: Configurati
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -233,7 +226,7 @@ export const RankingApiAxiosParamCreator = function (configuration?: Configurati
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -304,15 +297,6 @@ export const RankingApiAxiosParamCreator = function (configuration?: Configurati
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
-            // http bearer authentication required
-            if (configuration && configuration.accessToken) {
-                const accessToken = typeof configuration.accessToken === 'function'
-                    ? await configuration.accessToken()
-                    : await configuration.accessToken;
-                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
-            }
-
             if (category !== undefined) {
                 localVarQueryParameter['category'] = category;
             }
@@ -363,15 +347,6 @@ export const RankingApiAxiosParamCreator = function (configuration?: Configurati
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
-            // http bearer authentication required
-            if (configuration && configuration.accessToken) {
-                const accessToken = typeof configuration.accessToken === 'function'
-                    ? await configuration.accessToken()
-                    : await configuration.accessToken;
-                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
-            }
-
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
                 query.set(key, localVarQueryParameter[key]);
@@ -416,7 +391,7 @@ export const RankingApiAxiosParamCreator = function (configuration?: Configurati
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -477,7 +452,7 @@ export const RankingApiAxiosParamCreator = function (configuration?: Configurati
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -538,7 +513,7 @@ export const RankingApiAxiosParamCreator = function (configuration?: Configurati
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -599,7 +574,7 @@ export const RankingApiAxiosParamCreator = function (configuration?: Configurati
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -639,26 +614,26 @@ export const RankingApiAxiosParamCreator = function (configuration?: Configurati
          * @param {boolean} searchLeeks 
          * @param {boolean} searchFarmers 
          * @param {boolean} searchTeams 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        rankingSearchPostForm: async (_query: string, searchLeeks: boolean, searchFarmers: boolean, searchTeams: boolean, file?: Blob, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        rankingSearchPost: async (_query: string, searchLeeks: boolean, searchFarmers: boolean, searchTeams: boolean, body?: any, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter '_query' is not null or undefined
             if (_query === null || _query === undefined) {
-                throw new RequiredError('_query','Required parameter _query was null or undefined when calling rankingSearchPostForm.');
+                throw new RequiredError('_query','Required parameter _query was null or undefined when calling rankingSearchPost.');
             }
             // verify required parameter 'searchLeeks' is not null or undefined
             if (searchLeeks === null || searchLeeks === undefined) {
-                throw new RequiredError('searchLeeks','Required parameter searchLeeks was null or undefined when calling rankingSearchPostForm.');
+                throw new RequiredError('searchLeeks','Required parameter searchLeeks was null or undefined when calling rankingSearchPost.');
             }
             // verify required parameter 'searchFarmers' is not null or undefined
             if (searchFarmers === null || searchFarmers === undefined) {
-                throw new RequiredError('searchFarmers','Required parameter searchFarmers was null or undefined when calling rankingSearchPostForm.');
+                throw new RequiredError('searchFarmers','Required parameter searchFarmers was null or undefined when calling rankingSearchPost.');
             }
             // verify required parameter 'searchTeams' is not null or undefined
             if (searchTeams === null || searchTeams === undefined) {
-                throw new RequiredError('searchTeams','Required parameter searchTeams was null or undefined when calling rankingSearchPostForm.');
+                throw new RequiredError('searchTeams','Required parameter searchTeams was null or undefined when calling rankingSearchPost.');
             }
             const localVarPath = `/ranking/search`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -670,9 +645,8 @@ export const RankingApiAxiosParamCreator = function (configuration?: Configurati
             const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-            const localVarFormParams = new FormData();
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -697,12 +671,8 @@ export const RankingApiAxiosParamCreator = function (configuration?: Configurati
                 localVarQueryParameter['search_teams'] = searchTeams;
             }
 
-
-            if (file !== undefined) { 
-                localVarFormParams.append('file', file as any);
-            }
-
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
                 query.set(key, localVarQueryParameter[key]);
@@ -713,7 +683,8 @@ export const RankingApiAxiosParamCreator = function (configuration?: Configurati
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = localVarFormParams;
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -735,7 +706,7 @@ export const RankingApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async rankingFunGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async rankingFunGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await RankingApiAxiosParamCreator(configuration).rankingFunGet(options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -752,7 +723,7 @@ export const RankingApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async rankingGetActiveGet(category: string, order: string, page: number, country: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async rankingGetActiveGet(category: string, order: string, page: number, country: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await RankingApiAxiosParamCreator(configuration).rankingGetActiveGet(category, order, page, country, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -767,7 +738,7 @@ export const RankingApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async rankingGetFarmerRankActiveGet(farmerId: number, order: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async rankingGetFarmerRankActiveGet(farmerId: number, order: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await RankingApiAxiosParamCreator(configuration).rankingGetFarmerRankActiveGet(farmerId, order, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -782,7 +753,7 @@ export const RankingApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async rankingGetFarmerRankGet(farmerId: number, order: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async rankingGetFarmerRankGet(farmerId: number, order: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await RankingApiAxiosParamCreator(configuration).rankingGetFarmerRankGet(farmerId, order, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -799,7 +770,7 @@ export const RankingApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async rankingGetGet(category: string, order: string, page: number, country: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async rankingGetGet(category: string, order: string, page: number, country: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await RankingApiAxiosParamCreator(configuration).rankingGetGet(category, order, page, country, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -812,7 +783,7 @@ export const RankingApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async rankingGetHomeRankingGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async rankingGetHomeRankingGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await RankingApiAxiosParamCreator(configuration).rankingGetHomeRankingGet(options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -827,7 +798,7 @@ export const RankingApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async rankingGetLeekRankActiveGet(leekId: number, order: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async rankingGetLeekRankActiveGet(leekId: number, order: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await RankingApiAxiosParamCreator(configuration).rankingGetLeekRankActiveGet(leekId, order, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -842,7 +813,7 @@ export const RankingApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async rankingGetLeekRankGet(leekId: number, order: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async rankingGetLeekRankGet(leekId: number, order: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await RankingApiAxiosParamCreator(configuration).rankingGetLeekRankGet(leekId, order, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -857,7 +828,7 @@ export const RankingApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async rankingGetTeamRankActiveGet(teamId: number, order: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async rankingGetTeamRankActiveGet(teamId: number, order: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await RankingApiAxiosParamCreator(configuration).rankingGetTeamRankActiveGet(teamId, order, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -872,7 +843,7 @@ export const RankingApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async rankingGetTeamRankGet(teamId: number, order: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async rankingGetTeamRankGet(teamId: number, order: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await RankingApiAxiosParamCreator(configuration).rankingGetTeamRankGet(teamId, order, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -886,12 +857,12 @@ export const RankingApiFp = function(configuration?: Configuration) {
          * @param {boolean} searchLeeks 
          * @param {boolean} searchFarmers 
          * @param {boolean} searchTeams 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async rankingSearchPostForm(_query: string, searchLeeks: boolean, searchFarmers: boolean, searchTeams: boolean, file?: Blob, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await RankingApiAxiosParamCreator(configuration).rankingSearchPostForm(_query, searchLeeks, searchFarmers, searchTeams, file, options);
+        async rankingSearchPost(_query: string, searchLeeks: boolean, searchFarmers: boolean, searchTeams: boolean, body?: any, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
+            const localVarAxiosArgs = await RankingApiAxiosParamCreator(configuration).rankingSearchPost(_query, searchLeeks, searchFarmers, searchTeams, body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -912,7 +883,7 @@ export const RankingApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async rankingFunGet(options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async rankingFunGet(options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return RankingApiFp(configuration).rankingFunGet(options).then((request) => request(axios, basePath));
         },
         /**
@@ -925,7 +896,7 @@ export const RankingApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async rankingGetActiveGet(category: string, order: string, page: number, country: string, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async rankingGetActiveGet(category: string, order: string, page: number, country: string, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return RankingApiFp(configuration).rankingGetActiveGet(category, order, page, country, options).then((request) => request(axios, basePath));
         },
         /**
@@ -936,7 +907,7 @@ export const RankingApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async rankingGetFarmerRankActiveGet(farmerId: number, order: string, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async rankingGetFarmerRankActiveGet(farmerId: number, order: string, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return RankingApiFp(configuration).rankingGetFarmerRankActiveGet(farmerId, order, options).then((request) => request(axios, basePath));
         },
         /**
@@ -947,7 +918,7 @@ export const RankingApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async rankingGetFarmerRankGet(farmerId: number, order: string, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async rankingGetFarmerRankGet(farmerId: number, order: string, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return RankingApiFp(configuration).rankingGetFarmerRankGet(farmerId, order, options).then((request) => request(axios, basePath));
         },
         /**
@@ -960,7 +931,7 @@ export const RankingApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async rankingGetGet(category: string, order: string, page: number, country: string, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async rankingGetGet(category: string, order: string, page: number, country: string, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return RankingApiFp(configuration).rankingGetGet(category, order, page, country, options).then((request) => request(axios, basePath));
         },
         /**
@@ -969,7 +940,7 @@ export const RankingApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async rankingGetHomeRankingGet(options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async rankingGetHomeRankingGet(options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return RankingApiFp(configuration).rankingGetHomeRankingGet(options).then((request) => request(axios, basePath));
         },
         /**
@@ -980,7 +951,7 @@ export const RankingApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async rankingGetLeekRankActiveGet(leekId: number, order: string, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async rankingGetLeekRankActiveGet(leekId: number, order: string, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return RankingApiFp(configuration).rankingGetLeekRankActiveGet(leekId, order, options).then((request) => request(axios, basePath));
         },
         /**
@@ -991,7 +962,7 @@ export const RankingApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async rankingGetLeekRankGet(leekId: number, order: string, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async rankingGetLeekRankGet(leekId: number, order: string, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return RankingApiFp(configuration).rankingGetLeekRankGet(leekId, order, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1002,7 +973,7 @@ export const RankingApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async rankingGetTeamRankActiveGet(teamId: number, order: string, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async rankingGetTeamRankActiveGet(teamId: number, order: string, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return RankingApiFp(configuration).rankingGetTeamRankActiveGet(teamId, order, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1013,7 +984,7 @@ export const RankingApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async rankingGetTeamRankGet(teamId: number, order: string, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async rankingGetTeamRankGet(teamId: number, order: string, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return RankingApiFp(configuration).rankingGetTeamRankGet(teamId, order, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1023,12 +994,12 @@ export const RankingApiFactory = function (configuration?: Configuration, basePa
          * @param {boolean} searchLeeks 
          * @param {boolean} searchFarmers 
          * @param {boolean} searchTeams 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async rankingSearchPostForm(_query: string, searchLeeks: boolean, searchFarmers: boolean, searchTeams: boolean, file?: Blob, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return RankingApiFp(configuration).rankingSearchPostForm(_query, searchLeeks, searchFarmers, searchTeams, file, options).then((request) => request(axios, basePath));
+        async rankingSearchPost(_query: string, searchLeeks: boolean, searchFarmers: boolean, searchTeams: boolean, body?: any, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
+            return RankingApiFp(configuration).rankingSearchPost(_query, searchLeeks, searchFarmers, searchTeams, body, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -1047,7 +1018,7 @@ export class RankingApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof RankingApi
      */
-    public async rankingFunGet(options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async rankingFunGet(options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return RankingApiFp(this.configuration).rankingFunGet(options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -1061,7 +1032,7 @@ export class RankingApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof RankingApi
      */
-    public async rankingGetActiveGet(category: string, order: string, page: number, country: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async rankingGetActiveGet(category: string, order: string, page: number, country: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return RankingApiFp(this.configuration).rankingGetActiveGet(category, order, page, country, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -1073,7 +1044,7 @@ export class RankingApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof RankingApi
      */
-    public async rankingGetFarmerRankActiveGet(farmerId: number, order: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async rankingGetFarmerRankActiveGet(farmerId: number, order: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return RankingApiFp(this.configuration).rankingGetFarmerRankActiveGet(farmerId, order, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -1085,7 +1056,7 @@ export class RankingApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof RankingApi
      */
-    public async rankingGetFarmerRankGet(farmerId: number, order: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async rankingGetFarmerRankGet(farmerId: number, order: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return RankingApiFp(this.configuration).rankingGetFarmerRankGet(farmerId, order, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -1099,7 +1070,7 @@ export class RankingApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof RankingApi
      */
-    public async rankingGetGet(category: string, order: string, page: number, country: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async rankingGetGet(category: string, order: string, page: number, country: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return RankingApiFp(this.configuration).rankingGetGet(category, order, page, country, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -1109,7 +1080,7 @@ export class RankingApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof RankingApi
      */
-    public async rankingGetHomeRankingGet(options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async rankingGetHomeRankingGet(options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return RankingApiFp(this.configuration).rankingGetHomeRankingGet(options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -1121,7 +1092,7 @@ export class RankingApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof RankingApi
      */
-    public async rankingGetLeekRankActiveGet(leekId: number, order: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async rankingGetLeekRankActiveGet(leekId: number, order: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return RankingApiFp(this.configuration).rankingGetLeekRankActiveGet(leekId, order, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -1133,7 +1104,7 @@ export class RankingApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof RankingApi
      */
-    public async rankingGetLeekRankGet(leekId: number, order: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async rankingGetLeekRankGet(leekId: number, order: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return RankingApiFp(this.configuration).rankingGetLeekRankGet(leekId, order, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -1145,7 +1116,7 @@ export class RankingApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof RankingApi
      */
-    public async rankingGetTeamRankActiveGet(teamId: number, order: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async rankingGetTeamRankActiveGet(teamId: number, order: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return RankingApiFp(this.configuration).rankingGetTeamRankActiveGet(teamId, order, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -1157,7 +1128,7 @@ export class RankingApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof RankingApi
      */
-    public async rankingGetTeamRankGet(teamId: number, order: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async rankingGetTeamRankGet(teamId: number, order: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return RankingApiFp(this.configuration).rankingGetTeamRankGet(teamId, order, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -1167,12 +1138,12 @@ export class RankingApi extends BaseAPI {
      * @param {boolean} searchLeeks 
      * @param {boolean} searchFarmers 
      * @param {boolean} searchTeams 
-     * @param {Blob} [file] 
+     * @param {any} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof RankingApi
      */
-    public async rankingSearchPostForm(_query: string, searchLeeks: boolean, searchFarmers: boolean, searchTeams: boolean, file?: Blob, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return RankingApiFp(this.configuration).rankingSearchPostForm(_query, searchLeeks, searchFarmers, searchTeams, file, options).then((request) => request(this.axios, this.basePath));
+    public async rankingSearchPost(_query: string, searchLeeks: boolean, searchFarmers: boolean, searchTeams: boolean, body?: any, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
+        return RankingApiFp(this.configuration).rankingSearchPost(_query, searchLeeks, searchFarmers, searchTeams, body, options).then((request) => request(this.axios, this.basePath));
     }
 }

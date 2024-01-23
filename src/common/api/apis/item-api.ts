@@ -11,11 +11,13 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import type {AxiosInstance, AxiosRequestConfig, AxiosResponse} from "axios";
+
+import type {AxiosResponse, AxiosInstance, AxiosRequestConfig} from "axios";
 import globalAxios from "axios";
 import { Configuration } from '@/common/api';
-import type {RequestArgs} from "@/common/api/base";
-import {BASE_PATH, BaseAPI, RequiredError} from "@/common/api/base";
+// Some imports not used depending on template conditions
+// @ts-ignore
+import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
 /**
  * ItemApi - axios parameter creator
  * @export
@@ -40,7 +42,7 @@ export const ItemApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -70,18 +72,18 @@ export const ItemApiAxiosParamCreator = function (configuration?: Configuration)
          * @summary item - retrieve
          * @param {number} template 
          * @param {number} quantity 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        itemRetrievePostForm: async (template: number, quantity: number, file?: Blob, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        itemRetrievePost: async (template: number, quantity: number, body?: any, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'template' is not null or undefined
             if (template === null || template === undefined) {
-                throw new RequiredError('template','Required parameter template was null or undefined when calling itemRetrievePostForm.');
+                throw new RequiredError('template','Required parameter template was null or undefined when calling itemRetrievePost.');
             }
             // verify required parameter 'quantity' is not null or undefined
             if (quantity === null || quantity === undefined) {
-                throw new RequiredError('quantity','Required parameter quantity was null or undefined when calling itemRetrievePostForm.');
+                throw new RequiredError('quantity','Required parameter quantity was null or undefined when calling itemRetrievePost.');
             }
             const localVarPath = `/item/retrieve`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -93,9 +95,8 @@ export const ItemApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-            const localVarFormParams = new FormData();
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -112,12 +113,8 @@ export const ItemApiAxiosParamCreator = function (configuration?: Configuration)
                 localVarQueryParameter['quantity'] = quantity;
             }
 
-
-            if (file !== undefined) { 
-                localVarFormParams.append('file', file as any);
-            }
-
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
                 query.set(key, localVarQueryParameter[key]);
@@ -128,7 +125,8 @@ export const ItemApiAxiosParamCreator = function (configuration?: Configuration)
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = localVarFormParams;
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -150,7 +148,7 @@ export const ItemApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async itemGetAllGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async itemGetAllGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await ItemApiAxiosParamCreator(configuration).itemGetAllGet(options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -162,12 +160,12 @@ export const ItemApiFp = function(configuration?: Configuration) {
          * @summary item - retrieve
          * @param {number} template 
          * @param {number} quantity 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async itemRetrievePostForm(template: number, quantity: number, file?: Blob, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await ItemApiAxiosParamCreator(configuration).itemRetrievePostForm(template, quantity, file, options);
+        async itemRetrievePost(template: number, quantity: number, body?: any, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
+            const localVarAxiosArgs = await ItemApiAxiosParamCreator(configuration).itemRetrievePost(template, quantity, body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -188,7 +186,7 @@ export const ItemApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async itemGetAllGet(options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async itemGetAllGet(options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return ItemApiFp(configuration).itemGetAllGet(options).then((request) => request(axios, basePath));
         },
         /**
@@ -196,12 +194,12 @@ export const ItemApiFactory = function (configuration?: Configuration, basePath?
          * @summary item - retrieve
          * @param {number} template 
          * @param {number} quantity 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async itemRetrievePostForm(template: number, quantity: number, file?: Blob, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return ItemApiFp(configuration).itemRetrievePostForm(template, quantity, file, options).then((request) => request(axios, basePath));
+        async itemRetrievePost(template: number, quantity: number, body?: any, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
+            return ItemApiFp(configuration).itemRetrievePost(template, quantity, body, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -220,7 +218,7 @@ export class ItemApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ItemApi
      */
-    public async itemGetAllGet(options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async itemGetAllGet(options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return ItemApiFp(this.configuration).itemGetAllGet(options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -228,12 +226,12 @@ export class ItemApi extends BaseAPI {
      * @summary item - retrieve
      * @param {number} template 
      * @param {number} quantity 
-     * @param {Blob} [file] 
+     * @param {any} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ItemApi
      */
-    public async itemRetrievePostForm(template: number, quantity: number, file?: Blob, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return ItemApiFp(this.configuration).itemRetrievePostForm(template, quantity, file, options).then((request) => request(this.axios, this.basePath));
+    public async itemRetrievePost(template: number, quantity: number, body?: any, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
+        return ItemApiFp(this.configuration).itemRetrievePost(template, quantity, body, options).then((request) => request(this.axios, this.basePath));
     }
 }

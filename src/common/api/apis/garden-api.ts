@@ -11,11 +11,13 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import type {AxiosInstance, AxiosRequestConfig, AxiosResponse} from "axios";
+
+import type {AxiosResponse, AxiosInstance, AxiosRequestConfig} from "axios";
 import globalAxios from "axios";
 import { Configuration } from '@/common/api';
-import type {RequestArgs} from "@/common/api/base";
-import {BASE_PATH, BaseAPI, RequiredError} from "@/common/api/base";
+// Some imports not used depending on template conditions
+// @ts-ignore
+import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
 /**
  * GardenApi - axios parameter creator
  * @export
@@ -45,7 +47,7 @@ export const GardenApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -92,7 +94,7 @@ export const GardenApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -140,7 +142,7 @@ export const GardenApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -174,18 +176,18 @@ export const GardenApiAxiosParamCreator = function (configuration?: Configuratio
          * @summary garden - start-farmer-challenge
          * @param {number} targetId 
          * @param {number} seed 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        gardenStartFarmerChallengePostForm: async (targetId: number, seed: number, file?: Blob, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        gardenStartFarmerChallengePost: async (targetId: number, seed: number, body?: any, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'targetId' is not null or undefined
             if (targetId === null || targetId === undefined) {
-                throw new RequiredError('targetId','Required parameter targetId was null or undefined when calling gardenStartFarmerChallengePostForm.');
+                throw new RequiredError('targetId','Required parameter targetId was null or undefined when calling gardenStartFarmerChallengePost.');
             }
             // verify required parameter 'seed' is not null or undefined
             if (seed === null || seed === undefined) {
-                throw new RequiredError('seed','Required parameter seed was null or undefined when calling gardenStartFarmerChallengePostForm.');
+                throw new RequiredError('seed','Required parameter seed was null or undefined when calling gardenStartFarmerChallengePost.');
             }
             const localVarPath = `/garden/start-farmer-challenge`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -197,9 +199,8 @@ export const GardenApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-            const localVarFormParams = new FormData();
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -216,12 +217,8 @@ export const GardenApiAxiosParamCreator = function (configuration?: Configuratio
                 localVarQueryParameter['seed'] = seed;
             }
 
-
-            if (file !== undefined) { 
-                localVarFormParams.append('file', file as any);
-            }
-
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
                 query.set(key, localVarQueryParameter[key]);
@@ -232,7 +229,8 @@ export const GardenApiAxiosParamCreator = function (configuration?: Configuratio
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = localVarFormParams;
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -243,14 +241,14 @@ export const GardenApiAxiosParamCreator = function (configuration?: Configuratio
          * 
          * @summary garden - start-farmer-fight
          * @param {number} targetId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        gardenStartFarmerFightPostForm: async (targetId: number, file?: Blob, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        gardenStartFarmerFightPost: async (targetId: number, body?: any, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'targetId' is not null or undefined
             if (targetId === null || targetId === undefined) {
-                throw new RequiredError('targetId','Required parameter targetId was null or undefined when calling gardenStartFarmerFightPostForm.');
+                throw new RequiredError('targetId','Required parameter targetId was null or undefined when calling gardenStartFarmerFightPost.');
             }
             const localVarPath = `/garden/start-farmer-fight`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -262,9 +260,8 @@ export const GardenApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-            const localVarFormParams = new FormData();
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -277,12 +274,8 @@ export const GardenApiAxiosParamCreator = function (configuration?: Configuratio
                 localVarQueryParameter['target_id'] = targetId;
             }
 
-
-            if (file !== undefined) { 
-                localVarFormParams.append('file', file as any);
-            }
-
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
                 query.set(key, localVarQueryParameter[key]);
@@ -293,7 +286,8 @@ export const GardenApiAxiosParamCreator = function (configuration?: Configuratio
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = localVarFormParams;
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -306,22 +300,22 @@ export const GardenApiAxiosParamCreator = function (configuration?: Configuratio
          * @param {number} leekId 
          * @param {number} targetId 
          * @param {number} seed 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        gardenStartSoloChallengePostForm: async (leekId: number, targetId: number, seed: number, file?: Blob, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        gardenStartSoloChallengePost: async (leekId: number, targetId: number, seed: number, body?: any, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'leekId' is not null or undefined
             if (leekId === null || leekId === undefined) {
-                throw new RequiredError('leekId','Required parameter leekId was null or undefined when calling gardenStartSoloChallengePostForm.');
+                throw new RequiredError('leekId','Required parameter leekId was null or undefined when calling gardenStartSoloChallengePost.');
             }
             // verify required parameter 'targetId' is not null or undefined
             if (targetId === null || targetId === undefined) {
-                throw new RequiredError('targetId','Required parameter targetId was null or undefined when calling gardenStartSoloChallengePostForm.');
+                throw new RequiredError('targetId','Required parameter targetId was null or undefined when calling gardenStartSoloChallengePost.');
             }
             // verify required parameter 'seed' is not null or undefined
             if (seed === null || seed === undefined) {
-                throw new RequiredError('seed','Required parameter seed was null or undefined when calling gardenStartSoloChallengePostForm.');
+                throw new RequiredError('seed','Required parameter seed was null or undefined when calling gardenStartSoloChallengePost.');
             }
             const localVarPath = `/garden/start-solo-challenge`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -333,9 +327,8 @@ export const GardenApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-            const localVarFormParams = new FormData();
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -356,12 +349,8 @@ export const GardenApiAxiosParamCreator = function (configuration?: Configuratio
                 localVarQueryParameter['seed'] = seed;
             }
 
-
-            if (file !== undefined) { 
-                localVarFormParams.append('file', file as any);
-            }
-
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
                 query.set(key, localVarQueryParameter[key]);
@@ -372,7 +361,8 @@ export const GardenApiAxiosParamCreator = function (configuration?: Configuratio
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = localVarFormParams;
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -384,18 +374,18 @@ export const GardenApiAxiosParamCreator = function (configuration?: Configuratio
          * @summary garden - start-solo-fight
          * @param {number} leekId 
          * @param {number} targetId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        gardenStartSoloFightPostForm: async (leekId: number, targetId: number, file?: Blob, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        gardenStartSoloFightPost: async (leekId: number, targetId: number, body?: any, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'leekId' is not null or undefined
             if (leekId === null || leekId === undefined) {
-                throw new RequiredError('leekId','Required parameter leekId was null or undefined when calling gardenStartSoloFightPostForm.');
+                throw new RequiredError('leekId','Required parameter leekId was null or undefined when calling gardenStartSoloFightPost.');
             }
             // verify required parameter 'targetId' is not null or undefined
             if (targetId === null || targetId === undefined) {
-                throw new RequiredError('targetId','Required parameter targetId was null or undefined when calling gardenStartSoloFightPostForm.');
+                throw new RequiredError('targetId','Required parameter targetId was null or undefined when calling gardenStartSoloFightPost.');
             }
             const localVarPath = `/garden/start-solo-fight`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -407,9 +397,8 @@ export const GardenApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-            const localVarFormParams = new FormData();
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -426,12 +415,8 @@ export const GardenApiAxiosParamCreator = function (configuration?: Configuratio
                 localVarQueryParameter['target_id'] = targetId;
             }
 
-
-            if (file !== undefined) { 
-                localVarFormParams.append('file', file as any);
-            }
-
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
                 query.set(key, localVarQueryParameter[key]);
@@ -442,7 +427,8 @@ export const GardenApiAxiosParamCreator = function (configuration?: Configuratio
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = localVarFormParams;
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -455,22 +441,22 @@ export const GardenApiAxiosParamCreator = function (configuration?: Configuratio
          * @param {number} compositionId 
          * @param {number} targetId 
          * @param {number} seed 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        gardenStartTeamChallengePostForm: async (compositionId: number, targetId: number, seed: number, file?: Blob, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        gardenStartTeamChallengePost: async (compositionId: number, targetId: number, seed: number, body?: any, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'compositionId' is not null or undefined
             if (compositionId === null || compositionId === undefined) {
-                throw new RequiredError('compositionId','Required parameter compositionId was null or undefined when calling gardenStartTeamChallengePostForm.');
+                throw new RequiredError('compositionId','Required parameter compositionId was null or undefined when calling gardenStartTeamChallengePost.');
             }
             // verify required parameter 'targetId' is not null or undefined
             if (targetId === null || targetId === undefined) {
-                throw new RequiredError('targetId','Required parameter targetId was null or undefined when calling gardenStartTeamChallengePostForm.');
+                throw new RequiredError('targetId','Required parameter targetId was null or undefined when calling gardenStartTeamChallengePost.');
             }
             // verify required parameter 'seed' is not null or undefined
             if (seed === null || seed === undefined) {
-                throw new RequiredError('seed','Required parameter seed was null or undefined when calling gardenStartTeamChallengePostForm.');
+                throw new RequiredError('seed','Required parameter seed was null or undefined when calling gardenStartTeamChallengePost.');
             }
             const localVarPath = `/garden/start-team-challenge`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -482,9 +468,8 @@ export const GardenApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-            const localVarFormParams = new FormData();
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -505,12 +490,8 @@ export const GardenApiAxiosParamCreator = function (configuration?: Configuratio
                 localVarQueryParameter['seed'] = seed;
             }
 
-
-            if (file !== undefined) { 
-                localVarFormParams.append('file', file as any);
-            }
-
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
                 query.set(key, localVarQueryParameter[key]);
@@ -521,7 +502,8 @@ export const GardenApiAxiosParamCreator = function (configuration?: Configuratio
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = localVarFormParams;
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -533,18 +515,18 @@ export const GardenApiAxiosParamCreator = function (configuration?: Configuratio
          * @summary garden - start-team-fight
          * @param {number} compositionId 
          * @param {number} targetId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        gardenStartTeamFightPostForm: async (compositionId: number, targetId: number, file?: Blob, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        gardenStartTeamFightPost: async (compositionId: number, targetId: number, body?: any, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'compositionId' is not null or undefined
             if (compositionId === null || compositionId === undefined) {
-                throw new RequiredError('compositionId','Required parameter compositionId was null or undefined when calling gardenStartTeamFightPostForm.');
+                throw new RequiredError('compositionId','Required parameter compositionId was null or undefined when calling gardenStartTeamFightPost.');
             }
             // verify required parameter 'targetId' is not null or undefined
             if (targetId === null || targetId === undefined) {
-                throw new RequiredError('targetId','Required parameter targetId was null or undefined when calling gardenStartTeamFightPostForm.');
+                throw new RequiredError('targetId','Required parameter targetId was null or undefined when calling gardenStartTeamFightPost.');
             }
             const localVarPath = `/garden/start-team-fight`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -556,9 +538,8 @@ export const GardenApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-            const localVarFormParams = new FormData();
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -575,12 +556,8 @@ export const GardenApiAxiosParamCreator = function (configuration?: Configuratio
                 localVarQueryParameter['target_id'] = targetId;
             }
 
-
-            if (file !== undefined) { 
-                localVarFormParams.append('file', file as any);
-            }
-
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
                 query.set(key, localVarQueryParameter[key]);
@@ -591,7 +568,8 @@ export const GardenApiAxiosParamCreator = function (configuration?: Configuratio
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = localVarFormParams;
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -614,7 +592,7 @@ export const GardenApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async gardenGetCompositionOpponentsGet(compositionId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async gardenGetCompositionOpponentsGet(compositionId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await GardenApiAxiosParamCreator(configuration).gardenGetCompositionOpponentsGet(compositionId, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -627,7 +605,7 @@ export const GardenApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async gardenGetFarmerOpponentsGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async gardenGetFarmerOpponentsGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await GardenApiAxiosParamCreator(configuration).gardenGetFarmerOpponentsGet(options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -641,7 +619,7 @@ export const GardenApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async gardenGetLeekOpponentsGet(leekId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async gardenGetLeekOpponentsGet(leekId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await GardenApiAxiosParamCreator(configuration).gardenGetLeekOpponentsGet(leekId, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -653,12 +631,12 @@ export const GardenApiFp = function(configuration?: Configuration) {
          * @summary garden - start-farmer-challenge
          * @param {number} targetId 
          * @param {number} seed 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async gardenStartFarmerChallengePostForm(targetId: number, seed: number, file?: Blob, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await GardenApiAxiosParamCreator(configuration).gardenStartFarmerChallengePostForm(targetId, seed, file, options);
+        async gardenStartFarmerChallengePost(targetId: number, seed: number, body?: any, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
+            const localVarAxiosArgs = await GardenApiAxiosParamCreator(configuration).gardenStartFarmerChallengePost(targetId, seed, body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -668,12 +646,12 @@ export const GardenApiFp = function(configuration?: Configuration) {
          * 
          * @summary garden - start-farmer-fight
          * @param {number} targetId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async gardenStartFarmerFightPostForm(targetId: number, file?: Blob, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await GardenApiAxiosParamCreator(configuration).gardenStartFarmerFightPostForm(targetId, file, options);
+        async gardenStartFarmerFightPost(targetId: number, body?: any, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
+            const localVarAxiosArgs = await GardenApiAxiosParamCreator(configuration).gardenStartFarmerFightPost(targetId, body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -685,12 +663,12 @@ export const GardenApiFp = function(configuration?: Configuration) {
          * @param {number} leekId 
          * @param {number} targetId 
          * @param {number} seed 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async gardenStartSoloChallengePostForm(leekId: number, targetId: number, seed: number, file?: Blob, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await GardenApiAxiosParamCreator(configuration).gardenStartSoloChallengePostForm(leekId, targetId, seed, file, options);
+        async gardenStartSoloChallengePost(leekId: number, targetId: number, seed: number, body?: any, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
+            const localVarAxiosArgs = await GardenApiAxiosParamCreator(configuration).gardenStartSoloChallengePost(leekId, targetId, seed, body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -701,12 +679,12 @@ export const GardenApiFp = function(configuration?: Configuration) {
          * @summary garden - start-solo-fight
          * @param {number} leekId 
          * @param {number} targetId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async gardenStartSoloFightPostForm(leekId: number, targetId: number, file?: Blob, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await GardenApiAxiosParamCreator(configuration).gardenStartSoloFightPostForm(leekId, targetId, file, options);
+        async gardenStartSoloFightPost(leekId: number, targetId: number, body?: any, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
+            const localVarAxiosArgs = await GardenApiAxiosParamCreator(configuration).gardenStartSoloFightPost(leekId, targetId, body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -718,12 +696,12 @@ export const GardenApiFp = function(configuration?: Configuration) {
          * @param {number} compositionId 
          * @param {number} targetId 
          * @param {number} seed 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async gardenStartTeamChallengePostForm(compositionId: number, targetId: number, seed: number, file?: Blob, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await GardenApiAxiosParamCreator(configuration).gardenStartTeamChallengePostForm(compositionId, targetId, seed, file, options);
+        async gardenStartTeamChallengePost(compositionId: number, targetId: number, seed: number, body?: any, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
+            const localVarAxiosArgs = await GardenApiAxiosParamCreator(configuration).gardenStartTeamChallengePost(compositionId, targetId, seed, body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -734,12 +712,12 @@ export const GardenApiFp = function(configuration?: Configuration) {
          * @summary garden - start-team-fight
          * @param {number} compositionId 
          * @param {number} targetId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async gardenStartTeamFightPostForm(compositionId: number, targetId: number, file?: Blob, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await GardenApiAxiosParamCreator(configuration).gardenStartTeamFightPostForm(compositionId, targetId, file, options);
+        async gardenStartTeamFightPost(compositionId: number, targetId: number, body?: any, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
+            const localVarAxiosArgs = await GardenApiAxiosParamCreator(configuration).gardenStartTeamFightPost(compositionId, targetId, body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -761,7 +739,7 @@ export const GardenApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async gardenGetCompositionOpponentsGet(compositionId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async gardenGetCompositionOpponentsGet(compositionId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return GardenApiFp(configuration).gardenGetCompositionOpponentsGet(compositionId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -770,7 +748,7 @@ export const GardenApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async gardenGetFarmerOpponentsGet(options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async gardenGetFarmerOpponentsGet(options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return GardenApiFp(configuration).gardenGetFarmerOpponentsGet(options).then((request) => request(axios, basePath));
         },
         /**
@@ -780,7 +758,7 @@ export const GardenApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async gardenGetLeekOpponentsGet(leekId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async gardenGetLeekOpponentsGet(leekId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return GardenApiFp(configuration).gardenGetLeekOpponentsGet(leekId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -788,23 +766,23 @@ export const GardenApiFactory = function (configuration?: Configuration, basePat
          * @summary garden - start-farmer-challenge
          * @param {number} targetId 
          * @param {number} seed 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async gardenStartFarmerChallengePostForm(targetId: number, seed: number, file?: Blob, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return GardenApiFp(configuration).gardenStartFarmerChallengePostForm(targetId, seed, file, options).then((request) => request(axios, basePath));
+        async gardenStartFarmerChallengePost(targetId: number, seed: number, body?: any, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
+            return GardenApiFp(configuration).gardenStartFarmerChallengePost(targetId, seed, body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary garden - start-farmer-fight
          * @param {number} targetId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async gardenStartFarmerFightPostForm(targetId: number, file?: Blob, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return GardenApiFp(configuration).gardenStartFarmerFightPostForm(targetId, file, options).then((request) => request(axios, basePath));
+        async gardenStartFarmerFightPost(targetId: number, body?: any, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
+            return GardenApiFp(configuration).gardenStartFarmerFightPost(targetId, body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -812,24 +790,24 @@ export const GardenApiFactory = function (configuration?: Configuration, basePat
          * @param {number} leekId 
          * @param {number} targetId 
          * @param {number} seed 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async gardenStartSoloChallengePostForm(leekId: number, targetId: number, seed: number, file?: Blob, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return GardenApiFp(configuration).gardenStartSoloChallengePostForm(leekId, targetId, seed, file, options).then((request) => request(axios, basePath));
+        async gardenStartSoloChallengePost(leekId: number, targetId: number, seed: number, body?: any, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
+            return GardenApiFp(configuration).gardenStartSoloChallengePost(leekId, targetId, seed, body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary garden - start-solo-fight
          * @param {number} leekId 
          * @param {number} targetId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async gardenStartSoloFightPostForm(leekId: number, targetId: number, file?: Blob, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return GardenApiFp(configuration).gardenStartSoloFightPostForm(leekId, targetId, file, options).then((request) => request(axios, basePath));
+        async gardenStartSoloFightPost(leekId: number, targetId: number, body?: any, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
+            return GardenApiFp(configuration).gardenStartSoloFightPost(leekId, targetId, body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -837,24 +815,24 @@ export const GardenApiFactory = function (configuration?: Configuration, basePat
          * @param {number} compositionId 
          * @param {number} targetId 
          * @param {number} seed 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async gardenStartTeamChallengePostForm(compositionId: number, targetId: number, seed: number, file?: Blob, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return GardenApiFp(configuration).gardenStartTeamChallengePostForm(compositionId, targetId, seed, file, options).then((request) => request(axios, basePath));
+        async gardenStartTeamChallengePost(compositionId: number, targetId: number, seed: number, body?: any, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
+            return GardenApiFp(configuration).gardenStartTeamChallengePost(compositionId, targetId, seed, body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary garden - start-team-fight
          * @param {number} compositionId 
          * @param {number} targetId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async gardenStartTeamFightPostForm(compositionId: number, targetId: number, file?: Blob, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return GardenApiFp(configuration).gardenStartTeamFightPostForm(compositionId, targetId, file, options).then((request) => request(axios, basePath));
+        async gardenStartTeamFightPost(compositionId: number, targetId: number, body?: any, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
+            return GardenApiFp(configuration).gardenStartTeamFightPost(compositionId, targetId, body, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -874,7 +852,7 @@ export class GardenApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof GardenApi
      */
-    public async gardenGetCompositionOpponentsGet(compositionId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async gardenGetCompositionOpponentsGet(compositionId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return GardenApiFp(this.configuration).gardenGetCompositionOpponentsGet(compositionId, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -884,7 +862,7 @@ export class GardenApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof GardenApi
      */
-    public async gardenGetFarmerOpponentsGet(options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async gardenGetFarmerOpponentsGet(options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return GardenApiFp(this.configuration).gardenGetFarmerOpponentsGet(options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -895,7 +873,7 @@ export class GardenApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof GardenApi
      */
-    public async gardenGetLeekOpponentsGet(leekId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async gardenGetLeekOpponentsGet(leekId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return GardenApiFp(this.configuration).gardenGetLeekOpponentsGet(leekId, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -903,25 +881,25 @@ export class GardenApi extends BaseAPI {
      * @summary garden - start-farmer-challenge
      * @param {number} targetId 
      * @param {number} seed 
-     * @param {Blob} [file] 
+     * @param {any} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof GardenApi
      */
-    public async gardenStartFarmerChallengePostForm(targetId: number, seed: number, file?: Blob, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return GardenApiFp(this.configuration).gardenStartFarmerChallengePostForm(targetId, seed, file, options).then((request) => request(this.axios, this.basePath));
+    public async gardenStartFarmerChallengePost(targetId: number, seed: number, body?: any, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
+        return GardenApiFp(this.configuration).gardenStartFarmerChallengePost(targetId, seed, body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
      * @summary garden - start-farmer-fight
      * @param {number} targetId 
-     * @param {Blob} [file] 
+     * @param {any} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof GardenApi
      */
-    public async gardenStartFarmerFightPostForm(targetId: number, file?: Blob, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return GardenApiFp(this.configuration).gardenStartFarmerFightPostForm(targetId, file, options).then((request) => request(this.axios, this.basePath));
+    public async gardenStartFarmerFightPost(targetId: number, body?: any, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
+        return GardenApiFp(this.configuration).gardenStartFarmerFightPost(targetId, body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
@@ -929,26 +907,26 @@ export class GardenApi extends BaseAPI {
      * @param {number} leekId 
      * @param {number} targetId 
      * @param {number} seed 
-     * @param {Blob} [file] 
+     * @param {any} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof GardenApi
      */
-    public async gardenStartSoloChallengePostForm(leekId: number, targetId: number, seed: number, file?: Blob, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return GardenApiFp(this.configuration).gardenStartSoloChallengePostForm(leekId, targetId, seed, file, options).then((request) => request(this.axios, this.basePath));
+    public async gardenStartSoloChallengePost(leekId: number, targetId: number, seed: number, body?: any, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
+        return GardenApiFp(this.configuration).gardenStartSoloChallengePost(leekId, targetId, seed, body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
      * @summary garden - start-solo-fight
      * @param {number} leekId 
      * @param {number} targetId 
-     * @param {Blob} [file] 
+     * @param {any} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof GardenApi
      */
-    public async gardenStartSoloFightPostForm(leekId: number, targetId: number, file?: Blob, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return GardenApiFp(this.configuration).gardenStartSoloFightPostForm(leekId, targetId, file, options).then((request) => request(this.axios, this.basePath));
+    public async gardenStartSoloFightPost(leekId: number, targetId: number, body?: any, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
+        return GardenApiFp(this.configuration).gardenStartSoloFightPost(leekId, targetId, body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
@@ -956,25 +934,25 @@ export class GardenApi extends BaseAPI {
      * @param {number} compositionId 
      * @param {number} targetId 
      * @param {number} seed 
-     * @param {Blob} [file] 
+     * @param {any} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof GardenApi
      */
-    public async gardenStartTeamChallengePostForm(compositionId: number, targetId: number, seed: number, file?: Blob, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return GardenApiFp(this.configuration).gardenStartTeamChallengePostForm(compositionId, targetId, seed, file, options).then((request) => request(this.axios, this.basePath));
+    public async gardenStartTeamChallengePost(compositionId: number, targetId: number, seed: number, body?: any, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
+        return GardenApiFp(this.configuration).gardenStartTeamChallengePost(compositionId, targetId, seed, body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
      * @summary garden - start-team-fight
      * @param {number} compositionId 
      * @param {number} targetId 
-     * @param {Blob} [file] 
+     * @param {any} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof GardenApi
      */
-    public async gardenStartTeamFightPostForm(compositionId: number, targetId: number, file?: Blob, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return GardenApiFp(this.configuration).gardenStartTeamFightPostForm(compositionId, targetId, file, options).then((request) => request(this.axios, this.basePath));
+    public async gardenStartTeamFightPost(compositionId: number, targetId: number, body?: any, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
+        return GardenApiFp(this.configuration).gardenStartTeamFightPost(compositionId, targetId, body, options).then((request) => request(this.axios, this.basePath));
     }
 }

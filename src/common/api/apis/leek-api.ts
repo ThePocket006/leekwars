@@ -11,11 +11,14 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import type {AxiosInstance, AxiosRequestConfig, AxiosResponse} from "axios";
+
+import type {AxiosResponse, AxiosInstance, AxiosRequestConfig} from "axios";
 import globalAxios from "axios";
 import { Configuration } from '@/common/api';
-import type {RequestArgs} from "@/common/api/base";
-import {BASE_PATH, BaseAPI, RequiredError} from "@/common/api/base";
+// Some imports not used depending on template conditions
+// @ts-ignore
+import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
+import { Objectobject } from '../models';
 /**
  * LeekApi - axios parameter creator
  * @export
@@ -27,18 +30,18 @@ export const LeekApiAxiosParamCreator = function (configuration?: Configuration)
          * @summary leek - add-chip
          * @param {number} leekId 
          * @param {number} chipId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        leekAddChipPostForm: async (leekId: number, chipId: number, file?: Blob, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        leekAddChipPost: async (leekId: number, chipId: number, body?: any, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'leekId' is not null or undefined
             if (leekId === null || leekId === undefined) {
-                throw new RequiredError('leekId','Required parameter leekId was null or undefined when calling leekAddChipPostForm.');
+                throw new RequiredError('leekId','Required parameter leekId was null or undefined when calling leekAddChipPost.');
             }
             // verify required parameter 'chipId' is not null or undefined
             if (chipId === null || chipId === undefined) {
-                throw new RequiredError('chipId','Required parameter chipId was null or undefined when calling leekAddChipPostForm.');
+                throw new RequiredError('chipId','Required parameter chipId was null or undefined when calling leekAddChipPost.');
             }
             const localVarPath = `/leek/add-chip`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -50,9 +53,8 @@ export const LeekApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-            const localVarFormParams = new FormData();
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -69,12 +71,8 @@ export const LeekApiAxiosParamCreator = function (configuration?: Configuration)
                 localVarQueryParameter['chip_id'] = chipId;
             }
 
-
-            if (file !== undefined) { 
-                localVarFormParams.append('file', file as any);
-            }
-
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
                 query.set(key, localVarQueryParameter[key]);
@@ -85,7 +83,8 @@ export const LeekApiAxiosParamCreator = function (configuration?: Configuration)
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = localVarFormParams;
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -97,18 +96,18 @@ export const LeekApiAxiosParamCreator = function (configuration?: Configuration)
          * @summary leek - add-weapon
          * @param {number} leekId 
          * @param {number} weaponId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        leekAddWeaponPostForm: async (leekId: number, weaponId: number, file?: Blob, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        leekAddWeaponPost: async (leekId: number, weaponId: number, body?: any, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'leekId' is not null or undefined
             if (leekId === null || leekId === undefined) {
-                throw new RequiredError('leekId','Required parameter leekId was null or undefined when calling leekAddWeaponPostForm.');
+                throw new RequiredError('leekId','Required parameter leekId was null or undefined when calling leekAddWeaponPost.');
             }
             // verify required parameter 'weaponId' is not null or undefined
             if (weaponId === null || weaponId === undefined) {
-                throw new RequiredError('weaponId','Required parameter weaponId was null or undefined when calling leekAddWeaponPostForm.');
+                throw new RequiredError('weaponId','Required parameter weaponId was null or undefined when calling leekAddWeaponPost.');
             }
             const localVarPath = `/leek/add-weapon`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -120,9 +119,8 @@ export const LeekApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-            const localVarFormParams = new FormData();
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -139,12 +137,8 @@ export const LeekApiAxiosParamCreator = function (configuration?: Configuration)
                 localVarQueryParameter['weapon_id'] = weaponId;
             }
 
-
-            if (file !== undefined) { 
-                localVarFormParams.append('file', file as any);
-            }
-
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
                 query.set(key, localVarQueryParameter[key]);
@@ -155,7 +149,8 @@ export const LeekApiAxiosParamCreator = function (configuration?: Configuration)
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = localVarFormParams;
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -166,14 +161,14 @@ export const LeekApiAxiosParamCreator = function (configuration?: Configuration)
          * 
          * @summary leek - create
          * @param {string} name 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        leekCreatePostForm: async (name: string, file?: Blob, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        leekCreatePost: async (name: string, body?: any, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'name' is not null or undefined
             if (name === null || name === undefined) {
-                throw new RequiredError('name','Required parameter name was null or undefined when calling leekCreatePostForm.');
+                throw new RequiredError('name','Required parameter name was null or undefined when calling leekCreatePost.');
             }
             const localVarPath = `/leek/create`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -185,9 +180,8 @@ export const LeekApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-            const localVarFormParams = new FormData();
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -200,12 +194,8 @@ export const LeekApiAxiosParamCreator = function (configuration?: Configuration)
                 localVarQueryParameter['name'] = name;
             }
 
-
-            if (file !== undefined) { 
-                localVarFormParams.append('file', file as any);
-            }
-
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
                 query.set(key, localVarQueryParameter[key]);
@@ -216,7 +206,8 @@ export const LeekApiAxiosParamCreator = function (configuration?: Configuration)
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = localVarFormParams;
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -251,7 +242,7 @@ export const LeekApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -302,15 +293,6 @@ export const LeekApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
-            // http bearer authentication required
-            if (configuration && configuration.accessToken) {
-                const accessToken = typeof configuration.accessToken === 'function'
-                    ? await configuration.accessToken()
-                    : await configuration.accessToken;
-                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
-            }
-
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
                 query.set(key, localVarQueryParameter[key]);
@@ -350,15 +332,6 @@ export const LeekApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
-            // http bearer authentication required
-            if (configuration && configuration.accessToken) {
-                const accessToken = typeof configuration.accessToken === 'function'
-                    ? await configuration.accessToken()
-                    : await configuration.accessToken;
-                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
-            }
-
             if (leekId !== undefined) {
                 localVarQueryParameter['leek_id'] = leekId;
             }
@@ -397,7 +370,7 @@ export const LeekApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -445,7 +418,7 @@ export const LeekApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -497,7 +470,7 @@ export const LeekApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -530,14 +503,14 @@ export const LeekApiAxiosParamCreator = function (configuration?: Configuration)
          * 
          * @summary leek - register-auto-br
          * @param {number} leekId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        leekRegisterAutoBrPostForm: async (leekId: number, file?: Blob, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        leekRegisterAutoBrPost: async (leekId: number, body?: any, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'leekId' is not null or undefined
             if (leekId === null || leekId === undefined) {
-                throw new RequiredError('leekId','Required parameter leekId was null or undefined when calling leekRegisterAutoBrPostForm.');
+                throw new RequiredError('leekId','Required parameter leekId was null or undefined when calling leekRegisterAutoBrPost.');
             }
             const localVarPath = `/leek/register-auto-br`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -549,9 +522,8 @@ export const LeekApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-            const localVarFormParams = new FormData();
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -564,12 +536,8 @@ export const LeekApiAxiosParamCreator = function (configuration?: Configuration)
                 localVarQueryParameter['leek_id'] = leekId;
             }
 
-
-            if (file !== undefined) { 
-                localVarFormParams.append('file', file as any);
-            }
-
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
                 query.set(key, localVarQueryParameter[key]);
@@ -580,7 +548,8 @@ export const LeekApiAxiosParamCreator = function (configuration?: Configuration)
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = localVarFormParams;
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -591,14 +560,14 @@ export const LeekApiAxiosParamCreator = function (configuration?: Configuration)
          * 
          * @summary leek - register-tournament
          * @param {number} leekId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        leekRegisterTournamentPostForm: async (leekId: number, file?: Blob, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        leekRegisterTournamentPost: async (leekId: number, body?: any, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'leekId' is not null or undefined
             if (leekId === null || leekId === undefined) {
-                throw new RequiredError('leekId','Required parameter leekId was null or undefined when calling leekRegisterTournamentPostForm.');
+                throw new RequiredError('leekId','Required parameter leekId was null or undefined when calling leekRegisterTournamentPost.');
             }
             const localVarPath = `/leek/register-tournament`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -610,9 +579,8 @@ export const LeekApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-            const localVarFormParams = new FormData();
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -625,12 +593,8 @@ export const LeekApiAxiosParamCreator = function (configuration?: Configuration)
                 localVarQueryParameter['leek_id'] = leekId;
             }
 
-
-            if (file !== undefined) { 
-                localVarFormParams.append('file', file as any);
-            }
-
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
                 query.set(key, localVarQueryParameter[key]);
@@ -641,7 +605,8 @@ export const LeekApiAxiosParamCreator = function (configuration?: Configuration)
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = localVarFormParams;
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -671,7 +636,7 @@ export const LeekApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -723,7 +688,7 @@ export const LeekApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -775,7 +740,7 @@ export const LeekApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -827,7 +792,7 @@ export const LeekApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -861,18 +826,18 @@ export const LeekApiAxiosParamCreator = function (configuration?: Configuration)
          * @summary leek - rename-crystals
          * @param {number} leekId 
          * @param {string} newName 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        leekRenameCrystalsPostForm: async (leekId: number, newName: string, file?: Blob, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        leekRenameCrystalsPost: async (leekId: number, newName: string, body?: any, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'leekId' is not null or undefined
             if (leekId === null || leekId === undefined) {
-                throw new RequiredError('leekId','Required parameter leekId was null or undefined when calling leekRenameCrystalsPostForm.');
+                throw new RequiredError('leekId','Required parameter leekId was null or undefined when calling leekRenameCrystalsPost.');
             }
             // verify required parameter 'newName' is not null or undefined
             if (newName === null || newName === undefined) {
-                throw new RequiredError('newName','Required parameter newName was null or undefined when calling leekRenameCrystalsPostForm.');
+                throw new RequiredError('newName','Required parameter newName was null or undefined when calling leekRenameCrystalsPost.');
             }
             const localVarPath = `/leek/rename-crystals`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -884,9 +849,8 @@ export const LeekApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-            const localVarFormParams = new FormData();
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -903,12 +867,8 @@ export const LeekApiAxiosParamCreator = function (configuration?: Configuration)
                 localVarQueryParameter['new_name'] = newName;
             }
 
-
-            if (file !== undefined) { 
-                localVarFormParams.append('file', file as any);
-            }
-
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
                 query.set(key, localVarQueryParameter[key]);
@@ -919,7 +879,8 @@ export const LeekApiAxiosParamCreator = function (configuration?: Configuration)
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = localVarFormParams;
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -931,18 +892,18 @@ export const LeekApiAxiosParamCreator = function (configuration?: Configuration)
          * @summary leek - rename-habs
          * @param {number} leekId 
          * @param {string} newName 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        leekRenameHabsPostForm: async (leekId: number, newName: string, file?: Blob, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        leekRenameHabsPost: async (leekId: number, newName: string, body?: any, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'leekId' is not null or undefined
             if (leekId === null || leekId === undefined) {
-                throw new RequiredError('leekId','Required parameter leekId was null or undefined when calling leekRenameHabsPostForm.');
+                throw new RequiredError('leekId','Required parameter leekId was null or undefined when calling leekRenameHabsPost.');
             }
             // verify required parameter 'newName' is not null or undefined
             if (newName === null || newName === undefined) {
-                throw new RequiredError('newName','Required parameter newName was null or undefined when calling leekRenameHabsPostForm.');
+                throw new RequiredError('newName','Required parameter newName was null or undefined when calling leekRenameHabsPost.');
             }
             const localVarPath = `/leek/rename-habs`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -954,9 +915,8 @@ export const LeekApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-            const localVarFormParams = new FormData();
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -973,12 +933,8 @@ export const LeekApiAxiosParamCreator = function (configuration?: Configuration)
                 localVarQueryParameter['new_name'] = newName;
             }
 
-
-            if (file !== undefined) { 
-                localVarFormParams.append('file', file as any);
-            }
-
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
                 query.set(key, localVarQueryParameter[key]);
@@ -989,7 +945,8 @@ export const LeekApiAxiosParamCreator = function (configuration?: Configuration)
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = localVarFormParams;
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -1019,7 +976,7 @@ export const LeekApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -1053,18 +1010,18 @@ export const LeekApiAxiosParamCreator = function (configuration?: Configuration)
          * @summary leek - set-ai
          * @param {number} leekId 
          * @param {number} aiId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        leekSetAiPostForm: async (leekId: number, aiId: number, file?: Blob, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        leekSetAiPost: async (leekId: number, aiId: number, body?: any, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'leekId' is not null or undefined
             if (leekId === null || leekId === undefined) {
-                throw new RequiredError('leekId','Required parameter leekId was null or undefined when calling leekSetAiPostForm.');
+                throw new RequiredError('leekId','Required parameter leekId was null or undefined when calling leekSetAiPost.');
             }
             // verify required parameter 'aiId' is not null or undefined
             if (aiId === null || aiId === undefined) {
-                throw new RequiredError('aiId','Required parameter aiId was null or undefined when calling leekSetAiPostForm.');
+                throw new RequiredError('aiId','Required parameter aiId was null or undefined when calling leekSetAiPost.');
             }
             const localVarPath = `/leek/set-ai`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -1076,9 +1033,8 @@ export const LeekApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-            const localVarFormParams = new FormData();
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -1095,12 +1051,8 @@ export const LeekApiAxiosParamCreator = function (configuration?: Configuration)
                 localVarQueryParameter['ai_id'] = aiId;
             }
 
-
-            if (file !== undefined) { 
-                localVarFormParams.append('file', file as any);
-            }
-
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
                 query.set(key, localVarQueryParameter[key]);
@@ -1111,7 +1063,8 @@ export const LeekApiAxiosParamCreator = function (configuration?: Configuration)
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = localVarFormParams;
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -1146,7 +1099,7 @@ export const LeekApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -1184,18 +1137,18 @@ export const LeekApiAxiosParamCreator = function (configuration?: Configuration)
          * @summary leek - set-hat
          * @param {number} leekId 
          * @param {number} hatId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        leekSetHatPostForm: async (leekId: number, hatId: number, file?: Blob, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        leekSetHatPost: async (leekId: number, hatId: number, body?: any, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'leekId' is not null or undefined
             if (leekId === null || leekId === undefined) {
-                throw new RequiredError('leekId','Required parameter leekId was null or undefined when calling leekSetHatPostForm.');
+                throw new RequiredError('leekId','Required parameter leekId was null or undefined when calling leekSetHatPost.');
             }
             // verify required parameter 'hatId' is not null or undefined
             if (hatId === null || hatId === undefined) {
-                throw new RequiredError('hatId','Required parameter hatId was null or undefined when calling leekSetHatPostForm.');
+                throw new RequiredError('hatId','Required parameter hatId was null or undefined when calling leekSetHatPost.');
             }
             const localVarPath = `/leek/set-hat`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -1207,9 +1160,8 @@ export const LeekApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-            const localVarFormParams = new FormData();
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -1226,12 +1178,8 @@ export const LeekApiAxiosParamCreator = function (configuration?: Configuration)
                 localVarQueryParameter['hat_id'] = hatId;
             }
 
-
-            if (file !== undefined) { 
-                localVarFormParams.append('file', file as any);
-            }
-
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
                 query.set(key, localVarQueryParameter[key]);
@@ -1242,7 +1190,8 @@ export const LeekApiAxiosParamCreator = function (configuration?: Configuration)
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = localVarFormParams;
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -1254,18 +1203,18 @@ export const LeekApiAxiosParamCreator = function (configuration?: Configuration)
          * @summary leek - set-in-garden
          * @param {number} leekId 
          * @param {boolean} inGarden 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        leekSetInGardenPostForm: async (leekId: number, inGarden: boolean, file?: Blob, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        leekSetInGardenPost: async (leekId: number, inGarden: boolean, body?: any, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'leekId' is not null or undefined
             if (leekId === null || leekId === undefined) {
-                throw new RequiredError('leekId','Required parameter leekId was null or undefined when calling leekSetInGardenPostForm.');
+                throw new RequiredError('leekId','Required parameter leekId was null or undefined when calling leekSetInGardenPost.');
             }
             // verify required parameter 'inGarden' is not null or undefined
             if (inGarden === null || inGarden === undefined) {
-                throw new RequiredError('inGarden','Required parameter inGarden was null or undefined when calling leekSetInGardenPostForm.');
+                throw new RequiredError('inGarden','Required parameter inGarden was null or undefined when calling leekSetInGardenPost.');
             }
             const localVarPath = `/leek/set-in-garden`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -1277,9 +1226,8 @@ export const LeekApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-            const localVarFormParams = new FormData();
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -1296,12 +1244,8 @@ export const LeekApiAxiosParamCreator = function (configuration?: Configuration)
                 localVarQueryParameter['in_garden'] = inGarden;
             }
 
-
-            if (file !== undefined) { 
-                localVarFormParams.append('file', file as any);
-            }
-
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
                 query.set(key, localVarQueryParameter[key]);
@@ -1312,7 +1256,8 @@ export const LeekApiAxiosParamCreator = function (configuration?: Configuration)
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = localVarFormParams;
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -1347,7 +1292,7 @@ export const LeekApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -1386,22 +1331,22 @@ export const LeekApiAxiosParamCreator = function (configuration?: Configuration)
          * @param {number} leekId 
          * @param {string} key 
          * @param {string} value 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        leekSetRegisterPostForm: async (leekId: number, key: string, value: string, file?: Blob, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        leekSetRegisterPost: async (leekId: number, key: string, value: string, body?: any, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'leekId' is not null or undefined
             if (leekId === null || leekId === undefined) {
-                throw new RequiredError('leekId','Required parameter leekId was null or undefined when calling leekSetRegisterPostForm.');
+                throw new RequiredError('leekId','Required parameter leekId was null or undefined when calling leekSetRegisterPost.');
             }
             // verify required parameter 'key' is not null or undefined
             if (key === null || key === undefined) {
-                throw new RequiredError('key','Required parameter key was null or undefined when calling leekSetRegisterPostForm.');
+                throw new RequiredError('key','Required parameter key was null or undefined when calling leekSetRegisterPost.');
             }
             // verify required parameter 'value' is not null or undefined
             if (value === null || value === undefined) {
-                throw new RequiredError('value','Required parameter value was null or undefined when calling leekSetRegisterPostForm.');
+                throw new RequiredError('value','Required parameter value was null or undefined when calling leekSetRegisterPost.');
             }
             const localVarPath = `/leek/set-register`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -1413,9 +1358,8 @@ export const LeekApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-            const localVarFormParams = new FormData();
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -1436,12 +1380,8 @@ export const LeekApiAxiosParamCreator = function (configuration?: Configuration)
                 localVarQueryParameter['value'] = value;
             }
 
-
-            if (file !== undefined) { 
-                localVarFormParams.append('file', file as any);
-            }
-
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
                 query.set(key, localVarQueryParameter[key]);
@@ -1452,7 +1392,8 @@ export const LeekApiAxiosParamCreator = function (configuration?: Configuration)
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = localVarFormParams;
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -1487,7 +1428,7 @@ export const LeekApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -1548,7 +1489,7 @@ export const LeekApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -1585,19 +1526,19 @@ export const LeekApiAxiosParamCreator = function (configuration?: Configuration)
          * 
          * @summary leek - spend-capital
          * @param {number} leekId 
-         * @param {string} characteristics 
-         * @param {Blob} [file] 
+         * @param {Objectobject} characteristics 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        leekSpendCapitalPostForm: async (leekId: number, characteristics: string, file?: Blob, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        leekSpendCapitalPost: async (leekId: number, characteristics: Objectobject, body?: any, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'leekId' is not null or undefined
             if (leekId === null || leekId === undefined) {
-                throw new RequiredError('leekId','Required parameter leekId was null or undefined when calling leekSpendCapitalPostForm.');
+                throw new RequiredError('leekId','Required parameter leekId was null or undefined when calling leekSpendCapitalPost.');
             }
             // verify required parameter 'characteristics' is not null or undefined
             if (characteristics === null || characteristics === undefined) {
-                throw new RequiredError('characteristics','Required parameter characteristics was null or undefined when calling leekSpendCapitalPostForm.');
+                throw new RequiredError('characteristics','Required parameter characteristics was null or undefined when calling leekSpendCapitalPost.');
             }
             const localVarPath = `/leek/spend-capital`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -1609,9 +1550,8 @@ export const LeekApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-            const localVarFormParams = new FormData();
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -1628,12 +1568,8 @@ export const LeekApiAxiosParamCreator = function (configuration?: Configuration)
                 localVarQueryParameter['characteristics'] = characteristics;
             }
 
-
-            if (file !== undefined) { 
-                localVarFormParams.append('file', file as any);
-            }
-
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
                 query.set(key, localVarQueryParameter[key]);
@@ -1644,7 +1580,8 @@ export const LeekApiAxiosParamCreator = function (configuration?: Configuration)
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = localVarFormParams;
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -1655,14 +1592,14 @@ export const LeekApiAxiosParamCreator = function (configuration?: Configuration)
          * 
          * @summary leek - unregister-auto-br
          * @param {number} leekId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        leekUnregisterAutoBrPostForm: async (leekId: number, file?: Blob, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        leekUnregisterAutoBrPost: async (leekId: number, body?: any, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'leekId' is not null or undefined
             if (leekId === null || leekId === undefined) {
-                throw new RequiredError('leekId','Required parameter leekId was null or undefined when calling leekUnregisterAutoBrPostForm.');
+                throw new RequiredError('leekId','Required parameter leekId was null or undefined when calling leekUnregisterAutoBrPost.');
             }
             const localVarPath = `/leek/unregister-auto-br`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -1674,9 +1611,8 @@ export const LeekApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-            const localVarFormParams = new FormData();
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -1689,12 +1625,8 @@ export const LeekApiAxiosParamCreator = function (configuration?: Configuration)
                 localVarQueryParameter['leek_id'] = leekId;
             }
 
-
-            if (file !== undefined) { 
-                localVarFormParams.append('file', file as any);
-            }
-
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
                 query.set(key, localVarQueryParameter[key]);
@@ -1705,7 +1637,8 @@ export const LeekApiAxiosParamCreator = function (configuration?: Configuration)
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = localVarFormParams;
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -1716,14 +1649,14 @@ export const LeekApiAxiosParamCreator = function (configuration?: Configuration)
          * 
          * @summary leek - unregister-tournament
          * @param {number} leekId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        leekUnregisterTournamentPostForm: async (leekId: number, file?: Blob, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        leekUnregisterTournamentPost: async (leekId: number, body?: any, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'leekId' is not null or undefined
             if (leekId === null || leekId === undefined) {
-                throw new RequiredError('leekId','Required parameter leekId was null or undefined when calling leekUnregisterTournamentPostForm.');
+                throw new RequiredError('leekId','Required parameter leekId was null or undefined when calling leekUnregisterTournamentPost.');
             }
             const localVarPath = `/leek/unregister-tournament`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -1735,9 +1668,8 @@ export const LeekApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-            const localVarFormParams = new FormData();
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -1750,12 +1682,8 @@ export const LeekApiAxiosParamCreator = function (configuration?: Configuration)
                 localVarQueryParameter['leek_id'] = leekId;
             }
 
-
-            if (file !== undefined) { 
-                localVarFormParams.append('file', file as any);
-            }
-
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
                 query.set(key, localVarQueryParameter[key]);
@@ -1766,7 +1694,8 @@ export const LeekApiAxiosParamCreator = function (configuration?: Configuration)
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = localVarFormParams;
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -1778,18 +1707,18 @@ export const LeekApiAxiosParamCreator = function (configuration?: Configuration)
          * @summary leek - use-potion
          * @param {number} leekId 
          * @param {number} potionId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        leekUsePotionPostForm: async (leekId: number, potionId: number, file?: Blob, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        leekUsePotionPost: async (leekId: number, potionId: number, body?: any, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'leekId' is not null or undefined
             if (leekId === null || leekId === undefined) {
-                throw new RequiredError('leekId','Required parameter leekId was null or undefined when calling leekUsePotionPostForm.');
+                throw new RequiredError('leekId','Required parameter leekId was null or undefined when calling leekUsePotionPost.');
             }
             // verify required parameter 'potionId' is not null or undefined
             if (potionId === null || potionId === undefined) {
-                throw new RequiredError('potionId','Required parameter potionId was null or undefined when calling leekUsePotionPostForm.');
+                throw new RequiredError('potionId','Required parameter potionId was null or undefined when calling leekUsePotionPost.');
             }
             const localVarPath = `/leek/use-potion`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -1801,9 +1730,8 @@ export const LeekApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-            const localVarFormParams = new FormData();
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -1820,12 +1748,8 @@ export const LeekApiAxiosParamCreator = function (configuration?: Configuration)
                 localVarQueryParameter['potion_id'] = potionId;
             }
 
-
-            if (file !== undefined) { 
-                localVarFormParams.append('file', file as any);
-            }
-
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
                 query.set(key, localVarQueryParameter[key]);
@@ -1836,7 +1760,8 @@ export const LeekApiAxiosParamCreator = function (configuration?: Configuration)
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = localVarFormParams;
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -1857,12 +1782,12 @@ export const LeekApiFp = function(configuration?: Configuration) {
          * @summary leek - add-chip
          * @param {number} leekId 
          * @param {number} chipId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async leekAddChipPostForm(leekId: number, chipId: number, file?: Blob, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await LeekApiAxiosParamCreator(configuration).leekAddChipPostForm(leekId, chipId, file, options);
+        async leekAddChipPost(leekId: number, chipId: number, body?: any, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
+            const localVarAxiosArgs = await LeekApiAxiosParamCreator(configuration).leekAddChipPost(leekId, chipId, body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -1873,12 +1798,12 @@ export const LeekApiFp = function(configuration?: Configuration) {
          * @summary leek - add-weapon
          * @param {number} leekId 
          * @param {number} weaponId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async leekAddWeaponPostForm(leekId: number, weaponId: number, file?: Blob, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await LeekApiAxiosParamCreator(configuration).leekAddWeaponPostForm(leekId, weaponId, file, options);
+        async leekAddWeaponPost(leekId: number, weaponId: number, body?: any, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
+            const localVarAxiosArgs = await LeekApiAxiosParamCreator(configuration).leekAddWeaponPost(leekId, weaponId, body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -1888,12 +1813,12 @@ export const LeekApiFp = function(configuration?: Configuration) {
          * 
          * @summary leek - create
          * @param {string} name 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async leekCreatePostForm(name: string, file?: Blob, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await LeekApiAxiosParamCreator(configuration).leekCreatePostForm(name, file, options);
+        async leekCreatePost(name: string, body?: any, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
+            const localVarAxiosArgs = await LeekApiAxiosParamCreator(configuration).leekCreatePost(name, body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -1907,7 +1832,7 @@ export const LeekApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async leekDeleteRegisterDelete(leekId: number, key: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async leekDeleteRegisterDelete(leekId: number, key: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await LeekApiAxiosParamCreator(configuration).leekDeleteRegisterDelete(leekId, key, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -1920,7 +1845,7 @@ export const LeekApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async leekGetCountGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async leekGetCountGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await LeekApiAxiosParamCreator(configuration).leekGetCountGet(options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -1934,7 +1859,7 @@ export const LeekApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async leekGetGet(leekId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async leekGetGet(leekId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await LeekApiAxiosParamCreator(configuration).leekGetGet(leekId, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -1947,7 +1872,7 @@ export const LeekApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async leekGetNextPriceGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async leekGetNextPriceGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await LeekApiAxiosParamCreator(configuration).leekGetNextPriceGet(options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -1961,7 +1886,7 @@ export const LeekApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async leekGetPrivateGet(leekId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async leekGetPrivateGet(leekId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await LeekApiAxiosParamCreator(configuration).leekGetPrivateGet(leekId, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -1975,7 +1900,7 @@ export const LeekApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async leekGetRegistersGet(leekId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async leekGetRegistersGet(leekId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await LeekApiAxiosParamCreator(configuration).leekGetRegistersGet(leekId, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -1986,12 +1911,12 @@ export const LeekApiFp = function(configuration?: Configuration) {
          * 
          * @summary leek - register-auto-br
          * @param {number} leekId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async leekRegisterAutoBrPostForm(leekId: number, file?: Blob, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await LeekApiAxiosParamCreator(configuration).leekRegisterAutoBrPostForm(leekId, file, options);
+        async leekRegisterAutoBrPost(leekId: number, body?: any, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
+            const localVarAxiosArgs = await LeekApiAxiosParamCreator(configuration).leekRegisterAutoBrPost(leekId, body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -2001,12 +1926,12 @@ export const LeekApiFp = function(configuration?: Configuration) {
          * 
          * @summary leek - register-tournament
          * @param {number} leekId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async leekRegisterTournamentPostForm(leekId: number, file?: Blob, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await LeekApiAxiosParamCreator(configuration).leekRegisterTournamentPostForm(leekId, file, options);
+        async leekRegisterTournamentPost(leekId: number, body?: any, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
+            const localVarAxiosArgs = await LeekApiAxiosParamCreator(configuration).leekRegisterTournamentPost(leekId, body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -2019,7 +1944,7 @@ export const LeekApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async leekRemoveAiDelete(leekId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async leekRemoveAiDelete(leekId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await LeekApiAxiosParamCreator(configuration).leekRemoveAiDelete(leekId, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -2033,7 +1958,7 @@ export const LeekApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async leekRemoveChipDelete(chipId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async leekRemoveChipDelete(chipId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await LeekApiAxiosParamCreator(configuration).leekRemoveChipDelete(chipId, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -2047,7 +1972,7 @@ export const LeekApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async leekRemoveHatDelete(leekId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async leekRemoveHatDelete(leekId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await LeekApiAxiosParamCreator(configuration).leekRemoveHatDelete(leekId, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -2061,7 +1986,7 @@ export const LeekApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async leekRemoveWeaponDelete(weaponId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async leekRemoveWeaponDelete(weaponId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await LeekApiAxiosParamCreator(configuration).leekRemoveWeaponDelete(weaponId, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -2073,12 +1998,12 @@ export const LeekApiFp = function(configuration?: Configuration) {
          * @summary leek - rename-crystals
          * @param {number} leekId 
          * @param {string} newName 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async leekRenameCrystalsPostForm(leekId: number, newName: string, file?: Blob, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await LeekApiAxiosParamCreator(configuration).leekRenameCrystalsPostForm(leekId, newName, file, options);
+        async leekRenameCrystalsPost(leekId: number, newName: string, body?: any, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
+            const localVarAxiosArgs = await LeekApiAxiosParamCreator(configuration).leekRenameCrystalsPost(leekId, newName, body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -2089,12 +2014,12 @@ export const LeekApiFp = function(configuration?: Configuration) {
          * @summary leek - rename-habs
          * @param {number} leekId 
          * @param {string} newName 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async leekRenameHabsPostForm(leekId: number, newName: string, file?: Blob, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await LeekApiAxiosParamCreator(configuration).leekRenameHabsPostForm(leekId, newName, file, options);
+        async leekRenameHabsPost(leekId: number, newName: string, body?: any, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
+            const localVarAxiosArgs = await LeekApiAxiosParamCreator(configuration).leekRenameHabsPost(leekId, newName, body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -2107,7 +2032,7 @@ export const LeekApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async leekRichTooltipGet(id: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async leekRichTooltipGet(id: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await LeekApiAxiosParamCreator(configuration).leekRichTooltipGet(id, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -2119,12 +2044,12 @@ export const LeekApiFp = function(configuration?: Configuration) {
          * @summary leek - set-ai
          * @param {number} leekId 
          * @param {number} aiId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async leekSetAiPostForm(leekId: number, aiId: number, file?: Blob, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await LeekApiAxiosParamCreator(configuration).leekSetAiPostForm(leekId, aiId, file, options);
+        async leekSetAiPost(leekId: number, aiId: number, body?: any, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
+            const localVarAxiosArgs = await LeekApiAxiosParamCreator(configuration).leekSetAiPost(leekId, aiId, body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -2138,7 +2063,7 @@ export const LeekApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async leekSetFacePut(leekId: number, face: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async leekSetFacePut(leekId: number, face: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await LeekApiAxiosParamCreator(configuration).leekSetFacePut(leekId, face, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -2150,12 +2075,12 @@ export const LeekApiFp = function(configuration?: Configuration) {
          * @summary leek - set-hat
          * @param {number} leekId 
          * @param {number} hatId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async leekSetHatPostForm(leekId: number, hatId: number, file?: Blob, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await LeekApiAxiosParamCreator(configuration).leekSetHatPostForm(leekId, hatId, file, options);
+        async leekSetHatPost(leekId: number, hatId: number, body?: any, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
+            const localVarAxiosArgs = await LeekApiAxiosParamCreator(configuration).leekSetHatPost(leekId, hatId, body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -2166,12 +2091,12 @@ export const LeekApiFp = function(configuration?: Configuration) {
          * @summary leek - set-in-garden
          * @param {number} leekId 
          * @param {boolean} inGarden 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async leekSetInGardenPostForm(leekId: number, inGarden: boolean, file?: Blob, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await LeekApiAxiosParamCreator(configuration).leekSetInGardenPostForm(leekId, inGarden, file, options);
+        async leekSetInGardenPost(leekId: number, inGarden: boolean, body?: any, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
+            const localVarAxiosArgs = await LeekApiAxiosParamCreator(configuration).leekSetInGardenPost(leekId, inGarden, body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -2185,7 +2110,7 @@ export const LeekApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async leekSetMetalPut(leekId: number, metal: boolean, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async leekSetMetalPut(leekId: number, metal: boolean, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await LeekApiAxiosParamCreator(configuration).leekSetMetalPut(leekId, metal, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -2198,12 +2123,12 @@ export const LeekApiFp = function(configuration?: Configuration) {
          * @param {number} leekId 
          * @param {string} key 
          * @param {string} value 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async leekSetRegisterPostForm(leekId: number, key: string, value: string, file?: Blob, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await LeekApiAxiosParamCreator(configuration).leekSetRegisterPostForm(leekId, key, value, file, options);
+        async leekSetRegisterPost(leekId: number, key: string, value: string, body?: any, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
+            const localVarAxiosArgs = await LeekApiAxiosParamCreator(configuration).leekSetRegisterPost(leekId, key, value, body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -2217,7 +2142,7 @@ export const LeekApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async leekSetWeaponPut(leekId: number, weapon: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async leekSetWeaponPut(leekId: number, weapon: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await LeekApiAxiosParamCreator(configuration).leekSetWeaponPut(leekId, weapon, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -2232,7 +2157,7 @@ export const LeekApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async leekSetXpBlockedPut(leekId: number, xpBlocked: boolean, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async leekSetXpBlockedPut(leekId: number, xpBlocked: boolean, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await LeekApiAxiosParamCreator(configuration).leekSetXpBlockedPut(leekId, xpBlocked, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -2243,13 +2168,13 @@ export const LeekApiFp = function(configuration?: Configuration) {
          * 
          * @summary leek - spend-capital
          * @param {number} leekId 
-         * @param {string} characteristics 
-         * @param {Blob} [file] 
+         * @param {Objectobject} characteristics 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async leekSpendCapitalPostForm(leekId: number, characteristics: string, file?: Blob, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await LeekApiAxiosParamCreator(configuration).leekSpendCapitalPostForm(leekId, characteristics, file, options);
+        async leekSpendCapitalPost(leekId: number, characteristics: Objectobject, body?: any, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
+            const localVarAxiosArgs = await LeekApiAxiosParamCreator(configuration).leekSpendCapitalPost(leekId, characteristics, body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -2259,12 +2184,12 @@ export const LeekApiFp = function(configuration?: Configuration) {
          * 
          * @summary leek - unregister-auto-br
          * @param {number} leekId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async leekUnregisterAutoBrPostForm(leekId: number, file?: Blob, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await LeekApiAxiosParamCreator(configuration).leekUnregisterAutoBrPostForm(leekId, file, options);
+        async leekUnregisterAutoBrPost(leekId: number, body?: any, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
+            const localVarAxiosArgs = await LeekApiAxiosParamCreator(configuration).leekUnregisterAutoBrPost(leekId, body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -2274,12 +2199,12 @@ export const LeekApiFp = function(configuration?: Configuration) {
          * 
          * @summary leek - unregister-tournament
          * @param {number} leekId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async leekUnregisterTournamentPostForm(leekId: number, file?: Blob, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await LeekApiAxiosParamCreator(configuration).leekUnregisterTournamentPostForm(leekId, file, options);
+        async leekUnregisterTournamentPost(leekId: number, body?: any, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
+            const localVarAxiosArgs = await LeekApiAxiosParamCreator(configuration).leekUnregisterTournamentPost(leekId, body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -2290,12 +2215,12 @@ export const LeekApiFp = function(configuration?: Configuration) {
          * @summary leek - use-potion
          * @param {number} leekId 
          * @param {number} potionId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async leekUsePotionPostForm(leekId: number, potionId: number, file?: Blob, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await LeekApiAxiosParamCreator(configuration).leekUsePotionPostForm(leekId, potionId, file, options);
+        async leekUsePotionPost(leekId: number, potionId: number, body?: any, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
+            const localVarAxiosArgs = await LeekApiAxiosParamCreator(configuration).leekUsePotionPost(leekId, potionId, body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -2315,35 +2240,35 @@ export const LeekApiFactory = function (configuration?: Configuration, basePath?
          * @summary leek - add-chip
          * @param {number} leekId 
          * @param {number} chipId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async leekAddChipPostForm(leekId: number, chipId: number, file?: Blob, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return LeekApiFp(configuration).leekAddChipPostForm(leekId, chipId, file, options).then((request) => request(axios, basePath));
+        async leekAddChipPost(leekId: number, chipId: number, body?: any, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
+            return LeekApiFp(configuration).leekAddChipPost(leekId, chipId, body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary leek - add-weapon
          * @param {number} leekId 
          * @param {number} weaponId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async leekAddWeaponPostForm(leekId: number, weaponId: number, file?: Blob, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return LeekApiFp(configuration).leekAddWeaponPostForm(leekId, weaponId, file, options).then((request) => request(axios, basePath));
+        async leekAddWeaponPost(leekId: number, weaponId: number, body?: any, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
+            return LeekApiFp(configuration).leekAddWeaponPost(leekId, weaponId, body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary leek - create
          * @param {string} name 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async leekCreatePostForm(name: string, file?: Blob, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return LeekApiFp(configuration).leekCreatePostForm(name, file, options).then((request) => request(axios, basePath));
+        async leekCreatePost(name: string, body?: any, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
+            return LeekApiFp(configuration).leekCreatePost(name, body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -2353,7 +2278,7 @@ export const LeekApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async leekDeleteRegisterDelete(leekId: number, key: string, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async leekDeleteRegisterDelete(leekId: number, key: string, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return LeekApiFp(configuration).leekDeleteRegisterDelete(leekId, key, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2362,7 +2287,7 @@ export const LeekApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async leekGetCountGet(options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async leekGetCountGet(options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return LeekApiFp(configuration).leekGetCountGet(options).then((request) => request(axios, basePath));
         },
         /**
@@ -2372,7 +2297,7 @@ export const LeekApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async leekGetGet(leekId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async leekGetGet(leekId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return LeekApiFp(configuration).leekGetGet(leekId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2381,7 +2306,7 @@ export const LeekApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async leekGetNextPriceGet(options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async leekGetNextPriceGet(options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return LeekApiFp(configuration).leekGetNextPriceGet(options).then((request) => request(axios, basePath));
         },
         /**
@@ -2391,7 +2316,7 @@ export const LeekApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async leekGetPrivateGet(leekId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async leekGetPrivateGet(leekId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return LeekApiFp(configuration).leekGetPrivateGet(leekId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2401,30 +2326,30 @@ export const LeekApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async leekGetRegistersGet(leekId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async leekGetRegistersGet(leekId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return LeekApiFp(configuration).leekGetRegistersGet(leekId, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary leek - register-auto-br
          * @param {number} leekId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async leekRegisterAutoBrPostForm(leekId: number, file?: Blob, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return LeekApiFp(configuration).leekRegisterAutoBrPostForm(leekId, file, options).then((request) => request(axios, basePath));
+        async leekRegisterAutoBrPost(leekId: number, body?: any, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
+            return LeekApiFp(configuration).leekRegisterAutoBrPost(leekId, body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary leek - register-tournament
          * @param {number} leekId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async leekRegisterTournamentPostForm(leekId: number, file?: Blob, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return LeekApiFp(configuration).leekRegisterTournamentPostForm(leekId, file, options).then((request) => request(axios, basePath));
+        async leekRegisterTournamentPost(leekId: number, body?: any, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
+            return LeekApiFp(configuration).leekRegisterTournamentPost(leekId, body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -2433,7 +2358,7 @@ export const LeekApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async leekRemoveAiDelete(leekId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async leekRemoveAiDelete(leekId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return LeekApiFp(configuration).leekRemoveAiDelete(leekId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2443,7 +2368,7 @@ export const LeekApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async leekRemoveChipDelete(chipId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async leekRemoveChipDelete(chipId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return LeekApiFp(configuration).leekRemoveChipDelete(chipId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2453,7 +2378,7 @@ export const LeekApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async leekRemoveHatDelete(leekId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async leekRemoveHatDelete(leekId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return LeekApiFp(configuration).leekRemoveHatDelete(leekId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2463,7 +2388,7 @@ export const LeekApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async leekRemoveWeaponDelete(weaponId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async leekRemoveWeaponDelete(weaponId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return LeekApiFp(configuration).leekRemoveWeaponDelete(weaponId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2471,24 +2396,24 @@ export const LeekApiFactory = function (configuration?: Configuration, basePath?
          * @summary leek - rename-crystals
          * @param {number} leekId 
          * @param {string} newName 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async leekRenameCrystalsPostForm(leekId: number, newName: string, file?: Blob, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return LeekApiFp(configuration).leekRenameCrystalsPostForm(leekId, newName, file, options).then((request) => request(axios, basePath));
+        async leekRenameCrystalsPost(leekId: number, newName: string, body?: any, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
+            return LeekApiFp(configuration).leekRenameCrystalsPost(leekId, newName, body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary leek - rename-habs
          * @param {number} leekId 
          * @param {string} newName 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async leekRenameHabsPostForm(leekId: number, newName: string, file?: Blob, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return LeekApiFp(configuration).leekRenameHabsPostForm(leekId, newName, file, options).then((request) => request(axios, basePath));
+        async leekRenameHabsPost(leekId: number, newName: string, body?: any, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
+            return LeekApiFp(configuration).leekRenameHabsPost(leekId, newName, body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -2497,7 +2422,7 @@ export const LeekApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async leekRichTooltipGet(id: number, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async leekRichTooltipGet(id: number, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return LeekApiFp(configuration).leekRichTooltipGet(id, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2505,12 +2430,12 @@ export const LeekApiFactory = function (configuration?: Configuration, basePath?
          * @summary leek - set-ai
          * @param {number} leekId 
          * @param {number} aiId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async leekSetAiPostForm(leekId: number, aiId: number, file?: Blob, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return LeekApiFp(configuration).leekSetAiPostForm(leekId, aiId, file, options).then((request) => request(axios, basePath));
+        async leekSetAiPost(leekId: number, aiId: number, body?: any, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
+            return LeekApiFp(configuration).leekSetAiPost(leekId, aiId, body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -2520,7 +2445,7 @@ export const LeekApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async leekSetFacePut(leekId: number, face: number, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async leekSetFacePut(leekId: number, face: number, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return LeekApiFp(configuration).leekSetFacePut(leekId, face, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2528,24 +2453,24 @@ export const LeekApiFactory = function (configuration?: Configuration, basePath?
          * @summary leek - set-hat
          * @param {number} leekId 
          * @param {number} hatId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async leekSetHatPostForm(leekId: number, hatId: number, file?: Blob, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return LeekApiFp(configuration).leekSetHatPostForm(leekId, hatId, file, options).then((request) => request(axios, basePath));
+        async leekSetHatPost(leekId: number, hatId: number, body?: any, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
+            return LeekApiFp(configuration).leekSetHatPost(leekId, hatId, body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary leek - set-in-garden
          * @param {number} leekId 
          * @param {boolean} inGarden 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async leekSetInGardenPostForm(leekId: number, inGarden: boolean, file?: Blob, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return LeekApiFp(configuration).leekSetInGardenPostForm(leekId, inGarden, file, options).then((request) => request(axios, basePath));
+        async leekSetInGardenPost(leekId: number, inGarden: boolean, body?: any, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
+            return LeekApiFp(configuration).leekSetInGardenPost(leekId, inGarden, body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -2555,7 +2480,7 @@ export const LeekApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async leekSetMetalPut(leekId: number, metal: boolean, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async leekSetMetalPut(leekId: number, metal: boolean, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return LeekApiFp(configuration).leekSetMetalPut(leekId, metal, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2564,12 +2489,12 @@ export const LeekApiFactory = function (configuration?: Configuration, basePath?
          * @param {number} leekId 
          * @param {string} key 
          * @param {string} value 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async leekSetRegisterPostForm(leekId: number, key: string, value: string, file?: Blob, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return LeekApiFp(configuration).leekSetRegisterPostForm(leekId, key, value, file, options).then((request) => request(axios, basePath));
+        async leekSetRegisterPost(leekId: number, key: string, value: string, body?: any, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
+            return LeekApiFp(configuration).leekSetRegisterPost(leekId, key, value, body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -2579,7 +2504,7 @@ export const LeekApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async leekSetWeaponPut(leekId: number, weapon: number, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async leekSetWeaponPut(leekId: number, weapon: number, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return LeekApiFp(configuration).leekSetWeaponPut(leekId, weapon, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2590,54 +2515,54 @@ export const LeekApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async leekSetXpBlockedPut(leekId: number, xpBlocked: boolean, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async leekSetXpBlockedPut(leekId: number, xpBlocked: boolean, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return LeekApiFp(configuration).leekSetXpBlockedPut(leekId, xpBlocked, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary leek - spend-capital
          * @param {number} leekId 
-         * @param {string} characteristics 
-         * @param {Blob} [file] 
+         * @param {Objectobject} characteristics 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async leekSpendCapitalPostForm(leekId: number, characteristics: string, file?: Blob, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return LeekApiFp(configuration).leekSpendCapitalPostForm(leekId, characteristics, file, options).then((request) => request(axios, basePath));
+        async leekSpendCapitalPost(leekId: number, characteristics: Objectobject, body?: any, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
+            return LeekApiFp(configuration).leekSpendCapitalPost(leekId, characteristics, body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary leek - unregister-auto-br
          * @param {number} leekId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async leekUnregisterAutoBrPostForm(leekId: number, file?: Blob, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return LeekApiFp(configuration).leekUnregisterAutoBrPostForm(leekId, file, options).then((request) => request(axios, basePath));
+        async leekUnregisterAutoBrPost(leekId: number, body?: any, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
+            return LeekApiFp(configuration).leekUnregisterAutoBrPost(leekId, body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary leek - unregister-tournament
          * @param {number} leekId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async leekUnregisterTournamentPostForm(leekId: number, file?: Blob, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return LeekApiFp(configuration).leekUnregisterTournamentPostForm(leekId, file, options).then((request) => request(axios, basePath));
+        async leekUnregisterTournamentPost(leekId: number, body?: any, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
+            return LeekApiFp(configuration).leekUnregisterTournamentPost(leekId, body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary leek - use-potion
          * @param {number} leekId 
          * @param {number} potionId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async leekUsePotionPostForm(leekId: number, potionId: number, file?: Blob, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return LeekApiFp(configuration).leekUsePotionPostForm(leekId, potionId, file, options).then((request) => request(axios, basePath));
+        async leekUsePotionPost(leekId: number, potionId: number, body?: any, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
+            return LeekApiFp(configuration).leekUsePotionPost(leekId, potionId, body, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -2654,38 +2579,38 @@ export class LeekApi extends BaseAPI {
      * @summary leek - add-chip
      * @param {number} leekId 
      * @param {number} chipId 
-     * @param {Blob} [file] 
+     * @param {any} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof LeekApi
      */
-    public async leekAddChipPostForm(leekId: number, chipId: number, file?: Blob, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return LeekApiFp(this.configuration).leekAddChipPostForm(leekId, chipId, file, options).then((request) => request(this.axios, this.basePath));
+    public async leekAddChipPost(leekId: number, chipId: number, body?: any, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
+        return LeekApiFp(this.configuration).leekAddChipPost(leekId, chipId, body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
      * @summary leek - add-weapon
      * @param {number} leekId 
      * @param {number} weaponId 
-     * @param {Blob} [file] 
+     * @param {any} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof LeekApi
      */
-    public async leekAddWeaponPostForm(leekId: number, weaponId: number, file?: Blob, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return LeekApiFp(this.configuration).leekAddWeaponPostForm(leekId, weaponId, file, options).then((request) => request(this.axios, this.basePath));
+    public async leekAddWeaponPost(leekId: number, weaponId: number, body?: any, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
+        return LeekApiFp(this.configuration).leekAddWeaponPost(leekId, weaponId, body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
      * @summary leek - create
      * @param {string} name 
-     * @param {Blob} [file] 
+     * @param {any} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof LeekApi
      */
-    public async leekCreatePostForm(name: string, file?: Blob, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return LeekApiFp(this.configuration).leekCreatePostForm(name, file, options).then((request) => request(this.axios, this.basePath));
+    public async leekCreatePost(name: string, body?: any, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
+        return LeekApiFp(this.configuration).leekCreatePost(name, body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
@@ -2696,7 +2621,7 @@ export class LeekApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof LeekApi
      */
-    public async leekDeleteRegisterDelete(leekId: number, key: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async leekDeleteRegisterDelete(leekId: number, key: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return LeekApiFp(this.configuration).leekDeleteRegisterDelete(leekId, key, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -2706,7 +2631,7 @@ export class LeekApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof LeekApi
      */
-    public async leekGetCountGet(options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async leekGetCountGet(options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return LeekApiFp(this.configuration).leekGetCountGet(options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -2717,7 +2642,7 @@ export class LeekApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof LeekApi
      */
-    public async leekGetGet(leekId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async leekGetGet(leekId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return LeekApiFp(this.configuration).leekGetGet(leekId, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -2727,7 +2652,7 @@ export class LeekApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof LeekApi
      */
-    public async leekGetNextPriceGet(options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async leekGetNextPriceGet(options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return LeekApiFp(this.configuration).leekGetNextPriceGet(options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -2738,7 +2663,7 @@ export class LeekApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof LeekApi
      */
-    public async leekGetPrivateGet(leekId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async leekGetPrivateGet(leekId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return LeekApiFp(this.configuration).leekGetPrivateGet(leekId, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -2749,32 +2674,32 @@ export class LeekApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof LeekApi
      */
-    public async leekGetRegistersGet(leekId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async leekGetRegistersGet(leekId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return LeekApiFp(this.configuration).leekGetRegistersGet(leekId, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
      * @summary leek - register-auto-br
      * @param {number} leekId 
-     * @param {Blob} [file] 
+     * @param {any} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof LeekApi
      */
-    public async leekRegisterAutoBrPostForm(leekId: number, file?: Blob, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return LeekApiFp(this.configuration).leekRegisterAutoBrPostForm(leekId, file, options).then((request) => request(this.axios, this.basePath));
+    public async leekRegisterAutoBrPost(leekId: number, body?: any, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
+        return LeekApiFp(this.configuration).leekRegisterAutoBrPost(leekId, body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
      * @summary leek - register-tournament
      * @param {number} leekId 
-     * @param {Blob} [file] 
+     * @param {any} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof LeekApi
      */
-    public async leekRegisterTournamentPostForm(leekId: number, file?: Blob, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return LeekApiFp(this.configuration).leekRegisterTournamentPostForm(leekId, file, options).then((request) => request(this.axios, this.basePath));
+    public async leekRegisterTournamentPost(leekId: number, body?: any, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
+        return LeekApiFp(this.configuration).leekRegisterTournamentPost(leekId, body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
@@ -2784,7 +2709,7 @@ export class LeekApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof LeekApi
      */
-    public async leekRemoveAiDelete(leekId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async leekRemoveAiDelete(leekId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return LeekApiFp(this.configuration).leekRemoveAiDelete(leekId, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -2795,7 +2720,7 @@ export class LeekApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof LeekApi
      */
-    public async leekRemoveChipDelete(chipId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async leekRemoveChipDelete(chipId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return LeekApiFp(this.configuration).leekRemoveChipDelete(chipId, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -2806,7 +2731,7 @@ export class LeekApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof LeekApi
      */
-    public async leekRemoveHatDelete(leekId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async leekRemoveHatDelete(leekId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return LeekApiFp(this.configuration).leekRemoveHatDelete(leekId, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -2817,7 +2742,7 @@ export class LeekApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof LeekApi
      */
-    public async leekRemoveWeaponDelete(weaponId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async leekRemoveWeaponDelete(weaponId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return LeekApiFp(this.configuration).leekRemoveWeaponDelete(weaponId, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -2825,26 +2750,26 @@ export class LeekApi extends BaseAPI {
      * @summary leek - rename-crystals
      * @param {number} leekId 
      * @param {string} newName 
-     * @param {Blob} [file] 
+     * @param {any} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof LeekApi
      */
-    public async leekRenameCrystalsPostForm(leekId: number, newName: string, file?: Blob, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return LeekApiFp(this.configuration).leekRenameCrystalsPostForm(leekId, newName, file, options).then((request) => request(this.axios, this.basePath));
+    public async leekRenameCrystalsPost(leekId: number, newName: string, body?: any, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
+        return LeekApiFp(this.configuration).leekRenameCrystalsPost(leekId, newName, body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
      * @summary leek - rename-habs
      * @param {number} leekId 
      * @param {string} newName 
-     * @param {Blob} [file] 
+     * @param {any} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof LeekApi
      */
-    public async leekRenameHabsPostForm(leekId: number, newName: string, file?: Blob, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return LeekApiFp(this.configuration).leekRenameHabsPostForm(leekId, newName, file, options).then((request) => request(this.axios, this.basePath));
+    public async leekRenameHabsPost(leekId: number, newName: string, body?: any, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
+        return LeekApiFp(this.configuration).leekRenameHabsPost(leekId, newName, body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
@@ -2854,7 +2779,7 @@ export class LeekApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof LeekApi
      */
-    public async leekRichTooltipGet(id: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async leekRichTooltipGet(id: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return LeekApiFp(this.configuration).leekRichTooltipGet(id, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -2862,13 +2787,13 @@ export class LeekApi extends BaseAPI {
      * @summary leek - set-ai
      * @param {number} leekId 
      * @param {number} aiId 
-     * @param {Blob} [file] 
+     * @param {any} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof LeekApi
      */
-    public async leekSetAiPostForm(leekId: number, aiId: number, file?: Blob, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return LeekApiFp(this.configuration).leekSetAiPostForm(leekId, aiId, file, options).then((request) => request(this.axios, this.basePath));
+    public async leekSetAiPost(leekId: number, aiId: number, body?: any, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
+        return LeekApiFp(this.configuration).leekSetAiPost(leekId, aiId, body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
@@ -2879,7 +2804,7 @@ export class LeekApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof LeekApi
      */
-    public async leekSetFacePut(leekId: number, face: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async leekSetFacePut(leekId: number, face: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return LeekApiFp(this.configuration).leekSetFacePut(leekId, face, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -2887,26 +2812,26 @@ export class LeekApi extends BaseAPI {
      * @summary leek - set-hat
      * @param {number} leekId 
      * @param {number} hatId 
-     * @param {Blob} [file] 
+     * @param {any} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof LeekApi
      */
-    public async leekSetHatPostForm(leekId: number, hatId: number, file?: Blob, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return LeekApiFp(this.configuration).leekSetHatPostForm(leekId, hatId, file, options).then((request) => request(this.axios, this.basePath));
+    public async leekSetHatPost(leekId: number, hatId: number, body?: any, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
+        return LeekApiFp(this.configuration).leekSetHatPost(leekId, hatId, body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
      * @summary leek - set-in-garden
      * @param {number} leekId 
      * @param {boolean} inGarden 
-     * @param {Blob} [file] 
+     * @param {any} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof LeekApi
      */
-    public async leekSetInGardenPostForm(leekId: number, inGarden: boolean, file?: Blob, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return LeekApiFp(this.configuration).leekSetInGardenPostForm(leekId, inGarden, file, options).then((request) => request(this.axios, this.basePath));
+    public async leekSetInGardenPost(leekId: number, inGarden: boolean, body?: any, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
+        return LeekApiFp(this.configuration).leekSetInGardenPost(leekId, inGarden, body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
@@ -2917,7 +2842,7 @@ export class LeekApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof LeekApi
      */
-    public async leekSetMetalPut(leekId: number, metal: boolean, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async leekSetMetalPut(leekId: number, metal: boolean, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return LeekApiFp(this.configuration).leekSetMetalPut(leekId, metal, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -2926,13 +2851,13 @@ export class LeekApi extends BaseAPI {
      * @param {number} leekId 
      * @param {string} key 
      * @param {string} value 
-     * @param {Blob} [file] 
+     * @param {any} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof LeekApi
      */
-    public async leekSetRegisterPostForm(leekId: number, key: string, value: string, file?: Blob, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return LeekApiFp(this.configuration).leekSetRegisterPostForm(leekId, key, value, file, options).then((request) => request(this.axios, this.basePath));
+    public async leekSetRegisterPost(leekId: number, key: string, value: string, body?: any, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
+        return LeekApiFp(this.configuration).leekSetRegisterPost(leekId, key, value, body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
@@ -2943,7 +2868,7 @@ export class LeekApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof LeekApi
      */
-    public async leekSetWeaponPut(leekId: number, weapon: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async leekSetWeaponPut(leekId: number, weapon: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return LeekApiFp(this.configuration).leekSetWeaponPut(leekId, weapon, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -2955,57 +2880,57 @@ export class LeekApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof LeekApi
      */
-    public async leekSetXpBlockedPut(leekId: number, xpBlocked: boolean, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async leekSetXpBlockedPut(leekId: number, xpBlocked: boolean, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return LeekApiFp(this.configuration).leekSetXpBlockedPut(leekId, xpBlocked, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
      * @summary leek - spend-capital
      * @param {number} leekId 
-     * @param {string} characteristics 
-     * @param {Blob} [file] 
+     * @param {Objectobject} characteristics 
+     * @param {any} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof LeekApi
      */
-    public async leekSpendCapitalPostForm(leekId: number, characteristics: string, file?: Blob, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return LeekApiFp(this.configuration).leekSpendCapitalPostForm(leekId, characteristics, file, options).then((request) => request(this.axios, this.basePath));
+    public async leekSpendCapitalPost(leekId: number, characteristics: Objectobject, body?: any, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
+        return LeekApiFp(this.configuration).leekSpendCapitalPost(leekId, characteristics, body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
      * @summary leek - unregister-auto-br
      * @param {number} leekId 
-     * @param {Blob} [file] 
+     * @param {any} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof LeekApi
      */
-    public async leekUnregisterAutoBrPostForm(leekId: number, file?: Blob, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return LeekApiFp(this.configuration).leekUnregisterAutoBrPostForm(leekId, file, options).then((request) => request(this.axios, this.basePath));
+    public async leekUnregisterAutoBrPost(leekId: number, body?: any, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
+        return LeekApiFp(this.configuration).leekUnregisterAutoBrPost(leekId, body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
      * @summary leek - unregister-tournament
      * @param {number} leekId 
-     * @param {Blob} [file] 
+     * @param {any} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof LeekApi
      */
-    public async leekUnregisterTournamentPostForm(leekId: number, file?: Blob, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return LeekApiFp(this.configuration).leekUnregisterTournamentPostForm(leekId, file, options).then((request) => request(this.axios, this.basePath));
+    public async leekUnregisterTournamentPost(leekId: number, body?: any, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
+        return LeekApiFp(this.configuration).leekUnregisterTournamentPost(leekId, body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
      * @summary leek - use-potion
      * @param {number} leekId 
      * @param {number} potionId 
-     * @param {Blob} [file] 
+     * @param {any} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof LeekApi
      */
-    public async leekUsePotionPostForm(leekId: number, potionId: number, file?: Blob, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return LeekApiFp(this.configuration).leekUsePotionPostForm(leekId, potionId, file, options).then((request) => request(this.axios, this.basePath));
+    public async leekUsePotionPost(leekId: number, potionId: number, body?: any, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
+        return LeekApiFp(this.configuration).leekUsePotionPost(leekId, potionId, body, options).then((request) => request(this.axios, this.basePath));
     }
 }

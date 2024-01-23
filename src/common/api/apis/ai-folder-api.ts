@@ -11,11 +11,13 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import type {AxiosInstance, AxiosRequestConfig, AxiosResponse} from "axios";
+
+import type {AxiosResponse, AxiosInstance, AxiosRequestConfig} from "axios";
 import globalAxios from "axios";
 import { Configuration } from '@/common/api';
-import type {RequestArgs} from "@/common/api/base";
-import {BASE_PATH, BaseAPI, RequiredError} from "@/common/api/base";
+// Some imports not used depending on template conditions
+// @ts-ignore
+import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
 /**
  * AiFolderApi - axios parameter creator
  * @export
@@ -27,18 +29,18 @@ export const AiFolderApiAxiosParamCreator = function (configuration?: Configurat
          * @summary ai-folder - change-folder
          * @param {number} folderId 
          * @param {number} destFolderId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        aiFolderChangeFolderPostForm: async (folderId: number, destFolderId: number, file?: Blob, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        aiFolderChangeFolderPost: async (folderId: number, destFolderId: number, body?: any, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'folderId' is not null or undefined
             if (folderId === null || folderId === undefined) {
-                throw new RequiredError('folderId','Required parameter folderId was null or undefined when calling aiFolderChangeFolderPostForm.');
+                throw new RequiredError('folderId','Required parameter folderId was null or undefined when calling aiFolderChangeFolderPost.');
             }
             // verify required parameter 'destFolderId' is not null or undefined
             if (destFolderId === null || destFolderId === undefined) {
-                throw new RequiredError('destFolderId','Required parameter destFolderId was null or undefined when calling aiFolderChangeFolderPostForm.');
+                throw new RequiredError('destFolderId','Required parameter destFolderId was null or undefined when calling aiFolderChangeFolderPost.');
             }
             const localVarPath = `/ai-folder/change-folder`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -50,9 +52,8 @@ export const AiFolderApiAxiosParamCreator = function (configuration?: Configurat
             const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-            const localVarFormParams = new FormData();
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -69,12 +70,8 @@ export const AiFolderApiAxiosParamCreator = function (configuration?: Configurat
                 localVarQueryParameter['dest_folder_id'] = destFolderId;
             }
 
-
-            if (file !== undefined) { 
-                localVarFormParams.append('file', file as any);
-            }
-
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
                 query.set(key, localVarQueryParameter[key]);
@@ -85,7 +82,8 @@ export const AiFolderApiAxiosParamCreator = function (configuration?: Configurat
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = localVarFormParams;
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -115,7 +113,7 @@ export const AiFolderApiAxiosParamCreator = function (configuration?: Configurat
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -149,18 +147,18 @@ export const AiFolderApiAxiosParamCreator = function (configuration?: Configurat
          * @summary ai-folder - new-name
          * @param {number} folderId 
          * @param {string} name 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        aiFolderNewNamePostForm: async (folderId: number, name: string, file?: Blob, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        aiFolderNewNamePost: async (folderId: number, name: string, body?: any, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'folderId' is not null or undefined
             if (folderId === null || folderId === undefined) {
-                throw new RequiredError('folderId','Required parameter folderId was null or undefined when calling aiFolderNewNamePostForm.');
+                throw new RequiredError('folderId','Required parameter folderId was null or undefined when calling aiFolderNewNamePost.');
             }
             // verify required parameter 'name' is not null or undefined
             if (name === null || name === undefined) {
-                throw new RequiredError('name','Required parameter name was null or undefined when calling aiFolderNewNamePostForm.');
+                throw new RequiredError('name','Required parameter name was null or undefined when calling aiFolderNewNamePost.');
             }
             const localVarPath = `/ai-folder/new-name`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -172,9 +170,8 @@ export const AiFolderApiAxiosParamCreator = function (configuration?: Configurat
             const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-            const localVarFormParams = new FormData();
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -191,12 +188,8 @@ export const AiFolderApiAxiosParamCreator = function (configuration?: Configurat
                 localVarQueryParameter['name'] = name;
             }
 
-
-            if (file !== undefined) { 
-                localVarFormParams.append('file', file as any);
-            }
-
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
                 query.set(key, localVarQueryParameter[key]);
@@ -207,7 +200,8 @@ export const AiFolderApiAxiosParamCreator = function (configuration?: Configurat
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = localVarFormParams;
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -219,18 +213,18 @@ export const AiFolderApiAxiosParamCreator = function (configuration?: Configurat
          * @summary ai-folder - rename
          * @param {number} folderId 
          * @param {string} newName 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        aiFolderRenamePostForm: async (folderId: number, newName: string, file?: Blob, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        aiFolderRenamePost: async (folderId: number, newName: string, body?: any, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'folderId' is not null or undefined
             if (folderId === null || folderId === undefined) {
-                throw new RequiredError('folderId','Required parameter folderId was null or undefined when calling aiFolderRenamePostForm.');
+                throw new RequiredError('folderId','Required parameter folderId was null or undefined when calling aiFolderRenamePost.');
             }
             // verify required parameter 'newName' is not null or undefined
             if (newName === null || newName === undefined) {
-                throw new RequiredError('newName','Required parameter newName was null or undefined when calling aiFolderRenamePostForm.');
+                throw new RequiredError('newName','Required parameter newName was null or undefined when calling aiFolderRenamePost.');
             }
             const localVarPath = `/ai-folder/rename`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -242,9 +236,8 @@ export const AiFolderApiAxiosParamCreator = function (configuration?: Configurat
             const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-            const localVarFormParams = new FormData();
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -261,12 +254,8 @@ export const AiFolderApiAxiosParamCreator = function (configuration?: Configurat
                 localVarQueryParameter['new_name'] = newName;
             }
 
-
-            if (file !== undefined) { 
-                localVarFormParams.append('file', file as any);
-            }
-
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
                 query.set(key, localVarQueryParameter[key]);
@@ -277,7 +266,8 @@ export const AiFolderApiAxiosParamCreator = function (configuration?: Configurat
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = localVarFormParams;
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -298,12 +288,12 @@ export const AiFolderApiFp = function(configuration?: Configuration) {
          * @summary ai-folder - change-folder
          * @param {number} folderId 
          * @param {number} destFolderId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async aiFolderChangeFolderPostForm(folderId: number, destFolderId: number, file?: Blob, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await AiFolderApiAxiosParamCreator(configuration).aiFolderChangeFolderPostForm(folderId, destFolderId, file, options);
+        async aiFolderChangeFolderPost(folderId: number, destFolderId: number, body?: any, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
+            const localVarAxiosArgs = await AiFolderApiAxiosParamCreator(configuration).aiFolderChangeFolderPost(folderId, destFolderId, body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -316,7 +306,7 @@ export const AiFolderApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async aiFolderDeleteDelete(folderId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async aiFolderDeleteDelete(folderId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await AiFolderApiAxiosParamCreator(configuration).aiFolderDeleteDelete(folderId, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -328,12 +318,12 @@ export const AiFolderApiFp = function(configuration?: Configuration) {
          * @summary ai-folder - new-name
          * @param {number} folderId 
          * @param {string} name 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async aiFolderNewNamePostForm(folderId: number, name: string, file?: Blob, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await AiFolderApiAxiosParamCreator(configuration).aiFolderNewNamePostForm(folderId, name, file, options);
+        async aiFolderNewNamePost(folderId: number, name: string, body?: any, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
+            const localVarAxiosArgs = await AiFolderApiAxiosParamCreator(configuration).aiFolderNewNamePost(folderId, name, body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -344,12 +334,12 @@ export const AiFolderApiFp = function(configuration?: Configuration) {
          * @summary ai-folder - rename
          * @param {number} folderId 
          * @param {string} newName 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async aiFolderRenamePostForm(folderId: number, newName: string, file?: Blob, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await AiFolderApiAxiosParamCreator(configuration).aiFolderRenamePostForm(folderId, newName, file, options);
+        async aiFolderRenamePost(folderId: number, newName: string, body?: any, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
+            const localVarAxiosArgs = await AiFolderApiAxiosParamCreator(configuration).aiFolderRenamePost(folderId, newName, body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -369,12 +359,12 @@ export const AiFolderApiFactory = function (configuration?: Configuration, baseP
          * @summary ai-folder - change-folder
          * @param {number} folderId 
          * @param {number} destFolderId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async aiFolderChangeFolderPostForm(folderId: number, destFolderId: number, file?: Blob, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return AiFolderApiFp(configuration).aiFolderChangeFolderPostForm(folderId, destFolderId, file, options).then((request) => request(axios, basePath));
+        async aiFolderChangeFolderPost(folderId: number, destFolderId: number, body?: any, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
+            return AiFolderApiFp(configuration).aiFolderChangeFolderPost(folderId, destFolderId, body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -383,7 +373,7 @@ export const AiFolderApiFactory = function (configuration?: Configuration, baseP
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async aiFolderDeleteDelete(folderId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async aiFolderDeleteDelete(folderId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return AiFolderApiFp(configuration).aiFolderDeleteDelete(folderId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -391,24 +381,24 @@ export const AiFolderApiFactory = function (configuration?: Configuration, baseP
          * @summary ai-folder - new-name
          * @param {number} folderId 
          * @param {string} name 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async aiFolderNewNamePostForm(folderId: number, name: string, file?: Blob, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return AiFolderApiFp(configuration).aiFolderNewNamePostForm(folderId, name, file, options).then((request) => request(axios, basePath));
+        async aiFolderNewNamePost(folderId: number, name: string, body?: any, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
+            return AiFolderApiFp(configuration).aiFolderNewNamePost(folderId, name, body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary ai-folder - rename
          * @param {number} folderId 
          * @param {string} newName 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async aiFolderRenamePostForm(folderId: number, newName: string, file?: Blob, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return AiFolderApiFp(configuration).aiFolderRenamePostForm(folderId, newName, file, options).then((request) => request(axios, basePath));
+        async aiFolderRenamePost(folderId: number, newName: string, body?: any, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
+            return AiFolderApiFp(configuration).aiFolderRenamePost(folderId, newName, body, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -425,13 +415,13 @@ export class AiFolderApi extends BaseAPI {
      * @summary ai-folder - change-folder
      * @param {number} folderId 
      * @param {number} destFolderId 
-     * @param {Blob} [file] 
+     * @param {any} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof AiFolderApi
      */
-    public async aiFolderChangeFolderPostForm(folderId: number, destFolderId: number, file?: Blob, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return AiFolderApiFp(this.configuration).aiFolderChangeFolderPostForm(folderId, destFolderId, file, options).then((request) => request(this.axios, this.basePath));
+    public async aiFolderChangeFolderPost(folderId: number, destFolderId: number, body?: any, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
+        return AiFolderApiFp(this.configuration).aiFolderChangeFolderPost(folderId, destFolderId, body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
@@ -441,7 +431,7 @@ export class AiFolderApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof AiFolderApi
      */
-    public async aiFolderDeleteDelete(folderId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async aiFolderDeleteDelete(folderId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return AiFolderApiFp(this.configuration).aiFolderDeleteDelete(folderId, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -449,25 +439,25 @@ export class AiFolderApi extends BaseAPI {
      * @summary ai-folder - new-name
      * @param {number} folderId 
      * @param {string} name 
-     * @param {Blob} [file] 
+     * @param {any} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof AiFolderApi
      */
-    public async aiFolderNewNamePostForm(folderId: number, name: string, file?: Blob, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return AiFolderApiFp(this.configuration).aiFolderNewNamePostForm(folderId, name, file, options).then((request) => request(this.axios, this.basePath));
+    public async aiFolderNewNamePost(folderId: number, name: string, body?: any, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
+        return AiFolderApiFp(this.configuration).aiFolderNewNamePost(folderId, name, body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
      * @summary ai-folder - rename
      * @param {number} folderId 
      * @param {string} newName 
-     * @param {Blob} [file] 
+     * @param {any} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof AiFolderApi
      */
-    public async aiFolderRenamePostForm(folderId: number, newName: string, file?: Blob, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return AiFolderApiFp(this.configuration).aiFolderRenamePostForm(folderId, newName, file, options).then((request) => request(this.axios, this.basePath));
+    public async aiFolderRenamePost(folderId: number, newName: string, body?: any, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
+        return AiFolderApiFp(this.configuration).aiFolderRenamePost(folderId, newName, body, options).then((request) => request(this.axios, this.basePath));
     }
 }

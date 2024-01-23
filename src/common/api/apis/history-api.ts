@@ -11,11 +11,13 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import type {AxiosInstance, AxiosRequestConfig, AxiosResponse} from "axios";
+
+import type {AxiosResponse, AxiosInstance, AxiosRequestConfig} from "axios";
 import globalAxios from "axios";
 import { Configuration } from '@/common/api';
-import type {RequestArgs} from "@/common/api/base";
-import {BASE_PATH, BaseAPI, RequiredError} from "@/common/api/base";
+// Some imports not used depending on template conditions
+// @ts-ignore
+import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
 /**
  * HistoryApi - axios parameter creator
  * @export
@@ -45,7 +47,7 @@ export const HistoryApiAxiosParamCreator = function (configuration?: Configurati
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -97,7 +99,7 @@ export const HistoryApiAxiosParamCreator = function (configuration?: Configurati
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -149,7 +151,7 @@ export const HistoryApiAxiosParamCreator = function (configuration?: Configurati
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -194,7 +196,7 @@ export const HistoryApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async historyGetFarmerHistoryGet(farmerId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async historyGetFarmerHistoryGet(farmerId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await HistoryApiAxiosParamCreator(configuration).historyGetFarmerHistoryGet(farmerId, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -208,7 +210,7 @@ export const HistoryApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async historyGetLeekHistoryGet(leekId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async historyGetLeekHistoryGet(leekId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await HistoryApiAxiosParamCreator(configuration).historyGetLeekHistoryGet(leekId, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -222,7 +224,7 @@ export const HistoryApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async historyGetTeamHistoryGet(teamId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async historyGetTeamHistoryGet(teamId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await HistoryApiAxiosParamCreator(configuration).historyGetTeamHistoryGet(teamId, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -245,7 +247,7 @@ export const HistoryApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async historyGetFarmerHistoryGet(farmerId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async historyGetFarmerHistoryGet(farmerId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return HistoryApiFp(configuration).historyGetFarmerHistoryGet(farmerId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -255,7 +257,7 @@ export const HistoryApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async historyGetLeekHistoryGet(leekId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async historyGetLeekHistoryGet(leekId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return HistoryApiFp(configuration).historyGetLeekHistoryGet(leekId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -265,7 +267,7 @@ export const HistoryApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async historyGetTeamHistoryGet(teamId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async historyGetTeamHistoryGet(teamId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return HistoryApiFp(configuration).historyGetTeamHistoryGet(teamId, options).then((request) => request(axios, basePath));
         },
     };
@@ -286,7 +288,7 @@ export class HistoryApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof HistoryApi
      */
-    public async historyGetFarmerHistoryGet(farmerId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async historyGetFarmerHistoryGet(farmerId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return HistoryApiFp(this.configuration).historyGetFarmerHistoryGet(farmerId, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -297,7 +299,7 @@ export class HistoryApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof HistoryApi
      */
-    public async historyGetLeekHistoryGet(leekId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async historyGetLeekHistoryGet(leekId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return HistoryApiFp(this.configuration).historyGetLeekHistoryGet(leekId, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -308,7 +310,7 @@ export class HistoryApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof HistoryApi
      */
-    public async historyGetTeamHistoryGet(teamId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async historyGetTeamHistoryGet(teamId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return HistoryApiFp(this.configuration).historyGetTeamHistoryGet(teamId, options).then((request) => request(this.axios, this.basePath));
     }
 }

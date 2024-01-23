@@ -11,11 +11,13 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import type {AxiosInstance, AxiosRequestConfig, AxiosResponse} from "axios";
+
+import type {AxiosResponse, AxiosInstance, AxiosRequestConfig} from "axios";
 import globalAxios from "axios";
 import { Configuration } from '@/common/api';
-import type {RequestArgs} from "@/common/api/base";
-import {BASE_PATH, BaseAPI, RequiredError} from "@/common/api/base";
+// Some imports not used depending on template conditions
+// @ts-ignore
+import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
 /**
  * TeamApi - axios parameter creator
  * @export
@@ -26,14 +28,14 @@ export const TeamApiAxiosParamCreator = function (configuration?: Configuration)
          * 
          * @summary team - accept-candidacy
          * @param {number} candidacyId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        teamAcceptCandidacyPostForm: async (candidacyId: number, file?: Blob, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        teamAcceptCandidacyPost: async (candidacyId: number, body?: any, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'candidacyId' is not null or undefined
             if (candidacyId === null || candidacyId === undefined) {
-                throw new RequiredError('candidacyId','Required parameter candidacyId was null or undefined when calling teamAcceptCandidacyPostForm.');
+                throw new RequiredError('candidacyId','Required parameter candidacyId was null or undefined when calling teamAcceptCandidacyPost.');
             }
             const localVarPath = `/team/accept-candidacy`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -45,9 +47,8 @@ export const TeamApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-            const localVarFormParams = new FormData();
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -60,12 +61,8 @@ export const TeamApiAxiosParamCreator = function (configuration?: Configuration)
                 localVarQueryParameter['candidacy_id'] = candidacyId;
             }
 
-
-            if (file !== undefined) { 
-                localVarFormParams.append('file', file as any);
-            }
-
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
                 query.set(key, localVarQueryParameter[key]);
@@ -76,7 +73,8 @@ export const TeamApiAxiosParamCreator = function (configuration?: Configuration)
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = localVarFormParams;
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -87,14 +85,14 @@ export const TeamApiAxiosParamCreator = function (configuration?: Configuration)
          * 
          * @summary team - ban
          * @param {number} farmerId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        teamBanPostForm: async (farmerId: number, file?: Blob, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        teamBanPost: async (farmerId: number, body?: any, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'farmerId' is not null or undefined
             if (farmerId === null || farmerId === undefined) {
-                throw new RequiredError('farmerId','Required parameter farmerId was null or undefined when calling teamBanPostForm.');
+                throw new RequiredError('farmerId','Required parameter farmerId was null or undefined when calling teamBanPost.');
             }
             const localVarPath = `/team/ban`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -106,9 +104,8 @@ export const TeamApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-            const localVarFormParams = new FormData();
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -121,12 +118,8 @@ export const TeamApiAxiosParamCreator = function (configuration?: Configuration)
                 localVarQueryParameter['farmer_id'] = farmerId;
             }
 
-
-            if (file !== undefined) { 
-                localVarFormParams.append('file', file as any);
-            }
-
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
                 query.set(key, localVarQueryParameter[key]);
@@ -137,7 +130,8 @@ export const TeamApiAxiosParamCreator = function (configuration?: Configuration)
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = localVarFormParams;
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -148,14 +142,14 @@ export const TeamApiAxiosParamCreator = function (configuration?: Configuration)
          * 
          * @summary team - cancel-candidacy-for-team
          * @param {number} teamId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        teamCancelCandidacyForTeamPostForm: async (teamId: number, file?: Blob, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        teamCancelCandidacyForTeamPost: async (teamId: number, body?: any, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'teamId' is not null or undefined
             if (teamId === null || teamId === undefined) {
-                throw new RequiredError('teamId','Required parameter teamId was null or undefined when calling teamCancelCandidacyForTeamPostForm.');
+                throw new RequiredError('teamId','Required parameter teamId was null or undefined when calling teamCancelCandidacyForTeamPost.');
             }
             const localVarPath = `/team/cancel-candidacy-for-team`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -167,9 +161,8 @@ export const TeamApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-            const localVarFormParams = new FormData();
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -182,12 +175,8 @@ export const TeamApiAxiosParamCreator = function (configuration?: Configuration)
                 localVarQueryParameter['team_id'] = teamId;
             }
 
-
-            if (file !== undefined) { 
-                localVarFormParams.append('file', file as any);
-            }
-
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
                 query.set(key, localVarQueryParameter[key]);
@@ -198,7 +187,8 @@ export const TeamApiAxiosParamCreator = function (configuration?: Configuration)
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = localVarFormParams;
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -223,7 +213,7 @@ export const TeamApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -271,7 +261,7 @@ export const TeamApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -305,18 +295,18 @@ export const TeamApiAxiosParamCreator = function (configuration?: Configuration)
          * @summary team - change-member-grade
          * @param {number} memberId 
          * @param {string} newGrade 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        teamChangeMemberGradePostForm: async (memberId: number, newGrade: string, file?: Blob, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        teamChangeMemberGradePost: async (memberId: number, newGrade: string, body?: any, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'memberId' is not null or undefined
             if (memberId === null || memberId === undefined) {
-                throw new RequiredError('memberId','Required parameter memberId was null or undefined when calling teamChangeMemberGradePostForm.');
+                throw new RequiredError('memberId','Required parameter memberId was null or undefined when calling teamChangeMemberGradePost.');
             }
             // verify required parameter 'newGrade' is not null or undefined
             if (newGrade === null || newGrade === undefined) {
-                throw new RequiredError('newGrade','Required parameter newGrade was null or undefined when calling teamChangeMemberGradePostForm.');
+                throw new RequiredError('newGrade','Required parameter newGrade was null or undefined when calling teamChangeMemberGradePost.');
             }
             const localVarPath = `/team/change-member-grade`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -328,9 +318,8 @@ export const TeamApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-            const localVarFormParams = new FormData();
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -347,12 +336,8 @@ export const TeamApiAxiosParamCreator = function (configuration?: Configuration)
                 localVarQueryParameter['new_grade'] = newGrade;
             }
 
-
-            if (file !== undefined) { 
-                localVarFormParams.append('file', file as any);
-            }
-
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
                 query.set(key, localVarQueryParameter[key]);
@@ -363,7 +348,8 @@ export const TeamApiAxiosParamCreator = function (configuration?: Configuration)
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = localVarFormParams;
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -375,18 +361,18 @@ export const TeamApiAxiosParamCreator = function (configuration?: Configuration)
          * @summary team - change-owner
          * @param {number} newOwner 
          * @param {string} password 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        teamChangeOwnerPostForm: async (newOwner: number, password: string, file?: Blob, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        teamChangeOwnerPost: async (newOwner: number, password: string, body?: any, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'newOwner' is not null or undefined
             if (newOwner === null || newOwner === undefined) {
-                throw new RequiredError('newOwner','Required parameter newOwner was null or undefined when calling teamChangeOwnerPostForm.');
+                throw new RequiredError('newOwner','Required parameter newOwner was null or undefined when calling teamChangeOwnerPost.');
             }
             // verify required parameter 'password' is not null or undefined
             if (password === null || password === undefined) {
-                throw new RequiredError('password','Required parameter password was null or undefined when calling teamChangeOwnerPostForm.');
+                throw new RequiredError('password','Required parameter password was null or undefined when calling teamChangeOwnerPost.');
             }
             const localVarPath = `/team/change-owner`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -398,9 +384,8 @@ export const TeamApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-            const localVarFormParams = new FormData();
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -417,12 +402,8 @@ export const TeamApiAxiosParamCreator = function (configuration?: Configuration)
                 localVarQueryParameter['password'] = password;
             }
 
-
-            if (file !== undefined) { 
-                localVarFormParams.append('file', file as any);
-            }
-
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
                 query.set(key, localVarQueryParameter[key]);
@@ -433,7 +414,8 @@ export const TeamApiAxiosParamCreator = function (configuration?: Configuration)
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = localVarFormParams;
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -463,7 +445,7 @@ export const TeamApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -496,14 +478,14 @@ export const TeamApiAxiosParamCreator = function (configuration?: Configuration)
          * 
          * @summary team - create-composition
          * @param {string} compositionName 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        teamCreateCompositionPostForm: async (compositionName: string, file?: Blob, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        teamCreateCompositionPost: async (compositionName: string, body?: any, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'compositionName' is not null or undefined
             if (compositionName === null || compositionName === undefined) {
-                throw new RequiredError('compositionName','Required parameter compositionName was null or undefined when calling teamCreateCompositionPostForm.');
+                throw new RequiredError('compositionName','Required parameter compositionName was null or undefined when calling teamCreateCompositionPost.');
             }
             const localVarPath = `/team/create-composition`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -515,9 +497,8 @@ export const TeamApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-            const localVarFormParams = new FormData();
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -530,12 +511,8 @@ export const TeamApiAxiosParamCreator = function (configuration?: Configuration)
                 localVarQueryParameter['composition_name'] = compositionName;
             }
 
-
-            if (file !== undefined) { 
-                localVarFormParams.append('file', file as any);
-            }
-
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
                 query.set(key, localVarQueryParameter[key]);
@@ -546,7 +523,8 @@ export const TeamApiAxiosParamCreator = function (configuration?: Configuration)
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = localVarFormParams;
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -557,14 +535,14 @@ export const TeamApiAxiosParamCreator = function (configuration?: Configuration)
          * 
          * @summary team - create
          * @param {string} teamName 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        teamCreatePostForm: async (teamName: string, file?: Blob, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        teamCreatePost: async (teamName: string, body?: any, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'teamName' is not null or undefined
             if (teamName === null || teamName === undefined) {
-                throw new RequiredError('teamName','Required parameter teamName was null or undefined when calling teamCreatePostForm.');
+                throw new RequiredError('teamName','Required parameter teamName was null or undefined when calling teamCreatePost.');
             }
             const localVarPath = `/team/create`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -576,9 +554,8 @@ export const TeamApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-            const localVarFormParams = new FormData();
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -591,12 +568,8 @@ export const TeamApiAxiosParamCreator = function (configuration?: Configuration)
                 localVarQueryParameter['team_name'] = teamName;
             }
 
-
-            if (file !== undefined) { 
-                localVarFormParams.append('file', file as any);
-            }
-
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
                 query.set(key, localVarQueryParameter[key]);
@@ -607,7 +580,8 @@ export const TeamApiAxiosParamCreator = function (configuration?: Configuration)
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = localVarFormParams;
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -637,7 +611,7 @@ export const TeamApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -684,7 +658,7 @@ export const TeamApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -732,7 +706,7 @@ export const TeamApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -784,15 +758,6 @@ export const TeamApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
-            // http bearer authentication required
-            if (configuration && configuration.accessToken) {
-                const accessToken = typeof configuration.accessToken === 'function'
-                    ? await configuration.accessToken()
-                    : await configuration.accessToken;
-                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
-            }
-
             if (teamId !== undefined) {
                 localVarQueryParameter['team_id'] = teamId;
             }
@@ -836,7 +801,7 @@ export const TeamApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -870,18 +835,18 @@ export const TeamApiAxiosParamCreator = function (configuration?: Configuration)
          * @summary team - move-leek
          * @param {number} leekId 
          * @param {number} to 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        teamMoveLeekPostForm: async (leekId: number, to: number, file?: Blob, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        teamMoveLeekPost: async (leekId: number, to: number, body?: any, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'leekId' is not null or undefined
             if (leekId === null || leekId === undefined) {
-                throw new RequiredError('leekId','Required parameter leekId was null or undefined when calling teamMoveLeekPostForm.');
+                throw new RequiredError('leekId','Required parameter leekId was null or undefined when calling teamMoveLeekPost.');
             }
             // verify required parameter 'to' is not null or undefined
             if (to === null || to === undefined) {
-                throw new RequiredError('to','Required parameter to was null or undefined when calling teamMoveLeekPostForm.');
+                throw new RequiredError('to','Required parameter to was null or undefined when calling teamMoveLeekPost.');
             }
             const localVarPath = `/team/move-leek`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -893,9 +858,8 @@ export const TeamApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-            const localVarFormParams = new FormData();
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -912,12 +876,8 @@ export const TeamApiAxiosParamCreator = function (configuration?: Configuration)
                 localVarQueryParameter['to'] = to;
             }
 
-
-            if (file !== undefined) { 
-                localVarFormParams.append('file', file as any);
-            }
-
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
                 query.set(key, localVarQueryParameter[key]);
@@ -928,7 +888,8 @@ export const TeamApiAxiosParamCreator = function (configuration?: Configuration)
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = localVarFormParams;
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -953,7 +914,7 @@ export const TeamApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -1001,15 +962,6 @@ export const TeamApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
-            // http bearer authentication required
-            if (configuration && configuration.accessToken) {
-                const accessToken = typeof configuration.accessToken === 'function'
-                    ? await configuration.accessToken()
-                    : await configuration.accessToken;
-                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
-            }
-
             if (teamId !== undefined) {
                 localVarQueryParameter['team_id'] = teamId;
             }
@@ -1034,14 +986,14 @@ export const TeamApiAxiosParamCreator = function (configuration?: Configuration)
          * 
          * @summary team - register-tournament
          * @param {number} compositionId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        teamRegisterTournamentPostForm: async (compositionId: number, file?: Blob, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        teamRegisterTournamentPost: async (compositionId: number, body?: any, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'compositionId' is not null or undefined
             if (compositionId === null || compositionId === undefined) {
-                throw new RequiredError('compositionId','Required parameter compositionId was null or undefined when calling teamRegisterTournamentPostForm.');
+                throw new RequiredError('compositionId','Required parameter compositionId was null or undefined when calling teamRegisterTournamentPost.');
             }
             const localVarPath = `/team/register-tournament`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -1053,9 +1005,8 @@ export const TeamApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-            const localVarFormParams = new FormData();
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -1068,12 +1019,8 @@ export const TeamApiAxiosParamCreator = function (configuration?: Configuration)
                 localVarQueryParameter['composition_id'] = compositionId;
             }
 
-
-            if (file !== undefined) { 
-                localVarFormParams.append('file', file as any);
-            }
-
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
                 query.set(key, localVarQueryParameter[key]);
@@ -1084,7 +1031,8 @@ export const TeamApiAxiosParamCreator = function (configuration?: Configuration)
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = localVarFormParams;
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -1095,14 +1043,14 @@ export const TeamApiAxiosParamCreator = function (configuration?: Configuration)
          * 
          * @summary team - reject-candidacy
          * @param {number} candidacyId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        teamRejectCandidacyPostForm: async (candidacyId: number, file?: Blob, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        teamRejectCandidacyPost: async (candidacyId: number, body?: any, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'candidacyId' is not null or undefined
             if (candidacyId === null || candidacyId === undefined) {
-                throw new RequiredError('candidacyId','Required parameter candidacyId was null or undefined when calling teamRejectCandidacyPostForm.');
+                throw new RequiredError('candidacyId','Required parameter candidacyId was null or undefined when calling teamRejectCandidacyPost.');
             }
             const localVarPath = `/team/reject-candidacy`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -1114,9 +1062,8 @@ export const TeamApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-            const localVarFormParams = new FormData();
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -1129,12 +1076,8 @@ export const TeamApiAxiosParamCreator = function (configuration?: Configuration)
                 localVarQueryParameter['candidacy_id'] = candidacyId;
             }
 
-
-            if (file !== undefined) { 
-                localVarFormParams.append('file', file as any);
-            }
-
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
                 query.set(key, localVarQueryParameter[key]);
@@ -1145,7 +1088,8 @@ export const TeamApiAxiosParamCreator = function (configuration?: Configuration)
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = localVarFormParams;
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -1180,7 +1124,7 @@ export const TeamApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -1236,7 +1180,7 @@ export const TeamApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -1269,14 +1213,14 @@ export const TeamApiAxiosParamCreator = function (configuration?: Configuration)
          * 
          * @summary team - send-candidacy
          * @param {number} teamId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        teamSendCandidacyPostForm: async (teamId: number, file?: Blob, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        teamSendCandidacyPost: async (teamId: number, body?: any, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'teamId' is not null or undefined
             if (teamId === null || teamId === undefined) {
-                throw new RequiredError('teamId','Required parameter teamId was null or undefined when calling teamSendCandidacyPostForm.');
+                throw new RequiredError('teamId','Required parameter teamId was null or undefined when calling teamSendCandidacyPost.');
             }
             const localVarPath = `/team/send-candidacy`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -1288,9 +1232,8 @@ export const TeamApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-            const localVarFormParams = new FormData();
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -1303,12 +1246,8 @@ export const TeamApiAxiosParamCreator = function (configuration?: Configuration)
                 localVarQueryParameter['team_id'] = teamId;
             }
 
-
-            if (file !== undefined) { 
-                localVarFormParams.append('file', file as any);
-            }
-
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
                 query.set(key, localVarQueryParameter[key]);
@@ -1319,7 +1258,8 @@ export const TeamApiAxiosParamCreator = function (configuration?: Configuration)
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = localVarFormParams;
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -1330,11 +1270,11 @@ export const TeamApiAxiosParamCreator = function (configuration?: Configuration)
          * 
          * @summary team - set-emblem
          * @param {number} teamId 
-         * @param {Blob} [file] 
+         * @param {Blob} [emblem] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        teamSetEmblemPostForm: async (teamId: number, file?: Blob, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        teamSetEmblemPostForm: async (teamId: number, emblem?: Blob, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'teamId' is not null or undefined
             if (teamId === null || teamId === undefined) {
                 throw new RequiredError('teamId','Required parameter teamId was null or undefined when calling teamSetEmblemPostForm.');
@@ -1351,7 +1291,7 @@ export const TeamApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarQueryParameter = {} as any;
             const localVarFormParams = new FormData();
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -1365,11 +1305,11 @@ export const TeamApiAxiosParamCreator = function (configuration?: Configuration)
             }
 
 
-            if (file !== undefined) { 
-                localVarFormParams.append('file', file as any);
+            if (emblem !== undefined) { 
+                localVarFormParams.append('emblem', emblem as any);
             }
 
-            localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+            localVarHeaderParameter['Content-Type'] = 'multipart/form-data';
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
                 query.set(key, localVarQueryParameter[key]);
@@ -1410,7 +1350,7 @@ export const TeamApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -1443,14 +1383,14 @@ export const TeamApiAxiosParamCreator = function (configuration?: Configuration)
          * 
          * @summary team - set-opened
          * @param {boolean} opened 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        teamSetOpenedPostForm: async (opened: boolean, file?: Blob, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        teamSetOpenedPost: async (opened: boolean, body?: any, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'opened' is not null or undefined
             if (opened === null || opened === undefined) {
-                throw new RequiredError('opened','Required parameter opened was null or undefined when calling teamSetOpenedPostForm.');
+                throw new RequiredError('opened','Required parameter opened was null or undefined when calling teamSetOpenedPost.');
             }
             const localVarPath = `/team/set-opened`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -1462,9 +1402,8 @@ export const TeamApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-            const localVarFormParams = new FormData();
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -1477,12 +1416,8 @@ export const TeamApiAxiosParamCreator = function (configuration?: Configuration)
                 localVarQueryParameter['opened'] = opened;
             }
 
-
-            if (file !== undefined) { 
-                localVarFormParams.append('file', file as any);
-            }
-
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
                 query.set(key, localVarQueryParameter[key]);
@@ -1493,7 +1428,8 @@ export const TeamApiAxiosParamCreator = function (configuration?: Configuration)
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = localVarFormParams;
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -1523,7 +1459,7 @@ export const TeamApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -1556,14 +1492,14 @@ export const TeamApiAxiosParamCreator = function (configuration?: Configuration)
          * 
          * @summary team - unregister-tournament
          * @param {number} compositionId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        teamUnregisterTournamentPostForm: async (compositionId: number, file?: Blob, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        teamUnregisterTournamentPost: async (compositionId: number, body?: any, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'compositionId' is not null or undefined
             if (compositionId === null || compositionId === undefined) {
-                throw new RequiredError('compositionId','Required parameter compositionId was null or undefined when calling teamUnregisterTournamentPostForm.');
+                throw new RequiredError('compositionId','Required parameter compositionId was null or undefined when calling teamUnregisterTournamentPost.');
             }
             const localVarPath = `/team/unregister-tournament`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -1575,9 +1511,8 @@ export const TeamApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-            const localVarFormParams = new FormData();
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -1590,12 +1525,8 @@ export const TeamApiAxiosParamCreator = function (configuration?: Configuration)
                 localVarQueryParameter['composition_id'] = compositionId;
             }
 
-
-            if (file !== undefined) { 
-                localVarFormParams.append('file', file as any);
-            }
-
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
                 query.set(key, localVarQueryParameter[key]);
@@ -1606,7 +1537,8 @@ export const TeamApiAxiosParamCreator = function (configuration?: Configuration)
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = localVarFormParams;
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -1626,12 +1558,12 @@ export const TeamApiFp = function(configuration?: Configuration) {
          * 
          * @summary team - accept-candidacy
          * @param {number} candidacyId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async teamAcceptCandidacyPostForm(candidacyId: number, file?: Blob, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await TeamApiAxiosParamCreator(configuration).teamAcceptCandidacyPostForm(candidacyId, file, options);
+        async teamAcceptCandidacyPost(candidacyId: number, body?: any, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
+            const localVarAxiosArgs = await TeamApiAxiosParamCreator(configuration).teamAcceptCandidacyPost(candidacyId, body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -1641,12 +1573,12 @@ export const TeamApiFp = function(configuration?: Configuration) {
          * 
          * @summary team - ban
          * @param {number} farmerId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async teamBanPostForm(farmerId: number, file?: Blob, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await TeamApiAxiosParamCreator(configuration).teamBanPostForm(farmerId, file, options);
+        async teamBanPost(farmerId: number, body?: any, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
+            const localVarAxiosArgs = await TeamApiAxiosParamCreator(configuration).teamBanPost(farmerId, body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -1656,12 +1588,12 @@ export const TeamApiFp = function(configuration?: Configuration) {
          * 
          * @summary team - cancel-candidacy-for-team
          * @param {number} teamId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async teamCancelCandidacyForTeamPostForm(teamId: number, file?: Blob, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await TeamApiAxiosParamCreator(configuration).teamCancelCandidacyForTeamPostForm(teamId, file, options);
+        async teamCancelCandidacyForTeamPost(teamId: number, body?: any, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
+            const localVarAxiosArgs = await TeamApiAxiosParamCreator(configuration).teamCancelCandidacyForTeamPost(teamId, body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -1673,7 +1605,7 @@ export const TeamApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async teamCancelCandidacyPost(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async teamCancelCandidacyPost(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await TeamApiAxiosParamCreator(configuration).teamCancelCandidacyPost(options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -1687,7 +1619,7 @@ export const TeamApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async teamChangeDescriptionPut(description: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async teamChangeDescriptionPut(description: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await TeamApiAxiosParamCreator(configuration).teamChangeDescriptionPut(description, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -1699,12 +1631,12 @@ export const TeamApiFp = function(configuration?: Configuration) {
          * @summary team - change-member-grade
          * @param {number} memberId 
          * @param {string} newGrade 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async teamChangeMemberGradePostForm(memberId: number, newGrade: string, file?: Blob, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await TeamApiAxiosParamCreator(configuration).teamChangeMemberGradePostForm(memberId, newGrade, file, options);
+        async teamChangeMemberGradePost(memberId: number, newGrade: string, body?: any, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
+            const localVarAxiosArgs = await TeamApiAxiosParamCreator(configuration).teamChangeMemberGradePost(memberId, newGrade, body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -1715,12 +1647,12 @@ export const TeamApiFp = function(configuration?: Configuration) {
          * @summary team - change-owner
          * @param {number} newOwner 
          * @param {string} password 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async teamChangeOwnerPostForm(newOwner: number, password: string, file?: Blob, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await TeamApiAxiosParamCreator(configuration).teamChangeOwnerPostForm(newOwner, password, file, options);
+        async teamChangeOwnerPost(newOwner: number, password: string, body?: any, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
+            const localVarAxiosArgs = await TeamApiAxiosParamCreator(configuration).teamChangeOwnerPost(newOwner, password, body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -1733,7 +1665,7 @@ export const TeamApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async teamCompositionRichTooltipGet(id: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async teamCompositionRichTooltipGet(id: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await TeamApiAxiosParamCreator(configuration).teamCompositionRichTooltipGet(id, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -1744,12 +1676,12 @@ export const TeamApiFp = function(configuration?: Configuration) {
          * 
          * @summary team - create-composition
          * @param {string} compositionName 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async teamCreateCompositionPostForm(compositionName: string, file?: Blob, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await TeamApiAxiosParamCreator(configuration).teamCreateCompositionPostForm(compositionName, file, options);
+        async teamCreateCompositionPost(compositionName: string, body?: any, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
+            const localVarAxiosArgs = await TeamApiAxiosParamCreator(configuration).teamCreateCompositionPost(compositionName, body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -1759,12 +1691,12 @@ export const TeamApiFp = function(configuration?: Configuration) {
          * 
          * @summary team - create
          * @param {string} teamName 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async teamCreatePostForm(teamName: string, file?: Blob, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await TeamApiAxiosParamCreator(configuration).teamCreatePostForm(teamName, file, options);
+        async teamCreatePost(teamName: string, body?: any, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
+            const localVarAxiosArgs = await TeamApiAxiosParamCreator(configuration).teamCreatePost(teamName, body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -1777,7 +1709,7 @@ export const TeamApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async teamDeleteCompositionDelete(compositionId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async teamDeleteCompositionDelete(compositionId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await TeamApiAxiosParamCreator(configuration).teamDeleteCompositionDelete(compositionId, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -1790,7 +1722,7 @@ export const TeamApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async teamDissolvePost(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async teamDissolvePost(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await TeamApiAxiosParamCreator(configuration).teamDissolvePost(options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -1804,7 +1736,7 @@ export const TeamApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async teamGetConnectedGet(teamId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async teamGetConnectedGet(teamId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await TeamApiAxiosParamCreator(configuration).teamGetConnectedGet(teamId, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -1818,7 +1750,7 @@ export const TeamApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async teamGetGet(teamId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async teamGetGet(teamId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await TeamApiAxiosParamCreator(configuration).teamGetGet(teamId, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -1832,7 +1764,7 @@ export const TeamApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async teamGetPrivateGet(teamId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async teamGetPrivateGet(teamId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await TeamApiAxiosParamCreator(configuration).teamGetPrivateGet(teamId, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -1844,12 +1776,12 @@ export const TeamApiFp = function(configuration?: Configuration) {
          * @summary team - move-leek
          * @param {number} leekId 
          * @param {number} to 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async teamMoveLeekPostForm(leekId: number, to: number, file?: Blob, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await TeamApiAxiosParamCreator(configuration).teamMoveLeekPostForm(leekId, to, file, options);
+        async teamMoveLeekPost(leekId: number, to: number, body?: any, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
+            const localVarAxiosArgs = await TeamApiAxiosParamCreator(configuration).teamMoveLeekPost(leekId, to, body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -1861,7 +1793,7 @@ export const TeamApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async teamQuitPost(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async teamQuitPost(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await TeamApiAxiosParamCreator(configuration).teamQuitPost(options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -1875,7 +1807,7 @@ export const TeamApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async teamRankingsGet(teamId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async teamRankingsGet(teamId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await TeamApiAxiosParamCreator(configuration).teamRankingsGet(teamId, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -1886,12 +1818,12 @@ export const TeamApiFp = function(configuration?: Configuration) {
          * 
          * @summary team - register-tournament
          * @param {number} compositionId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async teamRegisterTournamentPostForm(compositionId: number, file?: Blob, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await TeamApiAxiosParamCreator(configuration).teamRegisterTournamentPostForm(compositionId, file, options);
+        async teamRegisterTournamentPost(compositionId: number, body?: any, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
+            const localVarAxiosArgs = await TeamApiAxiosParamCreator(configuration).teamRegisterTournamentPost(compositionId, body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -1901,12 +1833,12 @@ export const TeamApiFp = function(configuration?: Configuration) {
          * 
          * @summary team - reject-candidacy
          * @param {number} candidacyId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async teamRejectCandidacyPostForm(candidacyId: number, file?: Blob, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await TeamApiAxiosParamCreator(configuration).teamRejectCandidacyPostForm(candidacyId, file, options);
+        async teamRejectCandidacyPost(candidacyId: number, body?: any, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
+            const localVarAxiosArgs = await TeamApiAxiosParamCreator(configuration).teamRejectCandidacyPost(candidacyId, body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -1920,7 +1852,7 @@ export const TeamApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async teamRenameCompositionPut(compositionId: number, compositionName: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async teamRenameCompositionPut(compositionId: number, compositionName: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await TeamApiAxiosParamCreator(configuration).teamRenameCompositionPut(compositionId, compositionName, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -1934,7 +1866,7 @@ export const TeamApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async teamRichTooltipGet(id: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async teamRichTooltipGet(id: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await TeamApiAxiosParamCreator(configuration).teamRichTooltipGet(id, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -1945,12 +1877,12 @@ export const TeamApiFp = function(configuration?: Configuration) {
          * 
          * @summary team - send-candidacy
          * @param {number} teamId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async teamSendCandidacyPostForm(teamId: number, file?: Blob, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await TeamApiAxiosParamCreator(configuration).teamSendCandidacyPostForm(teamId, file, options);
+        async teamSendCandidacyPost(teamId: number, body?: any, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
+            const localVarAxiosArgs = await TeamApiAxiosParamCreator(configuration).teamSendCandidacyPost(teamId, body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -1960,12 +1892,12 @@ export const TeamApiFp = function(configuration?: Configuration) {
          * 
          * @summary team - set-emblem
          * @param {number} teamId 
-         * @param {Blob} [file] 
+         * @param {Blob} [emblem] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async teamSetEmblemPostForm(teamId: number, file?: Blob, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await TeamApiAxiosParamCreator(configuration).teamSetEmblemPostForm(teamId, file, options);
+        async teamSetEmblemPostForm(teamId: number, emblem?: Blob, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
+            const localVarAxiosArgs = await TeamApiAxiosParamCreator(configuration).teamSetEmblemPostForm(teamId, emblem, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -1978,7 +1910,7 @@ export const TeamApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async teamSetLogsLevelPut(level: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async teamSetLogsLevelPut(level: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await TeamApiAxiosParamCreator(configuration).teamSetLogsLevelPut(level, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -1989,12 +1921,12 @@ export const TeamApiFp = function(configuration?: Configuration) {
          * 
          * @summary team - set-opened
          * @param {boolean} opened 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async teamSetOpenedPostForm(opened: boolean, file?: Blob, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await TeamApiAxiosParamCreator(configuration).teamSetOpenedPostForm(opened, file, options);
+        async teamSetOpenedPost(opened: boolean, body?: any, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
+            const localVarAxiosArgs = await TeamApiAxiosParamCreator(configuration).teamSetOpenedPost(opened, body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -2007,7 +1939,7 @@ export const TeamApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async teamSetTurretAiPut(aiId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async teamSetTurretAiPut(aiId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await TeamApiAxiosParamCreator(configuration).teamSetTurretAiPut(aiId, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -2018,12 +1950,12 @@ export const TeamApiFp = function(configuration?: Configuration) {
          * 
          * @summary team - unregister-tournament
          * @param {number} compositionId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async teamUnregisterTournamentPostForm(compositionId: number, file?: Blob, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await TeamApiAxiosParamCreator(configuration).teamUnregisterTournamentPostForm(compositionId, file, options);
+        async teamUnregisterTournamentPost(compositionId: number, body?: any, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
+            const localVarAxiosArgs = await TeamApiAxiosParamCreator(configuration).teamUnregisterTournamentPost(compositionId, body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -2042,34 +1974,34 @@ export const TeamApiFactory = function (configuration?: Configuration, basePath?
          * 
          * @summary team - accept-candidacy
          * @param {number} candidacyId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async teamAcceptCandidacyPostForm(candidacyId: number, file?: Blob, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return TeamApiFp(configuration).teamAcceptCandidacyPostForm(candidacyId, file, options).then((request) => request(axios, basePath));
+        async teamAcceptCandidacyPost(candidacyId: number, body?: any, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
+            return TeamApiFp(configuration).teamAcceptCandidacyPost(candidacyId, body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary team - ban
          * @param {number} farmerId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async teamBanPostForm(farmerId: number, file?: Blob, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return TeamApiFp(configuration).teamBanPostForm(farmerId, file, options).then((request) => request(axios, basePath));
+        async teamBanPost(farmerId: number, body?: any, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
+            return TeamApiFp(configuration).teamBanPost(farmerId, body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary team - cancel-candidacy-for-team
          * @param {number} teamId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async teamCancelCandidacyForTeamPostForm(teamId: number, file?: Blob, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return TeamApiFp(configuration).teamCancelCandidacyForTeamPostForm(teamId, file, options).then((request) => request(axios, basePath));
+        async teamCancelCandidacyForTeamPost(teamId: number, body?: any, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
+            return TeamApiFp(configuration).teamCancelCandidacyForTeamPost(teamId, body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -2077,7 +2009,7 @@ export const TeamApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async teamCancelCandidacyPost(options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async teamCancelCandidacyPost(options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return TeamApiFp(configuration).teamCancelCandidacyPost(options).then((request) => request(axios, basePath));
         },
         /**
@@ -2087,7 +2019,7 @@ export const TeamApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async teamChangeDescriptionPut(description: string, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async teamChangeDescriptionPut(description: string, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return TeamApiFp(configuration).teamChangeDescriptionPut(description, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2095,24 +2027,24 @@ export const TeamApiFactory = function (configuration?: Configuration, basePath?
          * @summary team - change-member-grade
          * @param {number} memberId 
          * @param {string} newGrade 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async teamChangeMemberGradePostForm(memberId: number, newGrade: string, file?: Blob, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return TeamApiFp(configuration).teamChangeMemberGradePostForm(memberId, newGrade, file, options).then((request) => request(axios, basePath));
+        async teamChangeMemberGradePost(memberId: number, newGrade: string, body?: any, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
+            return TeamApiFp(configuration).teamChangeMemberGradePost(memberId, newGrade, body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary team - change-owner
          * @param {number} newOwner 
          * @param {string} password 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async teamChangeOwnerPostForm(newOwner: number, password: string, file?: Blob, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return TeamApiFp(configuration).teamChangeOwnerPostForm(newOwner, password, file, options).then((request) => request(axios, basePath));
+        async teamChangeOwnerPost(newOwner: number, password: string, body?: any, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
+            return TeamApiFp(configuration).teamChangeOwnerPost(newOwner, password, body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -2121,30 +2053,30 @@ export const TeamApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async teamCompositionRichTooltipGet(id: number, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async teamCompositionRichTooltipGet(id: number, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return TeamApiFp(configuration).teamCompositionRichTooltipGet(id, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary team - create-composition
          * @param {string} compositionName 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async teamCreateCompositionPostForm(compositionName: string, file?: Blob, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return TeamApiFp(configuration).teamCreateCompositionPostForm(compositionName, file, options).then((request) => request(axios, basePath));
+        async teamCreateCompositionPost(compositionName: string, body?: any, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
+            return TeamApiFp(configuration).teamCreateCompositionPost(compositionName, body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary team - create
          * @param {string} teamName 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async teamCreatePostForm(teamName: string, file?: Blob, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return TeamApiFp(configuration).teamCreatePostForm(teamName, file, options).then((request) => request(axios, basePath));
+        async teamCreatePost(teamName: string, body?: any, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
+            return TeamApiFp(configuration).teamCreatePost(teamName, body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -2153,7 +2085,7 @@ export const TeamApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async teamDeleteCompositionDelete(compositionId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async teamDeleteCompositionDelete(compositionId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return TeamApiFp(configuration).teamDeleteCompositionDelete(compositionId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2162,7 +2094,7 @@ export const TeamApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async teamDissolvePost(options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async teamDissolvePost(options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return TeamApiFp(configuration).teamDissolvePost(options).then((request) => request(axios, basePath));
         },
         /**
@@ -2172,7 +2104,7 @@ export const TeamApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async teamGetConnectedGet(teamId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async teamGetConnectedGet(teamId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return TeamApiFp(configuration).teamGetConnectedGet(teamId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2182,7 +2114,7 @@ export const TeamApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async teamGetGet(teamId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async teamGetGet(teamId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return TeamApiFp(configuration).teamGetGet(teamId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2192,7 +2124,7 @@ export const TeamApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async teamGetPrivateGet(teamId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async teamGetPrivateGet(teamId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return TeamApiFp(configuration).teamGetPrivateGet(teamId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2200,12 +2132,12 @@ export const TeamApiFactory = function (configuration?: Configuration, basePath?
          * @summary team - move-leek
          * @param {number} leekId 
          * @param {number} to 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async teamMoveLeekPostForm(leekId: number, to: number, file?: Blob, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return TeamApiFp(configuration).teamMoveLeekPostForm(leekId, to, file, options).then((request) => request(axios, basePath));
+        async teamMoveLeekPost(leekId: number, to: number, body?: any, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
+            return TeamApiFp(configuration).teamMoveLeekPost(leekId, to, body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -2213,7 +2145,7 @@ export const TeamApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async teamQuitPost(options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async teamQuitPost(options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return TeamApiFp(configuration).teamQuitPost(options).then((request) => request(axios, basePath));
         },
         /**
@@ -2223,30 +2155,30 @@ export const TeamApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async teamRankingsGet(teamId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async teamRankingsGet(teamId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return TeamApiFp(configuration).teamRankingsGet(teamId, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary team - register-tournament
          * @param {number} compositionId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async teamRegisterTournamentPostForm(compositionId: number, file?: Blob, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return TeamApiFp(configuration).teamRegisterTournamentPostForm(compositionId, file, options).then((request) => request(axios, basePath));
+        async teamRegisterTournamentPost(compositionId: number, body?: any, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
+            return TeamApiFp(configuration).teamRegisterTournamentPost(compositionId, body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary team - reject-candidacy
          * @param {number} candidacyId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async teamRejectCandidacyPostForm(candidacyId: number, file?: Blob, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return TeamApiFp(configuration).teamRejectCandidacyPostForm(candidacyId, file, options).then((request) => request(axios, basePath));
+        async teamRejectCandidacyPost(candidacyId: number, body?: any, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
+            return TeamApiFp(configuration).teamRejectCandidacyPost(candidacyId, body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -2256,7 +2188,7 @@ export const TeamApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async teamRenameCompositionPut(compositionId: number, compositionName: string, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async teamRenameCompositionPut(compositionId: number, compositionName: string, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return TeamApiFp(configuration).teamRenameCompositionPut(compositionId, compositionName, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2266,30 +2198,30 @@ export const TeamApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async teamRichTooltipGet(id: number, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async teamRichTooltipGet(id: number, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return TeamApiFp(configuration).teamRichTooltipGet(id, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary team - send-candidacy
          * @param {number} teamId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async teamSendCandidacyPostForm(teamId: number, file?: Blob, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return TeamApiFp(configuration).teamSendCandidacyPostForm(teamId, file, options).then((request) => request(axios, basePath));
+        async teamSendCandidacyPost(teamId: number, body?: any, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
+            return TeamApiFp(configuration).teamSendCandidacyPost(teamId, body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary team - set-emblem
          * @param {number} teamId 
-         * @param {Blob} [file] 
+         * @param {Blob} [emblem] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async teamSetEmblemPostForm(teamId: number, file?: Blob, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return TeamApiFp(configuration).teamSetEmblemPostForm(teamId, file, options).then((request) => request(axios, basePath));
+        async teamSetEmblemPostForm(teamId: number, emblem?: Blob, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
+            return TeamApiFp(configuration).teamSetEmblemPostForm(teamId, emblem, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -2298,19 +2230,19 @@ export const TeamApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async teamSetLogsLevelPut(level: number, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async teamSetLogsLevelPut(level: number, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return TeamApiFp(configuration).teamSetLogsLevelPut(level, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary team - set-opened
          * @param {boolean} opened 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async teamSetOpenedPostForm(opened: boolean, file?: Blob, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return TeamApiFp(configuration).teamSetOpenedPostForm(opened, file, options).then((request) => request(axios, basePath));
+        async teamSetOpenedPost(opened: boolean, body?: any, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
+            return TeamApiFp(configuration).teamSetOpenedPost(opened, body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -2319,19 +2251,19 @@ export const TeamApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async teamSetTurretAiPut(aiId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async teamSetTurretAiPut(aiId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return TeamApiFp(configuration).teamSetTurretAiPut(aiId, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary team - unregister-tournament
          * @param {number} compositionId 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async teamUnregisterTournamentPostForm(compositionId: number, file?: Blob, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return TeamApiFp(configuration).teamUnregisterTournamentPostForm(compositionId, file, options).then((request) => request(axios, basePath));
+        async teamUnregisterTournamentPost(compositionId: number, body?: any, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
+            return TeamApiFp(configuration).teamUnregisterTournamentPost(compositionId, body, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -2347,37 +2279,37 @@ export class TeamApi extends BaseAPI {
      * 
      * @summary team - accept-candidacy
      * @param {number} candidacyId 
-     * @param {Blob} [file] 
+     * @param {any} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof TeamApi
      */
-    public async teamAcceptCandidacyPostForm(candidacyId: number, file?: Blob, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return TeamApiFp(this.configuration).teamAcceptCandidacyPostForm(candidacyId, file, options).then((request) => request(this.axios, this.basePath));
+    public async teamAcceptCandidacyPost(candidacyId: number, body?: any, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
+        return TeamApiFp(this.configuration).teamAcceptCandidacyPost(candidacyId, body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
      * @summary team - ban
      * @param {number} farmerId 
-     * @param {Blob} [file] 
+     * @param {any} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof TeamApi
      */
-    public async teamBanPostForm(farmerId: number, file?: Blob, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return TeamApiFp(this.configuration).teamBanPostForm(farmerId, file, options).then((request) => request(this.axios, this.basePath));
+    public async teamBanPost(farmerId: number, body?: any, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
+        return TeamApiFp(this.configuration).teamBanPost(farmerId, body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
      * @summary team - cancel-candidacy-for-team
      * @param {number} teamId 
-     * @param {Blob} [file] 
+     * @param {any} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof TeamApi
      */
-    public async teamCancelCandidacyForTeamPostForm(teamId: number, file?: Blob, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return TeamApiFp(this.configuration).teamCancelCandidacyForTeamPostForm(teamId, file, options).then((request) => request(this.axios, this.basePath));
+    public async teamCancelCandidacyForTeamPost(teamId: number, body?: any, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
+        return TeamApiFp(this.configuration).teamCancelCandidacyForTeamPost(teamId, body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
@@ -2386,7 +2318,7 @@ export class TeamApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof TeamApi
      */
-    public async teamCancelCandidacyPost(options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async teamCancelCandidacyPost(options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return TeamApiFp(this.configuration).teamCancelCandidacyPost(options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -2397,7 +2329,7 @@ export class TeamApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof TeamApi
      */
-    public async teamChangeDescriptionPut(description: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async teamChangeDescriptionPut(description: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return TeamApiFp(this.configuration).teamChangeDescriptionPut(description, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -2405,26 +2337,26 @@ export class TeamApi extends BaseAPI {
      * @summary team - change-member-grade
      * @param {number} memberId 
      * @param {string} newGrade 
-     * @param {Blob} [file] 
+     * @param {any} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof TeamApi
      */
-    public async teamChangeMemberGradePostForm(memberId: number, newGrade: string, file?: Blob, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return TeamApiFp(this.configuration).teamChangeMemberGradePostForm(memberId, newGrade, file, options).then((request) => request(this.axios, this.basePath));
+    public async teamChangeMemberGradePost(memberId: number, newGrade: string, body?: any, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
+        return TeamApiFp(this.configuration).teamChangeMemberGradePost(memberId, newGrade, body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
      * @summary team - change-owner
      * @param {number} newOwner 
      * @param {string} password 
-     * @param {Blob} [file] 
+     * @param {any} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof TeamApi
      */
-    public async teamChangeOwnerPostForm(newOwner: number, password: string, file?: Blob, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return TeamApiFp(this.configuration).teamChangeOwnerPostForm(newOwner, password, file, options).then((request) => request(this.axios, this.basePath));
+    public async teamChangeOwnerPost(newOwner: number, password: string, body?: any, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
+        return TeamApiFp(this.configuration).teamChangeOwnerPost(newOwner, password, body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
@@ -2434,32 +2366,32 @@ export class TeamApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof TeamApi
      */
-    public async teamCompositionRichTooltipGet(id: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async teamCompositionRichTooltipGet(id: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return TeamApiFp(this.configuration).teamCompositionRichTooltipGet(id, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
      * @summary team - create-composition
      * @param {string} compositionName 
-     * @param {Blob} [file] 
+     * @param {any} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof TeamApi
      */
-    public async teamCreateCompositionPostForm(compositionName: string, file?: Blob, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return TeamApiFp(this.configuration).teamCreateCompositionPostForm(compositionName, file, options).then((request) => request(this.axios, this.basePath));
+    public async teamCreateCompositionPost(compositionName: string, body?: any, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
+        return TeamApiFp(this.configuration).teamCreateCompositionPost(compositionName, body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
      * @summary team - create
      * @param {string} teamName 
-     * @param {Blob} [file] 
+     * @param {any} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof TeamApi
      */
-    public async teamCreatePostForm(teamName: string, file?: Blob, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return TeamApiFp(this.configuration).teamCreatePostForm(teamName, file, options).then((request) => request(this.axios, this.basePath));
+    public async teamCreatePost(teamName: string, body?: any, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
+        return TeamApiFp(this.configuration).teamCreatePost(teamName, body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
@@ -2469,7 +2401,7 @@ export class TeamApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof TeamApi
      */
-    public async teamDeleteCompositionDelete(compositionId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async teamDeleteCompositionDelete(compositionId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return TeamApiFp(this.configuration).teamDeleteCompositionDelete(compositionId, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -2479,7 +2411,7 @@ export class TeamApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof TeamApi
      */
-    public async teamDissolvePost(options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async teamDissolvePost(options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return TeamApiFp(this.configuration).teamDissolvePost(options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -2490,7 +2422,7 @@ export class TeamApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof TeamApi
      */
-    public async teamGetConnectedGet(teamId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async teamGetConnectedGet(teamId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return TeamApiFp(this.configuration).teamGetConnectedGet(teamId, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -2501,7 +2433,7 @@ export class TeamApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof TeamApi
      */
-    public async teamGetGet(teamId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async teamGetGet(teamId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return TeamApiFp(this.configuration).teamGetGet(teamId, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -2512,7 +2444,7 @@ export class TeamApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof TeamApi
      */
-    public async teamGetPrivateGet(teamId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async teamGetPrivateGet(teamId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return TeamApiFp(this.configuration).teamGetPrivateGet(teamId, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -2520,13 +2452,13 @@ export class TeamApi extends BaseAPI {
      * @summary team - move-leek
      * @param {number} leekId 
      * @param {number} to 
-     * @param {Blob} [file] 
+     * @param {any} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof TeamApi
      */
-    public async teamMoveLeekPostForm(leekId: number, to: number, file?: Blob, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return TeamApiFp(this.configuration).teamMoveLeekPostForm(leekId, to, file, options).then((request) => request(this.axios, this.basePath));
+    public async teamMoveLeekPost(leekId: number, to: number, body?: any, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
+        return TeamApiFp(this.configuration).teamMoveLeekPost(leekId, to, body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
@@ -2535,7 +2467,7 @@ export class TeamApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof TeamApi
      */
-    public async teamQuitPost(options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async teamQuitPost(options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return TeamApiFp(this.configuration).teamQuitPost(options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -2546,32 +2478,32 @@ export class TeamApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof TeamApi
      */
-    public async teamRankingsGet(teamId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async teamRankingsGet(teamId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return TeamApiFp(this.configuration).teamRankingsGet(teamId, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
      * @summary team - register-tournament
      * @param {number} compositionId 
-     * @param {Blob} [file] 
+     * @param {any} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof TeamApi
      */
-    public async teamRegisterTournamentPostForm(compositionId: number, file?: Blob, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return TeamApiFp(this.configuration).teamRegisterTournamentPostForm(compositionId, file, options).then((request) => request(this.axios, this.basePath));
+    public async teamRegisterTournamentPost(compositionId: number, body?: any, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
+        return TeamApiFp(this.configuration).teamRegisterTournamentPost(compositionId, body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
      * @summary team - reject-candidacy
      * @param {number} candidacyId 
-     * @param {Blob} [file] 
+     * @param {any} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof TeamApi
      */
-    public async teamRejectCandidacyPostForm(candidacyId: number, file?: Blob, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return TeamApiFp(this.configuration).teamRejectCandidacyPostForm(candidacyId, file, options).then((request) => request(this.axios, this.basePath));
+    public async teamRejectCandidacyPost(candidacyId: number, body?: any, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
+        return TeamApiFp(this.configuration).teamRejectCandidacyPost(candidacyId, body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
@@ -2582,7 +2514,7 @@ export class TeamApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof TeamApi
      */
-    public async teamRenameCompositionPut(compositionId: number, compositionName: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async teamRenameCompositionPut(compositionId: number, compositionName: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return TeamApiFp(this.configuration).teamRenameCompositionPut(compositionId, compositionName, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -2593,32 +2525,32 @@ export class TeamApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof TeamApi
      */
-    public async teamRichTooltipGet(id: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async teamRichTooltipGet(id: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return TeamApiFp(this.configuration).teamRichTooltipGet(id, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
      * @summary team - send-candidacy
      * @param {number} teamId 
-     * @param {Blob} [file] 
+     * @param {any} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof TeamApi
      */
-    public async teamSendCandidacyPostForm(teamId: number, file?: Blob, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return TeamApiFp(this.configuration).teamSendCandidacyPostForm(teamId, file, options).then((request) => request(this.axios, this.basePath));
+    public async teamSendCandidacyPost(teamId: number, body?: any, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
+        return TeamApiFp(this.configuration).teamSendCandidacyPost(teamId, body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
      * @summary team - set-emblem
      * @param {number} teamId 
-     * @param {Blob} [file] 
+     * @param {Blob} [emblem] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof TeamApi
      */
-    public async teamSetEmblemPostForm(teamId: number, file?: Blob, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return TeamApiFp(this.configuration).teamSetEmblemPostForm(teamId, file, options).then((request) => request(this.axios, this.basePath));
+    public async teamSetEmblemPostForm(teamId: number, emblem?: Blob, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
+        return TeamApiFp(this.configuration).teamSetEmblemPostForm(teamId, emblem, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
@@ -2628,20 +2560,20 @@ export class TeamApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof TeamApi
      */
-    public async teamSetLogsLevelPut(level: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async teamSetLogsLevelPut(level: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return TeamApiFp(this.configuration).teamSetLogsLevelPut(level, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
      * @summary team - set-opened
      * @param {boolean} opened 
-     * @param {Blob} [file] 
+     * @param {any} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof TeamApi
      */
-    public async teamSetOpenedPostForm(opened: boolean, file?: Blob, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return TeamApiFp(this.configuration).teamSetOpenedPostForm(opened, file, options).then((request) => request(this.axios, this.basePath));
+    public async teamSetOpenedPost(opened: boolean, body?: any, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
+        return TeamApiFp(this.configuration).teamSetOpenedPost(opened, body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
@@ -2651,19 +2583,19 @@ export class TeamApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof TeamApi
      */
-    public async teamSetTurretAiPut(aiId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async teamSetTurretAiPut(aiId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return TeamApiFp(this.configuration).teamSetTurretAiPut(aiId, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
      * @summary team - unregister-tournament
      * @param {number} compositionId 
-     * @param {Blob} [file] 
+     * @param {any} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof TeamApi
      */
-    public async teamUnregisterTournamentPostForm(compositionId: number, file?: Blob, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return TeamApiFp(this.configuration).teamUnregisterTournamentPostForm(compositionId, file, options).then((request) => request(this.axios, this.basePath));
+    public async teamUnregisterTournamentPost(compositionId: number, body?: any, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
+        return TeamApiFp(this.configuration).teamUnregisterTournamentPost(compositionId, body, options).then((request) => request(this.axios, this.basePath));
     }
 }

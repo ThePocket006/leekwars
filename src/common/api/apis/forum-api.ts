@@ -11,11 +11,13 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import type {AxiosInstance, AxiosRequestConfig, AxiosResponse} from "axios";
+
+import type {AxiosResponse, AxiosInstance, AxiosRequestConfig} from "axios";
 import globalAxios from "axios";
 import { Configuration } from '@/common/api';
-import type {RequestArgs} from "@/common/api/base";
-import {BASE_PATH, BaseAPI, RequiredError} from "@/common/api/base";
+// Some imports not used depending on template conditions
+// @ts-ignore
+import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
 /**
  * ForumApi - axios parameter creator
  * @export
@@ -40,7 +42,7 @@ export const ForumApiAxiosParamCreator = function (configuration?: Configuration
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -118,7 +120,7 @@ export const ForumApiAxiosParamCreator = function (configuration?: Configuration
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -186,7 +188,7 @@ export const ForumApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async forumMarkAsReadPost(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async forumMarkAsReadPost(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await ForumApiAxiosParamCreator(configuration).forumMarkAsReadPost(options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -206,7 +208,7 @@ export const ForumApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async forumSearch2Get(_query: string, farmer: string, category: string, page: number, order: string, admin: boolean, moderator: boolean, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async forumSearch2Get(_query: string, farmer: string, category: string, page: number, order: string, admin: boolean, moderator: boolean, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await ForumApiAxiosParamCreator(configuration).forumSearch2Get(_query, farmer, category, page, order, admin, moderator, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -228,7 +230,7 @@ export const ForumApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async forumMarkAsReadPost(options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async forumMarkAsReadPost(options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return ForumApiFp(configuration).forumMarkAsReadPost(options).then((request) => request(axios, basePath));
         },
         /**
@@ -244,7 +246,7 @@ export const ForumApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async forumSearch2Get(_query: string, farmer: string, category: string, page: number, order: string, admin: boolean, moderator: boolean, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async forumSearch2Get(_query: string, farmer: string, category: string, page: number, order: string, admin: boolean, moderator: boolean, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return ForumApiFp(configuration).forumSearch2Get(_query, farmer, category, page, order, admin, moderator, options).then((request) => request(axios, basePath));
         },
     };
@@ -264,7 +266,7 @@ export class ForumApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ForumApi
      */
-    public async forumMarkAsReadPost(options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async forumMarkAsReadPost(options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return ForumApiFp(this.configuration).forumMarkAsReadPost(options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -281,7 +283,7 @@ export class ForumApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ForumApi
      */
-    public async forumSearch2Get(_query: string, farmer: string, category: string, page: number, order: string, admin: boolean, moderator: boolean, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async forumSearch2Get(_query: string, farmer: string, category: string, page: number, order: string, admin: boolean, moderator: boolean, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return ForumApiFp(this.configuration).forumSearch2Get(_query, farmer, category, page, order, admin, moderator, options).then((request) => request(this.axios, this.basePath));
     }
 }

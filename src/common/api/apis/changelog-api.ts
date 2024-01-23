@@ -11,11 +11,13 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import type {AxiosInstance, AxiosRequestConfig, AxiosResponse} from "axios";
+
+import type {AxiosResponse, AxiosInstance, AxiosRequestConfig} from "axios";
 import globalAxios from "axios";
 import { Configuration } from '@/common/api';
-import type {RequestArgs} from "@/common/api/base";
-import {BASE_PATH, BaseAPI, RequiredError} from "@/common/api/base";
+// Some imports not used depending on template conditions
+// @ts-ignore
+import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
 /**
  * ChangelogApi - axios parameter creator
  * @export
@@ -45,7 +47,7 @@ export const ChangelogApiAxiosParamCreator = function (configuration?: Configura
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -97,7 +99,7 @@ export const ChangelogApiAxiosParamCreator = function (configuration?: Configura
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -142,7 +144,7 @@ export const ChangelogApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async changelogGetGet(language: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async changelogGetGet(language: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await ChangelogApiAxiosParamCreator(configuration).changelogGetGet(language, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -156,7 +158,7 @@ export const ChangelogApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async changelogGetLastGet(language: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async changelogGetLastGet(language: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await ChangelogApiAxiosParamCreator(configuration).changelogGetLastGet(language, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -179,7 +181,7 @@ export const ChangelogApiFactory = function (configuration?: Configuration, base
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async changelogGetGet(language: string, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async changelogGetGet(language: string, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return ChangelogApiFp(configuration).changelogGetGet(language, options).then((request) => request(axios, basePath));
         },
         /**
@@ -189,7 +191,7 @@ export const ChangelogApiFactory = function (configuration?: Configuration, base
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async changelogGetLastGet(language: string, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async changelogGetLastGet(language: string, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return ChangelogApiFp(configuration).changelogGetLastGet(language, options).then((request) => request(axios, basePath));
         },
     };
@@ -210,7 +212,7 @@ export class ChangelogApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ChangelogApi
      */
-    public async changelogGetGet(language: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async changelogGetGet(language: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return ChangelogApiFp(this.configuration).changelogGetGet(language, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -221,7 +223,7 @@ export class ChangelogApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ChangelogApi
      */
-    public async changelogGetLastGet(language: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async changelogGetLastGet(language: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return ChangelogApiFp(this.configuration).changelogGetLastGet(language, options).then((request) => request(this.axios, this.basePath));
     }
 }

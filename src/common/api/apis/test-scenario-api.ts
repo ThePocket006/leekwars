@@ -11,11 +11,13 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import type {AxiosInstance, AxiosRequestConfig, AxiosResponse} from "axios";
+
+import type {AxiosResponse, AxiosInstance, AxiosRequestConfig} from "axios";
 import globalAxios from "axios";
 import { Configuration } from '@/common/api';
-import type {RequestArgs} from "@/common/api/base";
-import {BASE_PATH, BaseAPI, RequiredError} from "@/common/api/base";
+// Some imports not used depending on template conditions
+// @ts-ignore
+import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
 /**
  * TestScenarioApi - axios parameter creator
  * @export
@@ -29,26 +31,26 @@ export const TestScenarioApiAxiosParamCreator = function (configuration?: Config
          * @param {number} leek 
          * @param {number} team 
          * @param {string} ai 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        testScenarioAddLeekPostForm: async (scenarioId: number, leek: number, team: number, ai: string, file?: Blob, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        testScenarioAddLeekPost: async (scenarioId: number, leek: number, team: number, ai: string, body?: any, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'scenarioId' is not null or undefined
             if (scenarioId === null || scenarioId === undefined) {
-                throw new RequiredError('scenarioId','Required parameter scenarioId was null or undefined when calling testScenarioAddLeekPostForm.');
+                throw new RequiredError('scenarioId','Required parameter scenarioId was null or undefined when calling testScenarioAddLeekPost.');
             }
             // verify required parameter 'leek' is not null or undefined
             if (leek === null || leek === undefined) {
-                throw new RequiredError('leek','Required parameter leek was null or undefined when calling testScenarioAddLeekPostForm.');
+                throw new RequiredError('leek','Required parameter leek was null or undefined when calling testScenarioAddLeekPost.');
             }
             // verify required parameter 'team' is not null or undefined
             if (team === null || team === undefined) {
-                throw new RequiredError('team','Required parameter team was null or undefined when calling testScenarioAddLeekPostForm.');
+                throw new RequiredError('team','Required parameter team was null or undefined when calling testScenarioAddLeekPost.');
             }
             // verify required parameter 'ai' is not null or undefined
             if (ai === null || ai === undefined) {
-                throw new RequiredError('ai','Required parameter ai was null or undefined when calling testScenarioAddLeekPostForm.');
+                throw new RequiredError('ai','Required parameter ai was null or undefined when calling testScenarioAddLeekPost.');
             }
             const localVarPath = `/test-scenario/add-leek`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -60,9 +62,8 @@ export const TestScenarioApiAxiosParamCreator = function (configuration?: Config
             const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-            const localVarFormParams = new FormData();
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -87,12 +88,8 @@ export const TestScenarioApiAxiosParamCreator = function (configuration?: Config
                 localVarQueryParameter['ai'] = ai;
             }
 
-
-            if (file !== undefined) { 
-                localVarFormParams.append('file', file as any);
-            }
-
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
                 query.set(key, localVarQueryParameter[key]);
@@ -103,7 +100,8 @@ export const TestScenarioApiAxiosParamCreator = function (configuration?: Config
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = localVarFormParams;
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -133,7 +131,7 @@ export const TestScenarioApiAxiosParamCreator = function (configuration?: Config
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -190,7 +188,7 @@ export const TestScenarioApiAxiosParamCreator = function (configuration?: Config
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -241,7 +239,7 @@ export const TestScenarioApiAxiosParamCreator = function (configuration?: Config
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -270,14 +268,14 @@ export const TestScenarioApiAxiosParamCreator = function (configuration?: Config
          * 
          * @summary test-scenario - new
          * @param {string} name 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        testScenarioNewPostForm: async (name: string, file?: Blob, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        testScenarioNewPost: async (name: string, body?: any, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'name' is not null or undefined
             if (name === null || name === undefined) {
-                throw new RequiredError('name','Required parameter name was null or undefined when calling testScenarioNewPostForm.');
+                throw new RequiredError('name','Required parameter name was null or undefined when calling testScenarioNewPost.');
             }
             const localVarPath = `/test-scenario/new`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -289,9 +287,8 @@ export const TestScenarioApiAxiosParamCreator = function (configuration?: Config
             const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-            const localVarFormParams = new FormData();
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -304,12 +301,8 @@ export const TestScenarioApiAxiosParamCreator = function (configuration?: Config
                 localVarQueryParameter['name'] = name;
             }
 
-
-            if (file !== undefined) { 
-                localVarFormParams.append('file', file as any);
-            }
-
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
                 query.set(key, localVarQueryParameter[key]);
@@ -320,7 +313,8 @@ export const TestScenarioApiAxiosParamCreator = function (configuration?: Config
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = localVarFormParams;
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -332,18 +326,18 @@ export const TestScenarioApiAxiosParamCreator = function (configuration?: Config
          * @summary test-scenario - update
          * @param {number} id 
          * @param {string} data 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        testScenarioUpdatePostForm: async (id: number, data: string, file?: Blob, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        testScenarioUpdatePost: async (id: number, data: string, body?: any, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             if (id === null || id === undefined) {
-                throw new RequiredError('id','Required parameter id was null or undefined when calling testScenarioUpdatePostForm.');
+                throw new RequiredError('id','Required parameter id was null or undefined when calling testScenarioUpdatePost.');
             }
             // verify required parameter 'data' is not null or undefined
             if (data === null || data === undefined) {
-                throw new RequiredError('data','Required parameter data was null or undefined when calling testScenarioUpdatePostForm.');
+                throw new RequiredError('data','Required parameter data was null or undefined when calling testScenarioUpdatePost.');
             }
             const localVarPath = `/test-scenario/update`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -355,9 +349,8 @@ export const TestScenarioApiAxiosParamCreator = function (configuration?: Config
             const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-            const localVarFormParams = new FormData();
 
-            // authentication bearerAuth required
+            // authentication BearerAuth required
             // http bearer authentication required
             if (configuration && configuration.accessToken) {
                 const accessToken = typeof configuration.accessToken === 'function'
@@ -374,12 +367,8 @@ export const TestScenarioApiAxiosParamCreator = function (configuration?: Config
                 localVarQueryParameter['data'] = data;
             }
 
-
-            if (file !== undefined) { 
-                localVarFormParams.append('file', file as any);
-            }
-
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
                 query.set(key, localVarQueryParameter[key]);
@@ -390,7 +379,8 @@ export const TestScenarioApiAxiosParamCreator = function (configuration?: Config
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = localVarFormParams;
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -413,12 +403,12 @@ export const TestScenarioApiFp = function(configuration?: Configuration) {
          * @param {number} leek 
          * @param {number} team 
          * @param {string} ai 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async testScenarioAddLeekPostForm(scenarioId: number, leek: number, team: number, ai: string, file?: Blob, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await TestScenarioApiAxiosParamCreator(configuration).testScenarioAddLeekPostForm(scenarioId, leek, team, ai, file, options);
+        async testScenarioAddLeekPost(scenarioId: number, leek: number, team: number, ai: string, body?: any, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
+            const localVarAxiosArgs = await TestScenarioApiAxiosParamCreator(configuration).testScenarioAddLeekPost(scenarioId, leek, team, ai, body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -431,7 +421,7 @@ export const TestScenarioApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async testScenarioDeleteDelete(id: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async testScenarioDeleteDelete(id: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await TestScenarioApiAxiosParamCreator(configuration).testScenarioDeleteDelete(id, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -446,7 +436,7 @@ export const TestScenarioApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async testScenarioDeleteLeekDelete(scenarioId: number, leek: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async testScenarioDeleteLeekDelete(scenarioId: number, leek: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await TestScenarioApiAxiosParamCreator(configuration).testScenarioDeleteLeekDelete(scenarioId, leek, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -459,7 +449,7 @@ export const TestScenarioApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async testScenarioGetAllGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async testScenarioGetAllGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
             const localVarAxiosArgs = await TestScenarioApiAxiosParamCreator(configuration).testScenarioGetAllGet(options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -470,12 +460,12 @@ export const TestScenarioApiFp = function(configuration?: Configuration) {
          * 
          * @summary test-scenario - new
          * @param {string} name 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async testScenarioNewPostForm(name: string, file?: Blob, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await TestScenarioApiAxiosParamCreator(configuration).testScenarioNewPostForm(name, file, options);
+        async testScenarioNewPost(name: string, body?: any, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
+            const localVarAxiosArgs = await TestScenarioApiAxiosParamCreator(configuration).testScenarioNewPost(name, body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -486,12 +476,12 @@ export const TestScenarioApiFp = function(configuration?: Configuration) {
          * @summary test-scenario - update
          * @param {number} id 
          * @param {string} data 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async testScenarioUpdatePostForm(id: number, data: string, file?: Blob, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await TestScenarioApiAxiosParamCreator(configuration).testScenarioUpdatePostForm(id, data, file, options);
+        async testScenarioUpdatePost(id: number, data: string, body?: any, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
+            const localVarAxiosArgs = await TestScenarioApiAxiosParamCreator(configuration).testScenarioUpdatePost(id, data, body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -513,12 +503,12 @@ export const TestScenarioApiFactory = function (configuration?: Configuration, b
          * @param {number} leek 
          * @param {number} team 
          * @param {string} ai 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async testScenarioAddLeekPostForm(scenarioId: number, leek: number, team: number, ai: string, file?: Blob, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return TestScenarioApiFp(configuration).testScenarioAddLeekPostForm(scenarioId, leek, team, ai, file, options).then((request) => request(axios, basePath));
+        async testScenarioAddLeekPost(scenarioId: number, leek: number, team: number, ai: string, body?: any, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
+            return TestScenarioApiFp(configuration).testScenarioAddLeekPost(scenarioId, leek, team, ai, body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -527,7 +517,7 @@ export const TestScenarioApiFactory = function (configuration?: Configuration, b
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async testScenarioDeleteDelete(id: number, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async testScenarioDeleteDelete(id: number, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return TestScenarioApiFp(configuration).testScenarioDeleteDelete(id, options).then((request) => request(axios, basePath));
         },
         /**
@@ -538,7 +528,7 @@ export const TestScenarioApiFactory = function (configuration?: Configuration, b
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async testScenarioDeleteLeekDelete(scenarioId: number, leek: number, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async testScenarioDeleteLeekDelete(scenarioId: number, leek: number, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return TestScenarioApiFp(configuration).testScenarioDeleteLeekDelete(scenarioId, leek, options).then((request) => request(axios, basePath));
         },
         /**
@@ -547,31 +537,31 @@ export const TestScenarioApiFactory = function (configuration?: Configuration, b
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async testScenarioGetAllGet(options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async testScenarioGetAllGet(options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
             return TestScenarioApiFp(configuration).testScenarioGetAllGet(options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary test-scenario - new
          * @param {string} name 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async testScenarioNewPostForm(name: string, file?: Blob, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return TestScenarioApiFp(configuration).testScenarioNewPostForm(name, file, options).then((request) => request(axios, basePath));
+        async testScenarioNewPost(name: string, body?: any, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
+            return TestScenarioApiFp(configuration).testScenarioNewPost(name, body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary test-scenario - update
          * @param {number} id 
          * @param {string} data 
-         * @param {Blob} [file] 
+         * @param {any} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async testScenarioUpdatePostForm(id: number, data: string, file?: Blob, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return TestScenarioApiFp(configuration).testScenarioUpdatePostForm(id, data, file, options).then((request) => request(axios, basePath));
+        async testScenarioUpdatePost(id: number, data: string, body?: any, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
+            return TestScenarioApiFp(configuration).testScenarioUpdatePost(id, data, body, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -590,13 +580,13 @@ export class TestScenarioApi extends BaseAPI {
      * @param {number} leek 
      * @param {number} team 
      * @param {string} ai 
-     * @param {Blob} [file] 
+     * @param {any} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof TestScenarioApi
      */
-    public async testScenarioAddLeekPostForm(scenarioId: number, leek: number, team: number, ai: string, file?: Blob, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return TestScenarioApiFp(this.configuration).testScenarioAddLeekPostForm(scenarioId, leek, team, ai, file, options).then((request) => request(this.axios, this.basePath));
+    public async testScenarioAddLeekPost(scenarioId: number, leek: number, team: number, ai: string, body?: any, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
+        return TestScenarioApiFp(this.configuration).testScenarioAddLeekPost(scenarioId, leek, team, ai, body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
@@ -606,7 +596,7 @@ export class TestScenarioApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof TestScenarioApi
      */
-    public async testScenarioDeleteDelete(id: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async testScenarioDeleteDelete(id: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return TestScenarioApiFp(this.configuration).testScenarioDeleteDelete(id, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -618,7 +608,7 @@ export class TestScenarioApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof TestScenarioApi
      */
-    public async testScenarioDeleteLeekDelete(scenarioId: number, leek: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async testScenarioDeleteLeekDelete(scenarioId: number, leek: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return TestScenarioApiFp(this.configuration).testScenarioDeleteLeekDelete(scenarioId, leek, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -628,32 +618,32 @@ export class TestScenarioApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof TestScenarioApi
      */
-    public async testScenarioGetAllGet(options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async testScenarioGetAllGet(options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
         return TestScenarioApiFp(this.configuration).testScenarioGetAllGet(options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
      * @summary test-scenario - new
      * @param {string} name 
-     * @param {Blob} [file] 
+     * @param {any} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof TestScenarioApi
      */
-    public async testScenarioNewPostForm(name: string, file?: Blob, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return TestScenarioApiFp(this.configuration).testScenarioNewPostForm(name, file, options).then((request) => request(this.axios, this.basePath));
+    public async testScenarioNewPost(name: string, body?: any, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
+        return TestScenarioApiFp(this.configuration).testScenarioNewPost(name, body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
      * @summary test-scenario - update
      * @param {number} id 
      * @param {string} data 
-     * @param {Blob} [file] 
+     * @param {any} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof TestScenarioApi
      */
-    public async testScenarioUpdatePostForm(id: number, data: string, file?: Blob, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return TestScenarioApiFp(this.configuration).testScenarioUpdatePostForm(id, data, file, options).then((request) => request(this.axios, this.basePath));
+    public async testScenarioUpdatePost(id: number, data: string, body?: any, options?: AxiosRequestConfig) : Promise<AxiosResponse<any>> {
+        return TestScenarioApiFp(this.configuration).testScenarioUpdatePost(id, data, body, options).then((request) => request(this.axios, this.basePath));
     }
 }
